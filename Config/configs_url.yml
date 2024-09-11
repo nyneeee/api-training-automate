@@ -1,0 +1,35 @@
+# Run Required 
+run_Site: SIT       
+run_Domain: TrafficManager      
+
+# Config Domain
+Domain:
+  SIT:
+    SG_ASSE: http://10.84.13.71
+    HK_ASEA: http://10.84.145.12
+    TrafficManager: https://reqres.in
+  PRD:
+    SG_ASSE: http://10.84.13.712
+    HK_ASEA: http://10.84.145.123
+    TrafficManager: https://reqres.prd.in
+
+# Config Path
+TestCase_001:
+  Path: /api/users
+  QueryString:
+    page: 2
+
+TestCase_002:
+  Path: /api/users
+  QueryString:
+    page: 2
+
+TestCase_003:
+  Path: /api/users
+  QueryString:
+    page: 2
+
+TestCase_004:
+  Path: /api/users
+  QueryString:
+    page: 2

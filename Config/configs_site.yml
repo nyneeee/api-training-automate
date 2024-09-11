@@ -1,9 +1,0 @@
-Domain:
-  Test:
-    SG_ASSE: 
-    HK_ASEA: 
-    TrafficManager: 
-  Production:
-    SG_ASSE: 
-    HK_ASEA: 
-    TrafficManager: 

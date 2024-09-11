@@ -1,0 +1,5 @@
+--exclude line-too-long,missing-doc-suite,missing-doc-resource-file,incorrect-prefix-variable,section-variable-not-uppercase,too-many-calls-in-keyword,could-be-test-tags,trailing-whitespace,too-many-calls-in-test-case,too-long-test-case,too-many-arguments,file-too-long
+--ext-rules ./robocop-custom_test_format_robot.py
+--report all
+--ignore ../../../tmp.automate.robot.ui.testing/Resources/Repositories,../../../tmp.automate.robot.ui.testing/TestSuites/Resource_init.robot,*Result
+../../../tmp.automate.robot.ui.testing
