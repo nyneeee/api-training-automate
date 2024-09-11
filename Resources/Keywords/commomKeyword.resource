@@ -10,7 +10,7 @@ Send Request API
     ...    ${timeout}=${request_Api_timeout}
     ${method}    Convert To Upper Case     ${method}
     Set Default API Header
-    IF  $path_body_request != $None    Set API Body Request   ${path_body_request}
+    IF  $path_body_request != $None        Set API Body Request   ${path_body_request}
     ...    ELSE    Set Test Variable       ${body_request}        ${path_body_request}
     ${response}    Run Keyword    ${method}    url=${url}    headers=${json_header}    json=${body_request}
     ...    expected_status=${verify_ecode}     timeout=${timeout}    verify=${ignore_ssl_certificate}
@@ -65,15 +65,17 @@ Get List Key And Count From Json
     END
     ${value_type}    Check Type    @{values}
     IF    "${value_type}" == "<class 'dict'>"
-            ${count}         Get Length    ${values}
-            ${type_value}    Evaluate      type(${values})
+            ${count}             Get Length      ${values}
+            ${type_value}        Evaluate        type(${values})
+            Set Test Variable    ${KEY_VALUE}    ${values}
     ELSE IF    "${value_type}" == "<class 'list'>"
-                 ${count}         Get Length    ${values[${0}]}
-                 ${type_value}    Evaluate      type(${values[${0}]})
+                 ${count}             Get Length      ${values[${0}]}
+                 ${type_value}        Evaluate        type(${values[${0}]})
+                 Set Test Variable    ${KEY_VALUE}    ${values[${0}]}
     ELSE
         Fail    msg=No Support Type == "${value_type}",
     END
-    Log Response Json    ${values}
+    Log Response Json    ${values}   
     [Return]             ${count}
 
 Log Response Json

@@ -13,25 +13,25 @@ Domain:
     HK_ASEA: http://10.84.145.123
     TrafficManager: https://reqres.prd.in
 
-# Config Path
-TestCase_001:
+# Config TestData
+TestData_001:
   Method: GET
   Path: /api/users
   QueryString:
     page: "2"
   Ecode: "200"
 
-TestCase_002:
+TestData_002:
   Method: GET
   Path: /api/users/2
   Ecode: "200"
 
-TestCase_003:
+TestData_003:
   Method: POST
   Path: /api/register
   Ecode: "200"
 
-TestCase_004:
+TestData_004:
   Method: POST
   Path: /api/login
   Ecode: "200"

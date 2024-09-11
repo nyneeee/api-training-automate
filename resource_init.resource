@@ -10,4 +10,4 @@ Variables   ./Config/configs_url.yml
 
 Resource    ./Resources/Variables/commomVariables.resource
 Resource    ./Resources/Keywords/commomKeyword.resource
-Resource    ./Resources/Keywords/exKeyword.resource
+Resource    ./Resources/Keywords/exampleKeyword.resource

@@ -9,8 +9,9 @@ Convert Value To Upper Case
             ${value_upper}    Convert To Upper Case    ${value}
             ${log_message}     Catenate
             ...    ${\n}Convert Success.
-            ...    ${\n}Result == "${value_upper}".
-            Log Many    ${log_message}     console=${True}
+            ...    ${\n}Result Before Convert == "${value}".
+            ...    ${\n}Result After Convert == "${value_upper}".
+            Log     ${log_message}     console=${True}
     ELSE
         Fail    msg=Fail no value in arguments "${value}".
     END
@@ -24,18 +25,16 @@ Convert Value ${value} To Lower Case
     ...    ELSE    Fail    msg=Fail no value in arguments "${value}".
     RETURN    ${value_lower}
 
-Check Type User 
+Verify GET ${type} User
     [Documentation]    Owner : Patipan.w  
     ...    Multiple conditions: and / or
     ...    ${Type} support : Single / List
-    [Arguments]    ${type}    ${json_path}
     ${type_upper}    Convert To Upper Case    ${type}
-    ${count_user}    Get List Key And Count From Json    ${json_path}
+    ${count_user}    Get List Key And Count From Json    $.data
     IF  ("${type_upper}" == "LIST" and "${count_user}" >= "1") or ("${type_upper}" == "SINGLE" and "${count_user}" == "1")
             Log    Success Data Type is "${Type}" and value == "${count_user}".
+    ELSE IF    ("${type_upper}" == "LIST" and "${count_user}" == "0") or ("${type_upper}" == "SINGLE" and "${count_user}" == "0")
+                 Fail    Data Not Found.
     ELSE
         Fail    Type is "${Type}" but get $.data == "${count_user}".
-    END
-    
-    
-    
+    END    
