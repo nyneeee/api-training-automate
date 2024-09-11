@@ -1,0 +1,91 @@
+{
+    "statusCode": "20000",
+    "statusDesc": "Success",
+    "name": "Y5LITE",
+    "brand": "HUAWEI",
+    "model": "Y5LITE",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "dv": [],
+    "products": [
+        {
+            "colorName": "BLACK",
+            "colorCode": "000000",
+            "productInfo": [
+                {
+                    "materialCode": "NEW0HWY5LIT-BK01",
+                    "materialType": "Serial"
+                },
+                {
+                    "materialCode": "NEW0HWY5LIT-BK01D",
+                    "materialType": "Serial"
+                },
+                {
+                    "materialCode": "NEW0HWY5LIT-BK01",
+                    "materialType": "Serial"
+                }
+            ],
+            "sku": [
+                "NEW0HWY5LIT-BK01",
+                "NEW0HWY5LIT-BK01D"
+            ],
+            "images": {
+                "thumbnail": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_1_front.jpg",
+                "baseView": [
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_1_front.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_3_front30l.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_4_back30r.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_2_back.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_black_5_side.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "colorName": "BLUE",
+            "colorCode": "0000FF",
+            "productInfo": [
+                {
+                    "materialCode": "NEW0HWY5LIT-BL01",
+                    "materialType": "Serial"
+                },
+                {
+                    "materialCode": "NEW0HWY5LIT-BL01",
+                    "materialType": "Serial"
+                }
+            ],
+            "sku": [
+                "NEW0HWY5LIT-BL01"
+            ],
+            "images": {
+                "thumbnail": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_1_front.jpg",
+                "baseView": [
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_1_front.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_3_front30l.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_4_back30r.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_2_back.jpg"
+                    },
+                    {
+                        "imageUrl": "https://sit-admin-cpc.cdc.ais.th/admin-fe/assets/files/images/hw_y5lite_blue_5_side.jpg"
+                    }
+                ]
+            }
+        }
+    ]
+}

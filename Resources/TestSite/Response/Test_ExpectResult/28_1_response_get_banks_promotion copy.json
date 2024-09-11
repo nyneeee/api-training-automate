@@ -1,0 +1,116 @@
+{
+  "statusCode": "20000",
+  "statusDesc": "Success",
+  "banks": [
+      {
+          "name": "ซิตี้แบงก์",
+          "abb": "CITI",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/CITI_CITI.png"
+      },
+      {
+          "name": "ซิตี้แบงก์ เรดดี้เครดิต",
+          "abb": "CITIREADY",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/CITIREADY_citibank02.jpg"
+      },
+      {
+          "name": "ไทยพาณิชย์ จำกัด (มหาชน)",
+          "abb": "SCB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/SCB_SCB02.png"
+      },
+      {
+          "name": "กสิกรไทย จำกัด (มหาชน)",
+          "abb": "KBNK",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/KBNK_kBank02.png"
+      },
+      {
+          "name": "อยุธยาคาร์ด เซอร์วิสเซส",
+          "abb": "ACS",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/ACS_ACS_BAY03.png"
+      },
+      {
+          "name": "กรุงศรีอยุธยา จำกัด (มหาชน)",
+          "abb": "BAY",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/BAY_BAY.png"
+      },
+      {
+          "name": "บริษัทอิออนธนสินทรัพย์ (ไทยแลนด์) จำกัด (มหาชน)",
+          "abb": "AEON",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/AEON_AEON-logo.png"
+      },
+      {
+          "name": "กรุงเทพ จำกัด (มหาชน)",
+          "abb": "BBL",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/BBL_BBL.png"
+      },
+      {
+          "name": "แห่งประเทศจีน",
+          "abb": "BOC",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/BOC_BOC.png"
+      },
+      {
+          "name": "ซีไอเอ็มบี ไทย จำกัด (มหาชน)",
+          "abb": "CIMB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/CIMB_CIMB.png"
+      },
+      {
+          "name": "แคปปิตอล โอเค",
+          "abb": "COK",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/COK_capOK.png"
+      },
+      {
+          "name": "เซ็นทรัล",
+          "abb": "CT",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/CT_centralThe1.png"
+      },
+      {
+          "name": "บัตรเครดิต เฟิร์สช้อยส์",
+          "abb": "FCC",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/FCC_FCC.png"
+      },
+      {
+          "name": "ออมสิน",
+          "abb": "GSB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/GSB_GSB.png"
+      },
+      {
+          "name": "ฮ่องกงแอนด์เซี่ยงไฮ้",
+          "abb": "HKSH",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/HKSH_HSBC.png"
+      },
+      {
+          "name": "กรุงไทย จำกัด (มหาชน)",
+          "abb": "KTB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/KTB_KTB.png"
+      },
+      {
+          "name": "SCB Speedy Cash",
+          "abb": "SCBSPEEDY",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/SCBSPEEDY_SCB Speedy.png"
+      },
+      {
+          "name": "สแตนดาร์ดชาร์เตอร์ด (ไทย) จำกัด (มหาชน)",
+          "abb": "SCN",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/SCN_scn-logo.jpg"
+      },
+      {
+          "name": "บัตรเครดิต เทสโก้ โลตัส วีซ่า",
+          "abb": "TCS",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/TCS_TescoLotus-CreditCard.png"
+      },
+      {
+          "name": "ยูโอบี จำกัด (มหาชน)",
+          "abb": "UOB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/UOB_UOB-bank.png"
+      },
+      {
+          "name": "UOB Cash Plus",
+          "abb": "UOBCASHP",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/UOBCASHP_UOB CashPlus.png"
+      },
+      {
+          "name": "ธนาคารทหารไทยธนชาต จำกัด (มหาชน)",
+          "abb": "TTB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/c5743540-d4fb-4852-896d-e813ae542e97.png"
+      }
+  ]
+}

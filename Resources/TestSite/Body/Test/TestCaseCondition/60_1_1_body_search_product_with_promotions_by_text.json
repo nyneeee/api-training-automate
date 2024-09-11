@@ -1,0 +1,17 @@
+{
+    "location": 1100,
+    "company": "AWN",
+    
+    "orderTypes": [
+        "New Registration"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "aspFlag": "Y",
+    "blacklistAcrossOper": "",
+    "saleChannels": null,
+    "regularPrice": null,
+    "offset": 1,
+    "max": 10
+}

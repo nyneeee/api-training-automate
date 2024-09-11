@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "durationFrom": {
+              "type": "number"
+            },
+            "durationTo": {
+              "type": "number"
+            },
+            "durationUnit": {
+              "type": "string"
+            },
+            "billCycleValue": {
+              "type": ["number","null"]
+            },
+            "billCycleUnit": {
+              "type": ["string","null"]
+            },
+            "wifiUsageType": {
+              "type": "string"
+            },
+            "wifiQuotaType": {
+              "type": "string"
+            },
+            "wifiQuota": {
+              "type": ["number","null"]
+            },
+            "wifiQuotaUnit": {
+              "type": ["string","null"]
+            },
+            "wifiSpeed": {
+              "type": "string"
+            },
+            "wifiThrottlingSpeed": {
+              "type": ["string","null"]
+            }
+          },
+          "required": [
+            "durationFrom",
+            "durationTo",
+            "durationUnit"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

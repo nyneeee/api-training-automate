@@ -1,0 +1,449 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "offset": {
+      "type": "number"
+    },
+    "maxRow": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    },
+    "products": {
+      "type": "array",
+      "items":
+        {
+          "type": "object",
+          "properties": {
+            "company": {
+              "type": "string"
+            },
+            "brand": {
+              "type": ["string","null"]
+            },
+            "commercialName": {
+              "type": ["string","null"]
+            },
+            "model": {
+              "type": ["string","null"]
+            },
+            "color": {
+              "type": ["string","null"]
+            },
+            "matCode": {
+              "type": "string"
+            },
+            "productType": {
+              "type": ["string","null"]
+            },
+            "productSubtype": {
+              "type": ["string","null"]
+            },
+            "prices": {
+              "type": "array",
+              "items":
+                {
+                  "type": "object",
+                  "properties": {
+                    "priceType": {
+                      "type": "string"
+                    },
+                    "priceIncludeVat": {
+                      "type": "number"
+                    },
+                    "priceExcludeVat": {
+                      "type": "number"
+                    },
+                    "vatRate": {
+                      "type": ["string","null"]
+                    },
+                    "effectiveDate": {
+                      "type": "string"
+                    },
+                    "expireDate": {
+                      "type": ["string","null"]
+                    }
+                  },
+                  "required": [
+                    "priceType",
+                    "priceIncludeVat",
+                    "priceExcludeVat",
+                    "effectiveDate"
+                  ]
+                }
+            },
+            "campaigns": {
+              "type": "array",
+              "items":
+                {
+                  "type": "object",
+                  "properties": {
+                    "campaignName": {
+                      "type": "string"
+                    },
+                    "campaignCode": {
+                      "type": "string"
+                    },
+                    "conditionCode": {
+                      "type": ["string","null"]
+                    },
+                    "requireCheckBlacklistAcrossOper": {
+                      "type": ["string"],
+                      "enum": ["Y","N"]
+                    }
+                  },
+                  "required": [
+                    "campaignName",
+                    "campaignCode",
+                    "requireCheckBlacklistAcrossOper"
+                  ]
+                }
+            },
+            "trades": {
+              "type": "array",
+              "items":
+                {
+                  "type": "object",
+                  "properties": {
+                    "tradeNo": {
+                      "type": "string"
+                    },
+                    "tradeName": {
+                      "type": ["string","null"]
+                    },
+                    "campaignCode": {
+                      "type": ["string","null"]
+                    },
+                    "campaignName": {
+                      "type": "string"
+                    },
+                    "startDate": {
+                      "type": ["string","null"]
+                    },
+                    "endDate": {
+                      "type": ["string","null"]
+                    },
+                    "payAdvanceGroupId": {
+                      "type": ["number","null"]
+                    },
+                    "saleType": {
+                      "type": ["string","null"]
+                    },
+                    "prebookingType": {
+                      "type": ["string","null"]
+                    },
+                    "ussdCode": {
+                      "type": ["string","null"]
+                    },
+                    "serviceLockHs": {
+                      "type": ["string","null"]
+                    },
+                    "simLock": {
+                      "type": ["string","null"]
+                    },
+                    "contractId": {
+                      "type": ["number","null"]
+                    },
+                    "payAdvances": {
+                      "type": "array",
+                      "items":
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tradeAirtimeId": {
+                              "type": "number"
+                            },
+                            "materialAirtime": {
+                              "type": "string"
+                            },
+                            "materialAirtimeDesc": {
+                              "type": "string"
+                            },
+                            "priceIncludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "installmentFlag": {
+                              "type": ["string","null"],
+                              "enum": ["Y","N",null]
+                            },
+                            "promotions": {
+                              "type": "array",
+                              "items":
+                                {
+                                  "type": "object",
+                                  "minProperties": 1,
+                                  "properties": {
+                                    "month": {
+                                      "type": "string"
+                                    },
+                                    "promotionCode": {
+                                      "type": "string"
+                                    },
+                                    "promotionName": {
+                                      "type": "string"
+                                    },
+                                    "productType": {
+                                      "type": "string"
+                                    },
+                                    "billingSystem": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                            },
+                            "payAdvanceGroupId": {
+                              "type": ["number", "null"]
+                            }
+                          },
+                          "required": [
+                            "tradeAirtimeId",
+                            "materialAirtime",
+                            "materialAirtimeDesc"
+                          ]
+                        }
+                    },
+                    "discounts": {
+                      "type": "array",
+                      "items":
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tradeDiscountId": {
+                              "type": "number"
+                            },
+                            "priceType": {
+                              "type": "string"
+                            },
+                            "discountExcludeBy": {
+                              "type": ["string","null"]
+                            },
+                            "discountExcludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "durationContract": {
+                              "type": ["string","null"]
+                            },
+                            "option": {
+                              "type": ["string","null"]
+                            },
+                            "startDate": {
+                              "type": ["string","null"]
+                            },
+                            "endDate": {
+                              "type": ["string","null"]
+                            },
+                            "matAirtimeId": {
+                              "type": ["number","null"]
+                            },
+                            "payAdvanceGroupId": {
+                              "type": ["number","null"]
+                            },
+                            "tradePrivilegeId": {
+                              "type": ["number","null"]
+                            },
+                            "minimumPackagePrice": {
+                              "type": ["number","null"]
+                            },
+                            "maximumPackagePrice": {
+                              "type": ["number","null"]
+                            },
+                            "packageKeyRef": {
+                              "type": ["string","null"]
+                            },
+                            "requireChangePack": {
+                              "type": ["boolean","null"]
+                            },
+                            "discountIncludeBy": {
+                              "type": ["string","null"]
+                            },
+                            "depositExcludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "depositIncludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "depositVatAmount": {
+                              "type": ["number","null"]
+                            },
+                            "discountIncludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "tradePriceExcludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "tradePriceIncludeVat": {
+                              "type": ["number","null"]
+                            },
+                            "tradePriceAmount": {
+                              "type": ["number","null"]
+                            },
+                            "vatRate": {
+                              "type": ["string","null"]
+                            },
+                            "privilegeId": {
+                              "type": ["number","null"]
+                            },
+                            "packageOnTopKeyRef": {
+                              "type": ["string","null"]
+                            },
+                            "minimumPackageOntopPrice": {
+                              "type": ["number","null"]
+                            },
+                            "maximumPackageOnTopPrice": {
+                              "type": ["number","null"]
+                            }
+                          },
+                          "required": [
+                            "tradeDiscountId",
+                            "priceType"
+                          ]
+                        }
+                    },
+                    "payments": {
+                      "type": "array",
+                      "items":
+                        {
+                          "type": "object",
+                          "properties": {
+                            "cardType": {
+                              "type": ["string","null"]
+                            },
+                            "method": {
+                              "type": "string"
+                            },
+                            "banks": {
+                              "type": "array",
+                              "items":
+                                {
+                                  "type": "object",
+                                  "minProperties": 1,
+                                  "properties": {
+                                    "bankDescEn": {
+                                      "type": ["string","null"]
+                                    },
+                                    "bankDescTh": {
+                                      "type": ["string","null"]
+                                    },
+                                    "installments": {
+                                      "type": "array",
+                                      "items":
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "installId": {
+                                              "type": "number"
+                                            },
+                                            "installmentAbb": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "installId",
+                                            "installmentAbb"
+                                          ]
+                                        }
+                                    }
+                                  }
+                                }
+                            }
+                          },
+                          "required": [
+                            "method"
+                          ]
+                        }
+                    },
+                    "freegoods": {
+                      "type": "array",
+                      "items":
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tradeFreegoodsId": {
+                              "type": "number"
+                            },
+                            "materialCode": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": ["string","null"]
+                            },
+                            "quantity": {
+                              "type": ["number","null"]
+                            }
+                          },
+                          "required": [
+                            "tradeFreegoodsId",
+                            "materialCode"
+                          ]
+                        }
+                    },
+                    "privileges": {
+                      "type": "array",
+                      "items":
+                        {
+                          "type": "object",
+                          "properties": {
+                            "tradePrivilegeId": {
+                              "type": "number"
+                            },
+                            "ussdCode": {
+                              "type": ["string","null"]
+                            }
+                          },
+                          "required": [
+                            "tradePrivilegeId"
+                          ]
+                        }
+                    },
+                    "criterias": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "minProperties": 1
+                      }
+                    },
+                    "channels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "minProperties": 1
+                      }
+                    },
+                    "requireCheckQuota": {
+                      "type": ["string","null"],
+                      "enum": ["Y","N",null]
+                    }
+                  },
+                  "required": [
+                    "tradeNo"
+                  ]
+                }
+            }
+          },
+          "required": [
+            "company",
+            "matCode",
+            "prices",
+            "campaigns",
+            "trades"
+          ]
+        }
+    }
+  },
+  "required": [
+    "status",
+    "statusDesc",
+    "offset",
+    "maxRow",
+    "total",
+    "products"
+  ]
+}

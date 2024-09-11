@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "brands": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "imageUrl": {
+              "type": ["string","null"]
+            },
+            "priority": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "imageUrl",
+            "priority"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc"
+  ]
+}

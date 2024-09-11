@@ -1,0 +1,17 @@
+{
+    "promotionCodes": [
+        "P123456789"
+    ],
+    "featureCodes": [
+        "123456"
+    ],
+    "offeringIds": [
+        "O1234567890"
+    ],
+    "offeringCodes": [
+        "123456"
+    ],
+    "packageIds": [
+        "123456"
+    ]
+}

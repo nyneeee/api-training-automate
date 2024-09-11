@@ -1,0 +1,16 @@
+{
+    "locationCode": "1100",
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ],
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IP12_128GB",
+    "color": "BLACK",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "New Registration",
+    "campaignId": 1090345
+}

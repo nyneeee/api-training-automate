@@ -1,0 +1,23 @@
+{
+    "statusCode": "2000",
+    "statusDesc": "Success",
+    "data": [
+        {
+            "durationFrom": 1,
+            "durationTo": 3,
+            "durationUnit": "Days",
+            "billCycleUnit": "Volume-based",
+            "internetUsageType": "Volume-based",
+            "internetQuotaType": "Limited Data Only",
+            "internetSpeed": "Max Speed (5G Default 1Gbps/1Gbps)",
+            "commuSpeed": "Max Speed 1Gbps",
+            "internetQuotaFromTiming": "2024-03-06T17:00:00.000Z",
+            "internetQuotaToTiming": "2024-03-07T16:59:59.000Z",
+            "internetQuota": 150,
+            "internetQuotaUnit": "MB",
+            "internetQuotaNextG": "N",
+            "internetQuotaBlockBit": "N",
+            "internetQuotaRollOver": "N"
+        }
+    ]
+}

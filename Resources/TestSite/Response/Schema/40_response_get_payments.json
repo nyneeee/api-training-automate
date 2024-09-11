@@ -1,0 +1,83 @@
+{
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "statusDesc": {
+          "type": "string"
+        },
+        "payments": {
+          "type": "array",
+          "items": 
+            {
+              "type": "object",
+              "properties": {
+                "cardType": {
+                  "type": ["string","null"]
+                },
+                "method": {
+                  "type": "string"
+                },
+                "banks": {
+                  "type": "array",
+                  "items": 
+                    {
+                      "type": "object",
+                      "properties": {
+                        "bankAbbr": {
+                          "type": "string"
+                        },
+                        "bankDescEn": {
+                          "type": "string"
+                        },
+                        "bankDescTh": {
+                          "type": "string"
+                        },
+                        "imageUrl": {
+                          "type": "string"
+                        },
+                        "installments": {
+                          "type": "array",
+                          "items": 
+                            {
+                              "type": "object",
+                              "properties": {
+                                "installmentId": {
+                                  "type": ["string","null"]
+                                },
+                                "installmentRate": {
+                                  "type": ["string","null"]
+                                },
+                                "installmentTerms": {
+                                  "type": ["string","null"]
+                                },
+                                "balloonMonth": {
+                                  "type": ["number","null"]
+                                }
+                              },
+                              "required": [
+                                "installmentId"
+                              ]
+                            }
+                        }
+                      },
+                      "required": [
+                        "bankAbbr"
+                      ]
+                    }
+                }
+              },
+              "required": [
+                "method"
+              ]
+            }
+        }
+      },
+      "required": [
+        "statusCode",
+        "statusDesc",
+        "payments"
+      ]
+}

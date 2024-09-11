@@ -1,0 +1,10 @@
+{
+    "location": "1100",
+    "price": {
+        "min": "4000",
+        "max": "5000"
+    },
+    "flagSearchFromNormalPrice": "Y",
+    "offset": "1",
+    "maxrow": "20"
+ }

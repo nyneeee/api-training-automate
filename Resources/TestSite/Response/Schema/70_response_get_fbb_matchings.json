@@ -1,0 +1,203 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "statusCode": {
+        "type": "string"
+      },
+      "statusDesc": {
+        "type": "string"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "matchingOnTopType": {
+            "type": ["string" , "null"]
+          },
+          "serviceTypes": {
+            "type": "array",
+            "items": {
+              "type": ["string" , "null"]
+            }
+          },
+          "productConditionAndDefinition": {
+            "type": "object",
+            "properties": {
+              "brand": {
+                "type": ["string" , "null"]
+              },
+              "bridgeModeFlag": {
+                "type": ["string" , "null"]
+              },
+              "fixed1IpFlag": {
+                "type": ["string" , "null"]
+              },
+              "thDdnsFlag": {
+                "type": ["string" , "null"]
+              },
+              "ipv4Flag": {
+                "type": ["string" , "null"]
+              },
+              "ipv6Flag": {
+                "type": ["string" , "null"]
+              },
+              "portForwardFlag": {
+                "type": ["string" , "null"]
+              },
+              "productGroup": {
+                "type": ["string" , "null"]
+              },
+              "productPackage": {
+                "type": ["string" , "null"]
+              },
+              "targetValue": {
+                "type": ["string" , "null"]
+              },
+              "playboxService": {
+                "type": ["string" , "null"]
+              },
+              "fbbBrand": {
+                "type": ["string" , "null"]
+              }
+            }
+          },
+          "matchingFbbs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "poGroup": {
+                  "type": ["string" , "null"]
+                },
+                "poName": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCatgory": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategory": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategoryType": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategorySubType": {
+                  "type": ["string" , "null"]
+                },
+                "matchingOnTopCategory": {
+                  "type": ["string" , "null"]
+                },
+                "productCode": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveStartDate": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveEndDate": {
+                  "type": ["string" , "null"]
+                },
+                "serviceType": {
+                  "type": ["string" , "null"]
+                }
+              }
+            }
+          },
+          "matchingMobiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "poGroup": {
+                  "type": ["string" , "null"]
+                },
+                "poName": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCatgory": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategory": {
+                "type": ["string" , "null"]
+             	 }, 	
+                "matchingCategoryType": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategorySubType": {
+                  "type": ["string" , "null"]
+                },
+                "productCode": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveStartDate": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveEndDate": {
+                  "type": ["string" , "null"]
+                }
+              }
+            }
+          },
+          "matchingAisPlayboxs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "poGroup": {
+                  "type": ["string" , "null"]
+                },
+                "poName": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCatgory": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategory": {
+                  "type": ["string" , "null"]
+                },
+                "productCode": {
+                  "type": ["string" , "null"]
+                },
+                "equipmentType": {
+                  "type": ["string" , "null"]
+                }
+              }
+            }
+          },
+          "cashBackDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategory": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategoryType": {
+                  "type": ["string" , "null"]
+                },
+                "matchingCategorySubType": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveStartDate": {
+                  "type": ["string" , "null"]
+                },
+                "effectiveEndDate": {
+                  "type": ["string" , "null"]
+                },
+                "productCode": {
+                  "type": ["string" , "null"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

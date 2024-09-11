@@ -1,0 +1,15 @@
+{
+    "locationCode": "1100",
+    "company": "AWN",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "Existing",
+    "offset": 1,
+    "max": 10,
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ],
+    "flow": "AIS"
+}

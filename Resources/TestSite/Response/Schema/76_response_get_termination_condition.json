@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "statusCode": {
+        "type": "string"
+      },
+      "statusDesc": {
+        "type": "string"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "customerOrderType": {
+              "type": "string"
+            },
+            "status": {
+              "type": ["string","null"]
+            },
+            "startDateTime": {
+              "type": ["string","null"],
+              "format": "date-time"
+            },
+            "endDateTime": {
+              "type": ["string","null"],
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "id",
+            "customerOrderType"
+          ]
+        }
+      }
+    },
+    "required": [
+      "statusCode",
+      "statusDesc",
+      "data"
+    ]
+  }
+  

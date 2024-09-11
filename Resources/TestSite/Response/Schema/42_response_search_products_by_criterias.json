@@ -1,0 +1,93 @@
+{
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "statusDesc": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        },
+        "products": {
+          "type": "array",
+          "items": 
+            {
+              "type": "object",
+              "properties": {
+                "commercialName": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "thumbnail": {
+                  "type": ["string","null"]
+                },
+                "materialCodes": {
+                  "type": "array",
+                  "items": 
+                    {
+                      "type": "string"
+                    }
+                },
+                "catalogProducts": {
+                  "type": "array",
+                  "items": 
+                    {
+                      "type": "object",
+                      "properties": {
+                        "catalogType": {
+                          "type": "string"
+                        },
+                        "catalogSubType": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                },
+                "normalPrice": {
+                  "type": "integer"
+                },
+                "promotionPrice": {
+                  "type": "object",
+                  "properties": {
+                    "min": {
+                      "type": "number"
+                    },
+                    "max": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "commercialName",
+                "normalPrice"
+              ]
+            }
+        }
+      },
+      "required": [
+        "statusCode",
+        "statusDesc",
+        "offset",
+        "max",
+        "total",
+        "products"
+      ]
+}

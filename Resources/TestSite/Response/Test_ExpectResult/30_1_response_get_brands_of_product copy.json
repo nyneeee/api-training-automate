@@ -1,0 +1,21 @@
+{
+  "statusCode": "20000",
+  "statusDesc": "Success",
+  "brands": [
+      {
+          "name": "APPLE",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/APPLE_Apple-Logo-black250.png",
+          "priority": "0"
+      },
+      {
+          "name": "SAMSUNG",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/SAMSUNG_samsung-logo-250.png",
+          "priority": "0"
+      },
+      {
+          "name": "LAVA",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/LAVA_LavaLogo-250.png",
+          "priority": "1"
+      }
+  ]
+}

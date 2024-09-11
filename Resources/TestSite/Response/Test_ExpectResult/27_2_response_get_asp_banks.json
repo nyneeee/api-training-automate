@@ -1,0 +1,56 @@
+{
+  "statusCode": "20000",
+  "statusDesc": "Success",
+  "banks": [
+      {
+          "name": "ธนาคารซิตี้แบงค์",
+          "abb": "CITI",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/CITI_CITI.png"
+      },
+      {
+          "name": "ธนาคารไทยพาณิชย์",
+          "abb": "SCB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/SCB_SCB02.png"
+      },
+      {
+          "name": "ธนาคารกสิกรไทย",
+          "abb": "KBNK",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/KBNK_kBank02.png"
+      },
+      {
+          "name": "  ธนาคารธนชาต",
+          "abb": "NBNK",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/NBNK_NBNK.png"
+      },
+      {
+          "name": "ธนาคารกรุงศรีอยุธยา จำกัด (มหาชน)",
+          "abb": "BAY",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/BAY_BAY.png"
+      },
+      {
+          "name": "บัตร First Choice",
+          "abb": "FCC",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/FCC_FCC.png"
+      },
+      {
+          "name": "บริษัท บัตรกรุงไทย จำกัด (มหาชน) ",
+          "abb": "KTC",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/KTC_KTC-KTB.png"
+      },
+      {
+          "name": "ธนาคารยูโอบี",
+          "abb": "UOB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/UOB_UOB-bank.png"
+      },
+      {
+          "name": "ธนาคารกรุงเทพ",
+          "abb": "BBL",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/BBL_BBL.png"
+      },
+      {
+          "name": "ธนาคารกรุงไทย",
+          "abb": "KTB",
+          "imageUrl": "https://sit-cpc.cdc.ais.th/CPC-FE-WEB/api/contents/images/KTB_KTB.png"
+      }
+  ]
+}

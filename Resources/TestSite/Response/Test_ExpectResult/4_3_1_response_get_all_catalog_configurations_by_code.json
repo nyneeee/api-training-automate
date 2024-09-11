@@ -1,0 +1,109 @@
+{
+    "statusCode": "2000",
+    "statusDesc": "Success",
+    "offset": 1,
+    "max": 10,
+    "total": 15,
+    "data": [
+        {
+            "id": 173643,
+            "code": "P7777781",
+            "cset": 1,
+            "priority": 1,
+            "type": "Order Type",
+            "value": "New Registration",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173642,
+            "code": "P7777781",
+            "cset": 1,
+            "priority": 1,
+            "type": "Sub District",
+            "value": "Nang Rong",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173641,
+            "code": "P7777781",
+            "cset": 1,
+            "priority": 1,
+            "type": "District",
+            "value": "Nang Rong",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173640,
+            "code": "P7777781",
+            "cset": 1,
+            "priority": 1,
+            "type": "Province",
+            "value": "Buri Ram",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173639,
+            "code": "P7777781",
+            "cset": 1,
+            "priority": 1,
+            "type": "Location",
+            "value": "3322.0",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173648,
+            "code": "P7777781",
+            "cset": 2,
+            "priority": 1,
+            "type": "Order Type",
+            "value": "Port - In",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173647,
+            "code": "P7777781",
+            "cset": 2,
+            "priority": 1,
+            "type": "Sub District",
+            "value": "Sadao",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173646,
+            "code": "P7777781",
+            "cset": 2,
+            "priority": 1,
+            "type": "District",
+            "value": "Nang Rong",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173645,
+            "code": "P7777781",
+            "cset": 2,
+            "priority": 1,
+            "type": "Province",
+            "value": "Buri Ram",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        },
+        {
+            "id": 173644,
+            "code": "P7777781",
+            "cset": 2,
+            "priority": 1,
+            "type": "Location",
+            "value": "3322.0",
+            "effectiveStartDate": "2020-08-16T00:00:00Z",
+            "effectiveEndDate": null
+        }
+    ]
+}

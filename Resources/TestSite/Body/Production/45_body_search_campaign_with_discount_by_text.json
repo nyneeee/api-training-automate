@@ -1,0 +1,24 @@
+{
+    "company": "AWN",
+    "brand": "REALME",
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "model": "C67_8/128",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "offset": 1,
+    "max": 10,
+    "priceType": "EUP",
+    "searchText": "699",
+    "matCode": "NEW0RM0C67K-SO01",
+    "matCodeForQueryTrade": "NEW0RM0C67K-SO01",
+    "location": "97598",
+    "saleChannels": [
+        "TELEWIZ"
+    ],
+    "color": "SUNNY OASIS"
+}

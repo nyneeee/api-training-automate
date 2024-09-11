@@ -1,0 +1,22 @@
+{
+    "company": "AWN",
+    
+    "model": "IPHONEXSM256",
+    "color": "GOLD",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "offset": 1,
+    "max": 10,
+    "priceType": "EUP",
+    
+    "location": "1003354",
+    "saleChannels": [
+        "LOCALRETAILCHAIN"
+    ],
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ]
+}

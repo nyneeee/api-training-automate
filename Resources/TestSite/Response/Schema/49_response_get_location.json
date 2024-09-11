@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "locType": {
+          "type": "string"
+        },
+        "locSubtype": {
+          "type": "string"
+        },
+        "characteristic": {
+          "type": ["string" , "null"]
+        },
+        "businessUnit": {
+          "type": ["string" , "null"]
+        },
+        "dealerCode": {
+          "type": ["string" , "null"]
+        },
+        "region": {
+          "type": ["string" , "null"]
+        },
+        "subRegion": {
+          "type": ["string" , "null"]
+        },
+        "headquarterFlag": {
+          "type": ["string" , "null"]
+        },
+        "registerCode": {
+          "type": ["string" , "null"]
+        },
+        "vendorCode": {
+          "type": ["string" , "null"]
+        },
+        "mobileNum": {
+          "type": ["string" , "null"]
+        },
+        "characteristicOrg": {
+          "type": ["string" , "null"]
+        },
+        "netRegion": {
+          "type": ["string" , "null"]
+        },
+        "province": {
+          "type": "string"
+        },
+        "shopType": {
+          "type": ["string" , "null"]
+        },
+        "shopTypeGroup": {
+          "type": ["string" , "null"]
+        },
+        "publicName": {
+          "type": ["string" , "null"]
+        },
+        "lastUpdated": {
+          "type": ["string" , "null"]
+        },
+        "updatedBy": {
+          "type": ["string" , "null"]
+        },
+        "dateCreated": {
+          "type": ["string" , "null"]
+        },
+        "createdBy": {
+          "type": ["string" , "null"]
+        }
+      },
+      "required": [
+        "locType",
+        "locSubtype",
+        "region",
+        "subRegion",
+        "registerCode",
+        "vendorCode"
+      ]
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "location"
+  ]
+}

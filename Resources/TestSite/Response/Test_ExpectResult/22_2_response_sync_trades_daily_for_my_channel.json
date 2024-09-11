@@ -1,0 +1,9 @@
+{
+  "statusCode": "99999",
+  "statusDesc": "Error",
+  "data": {
+      "message": [
+          "timeStamp is not a number"
+      ]
+  }
+}

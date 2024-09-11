@@ -1,0 +1,19 @@
+{
+    "location": 1117,
+    "company": "AWN",
+    "brand": "OPPO",
+    "model": "F1F",
+    "color": "GOLDEN",
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "aspFlag": false,
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "offset": 19,
+    "max": 10,
+    "priceType": "EUP"
+}

@@ -1,0 +1,18 @@
+{
+    "userId": "POAlEsZQlTYiwO3XKXN3bJOHVpgcrM8CObrm6F0MFbxgXPInYx7L3u5xm3HVOOU7HfJX08WbFKBMuG8X",
+    "sanitizedName": "sub-1-shelf-for-automate-test",
+    "parameters": [
+        {
+            "name": "billingSystem",
+            "value": "IRB"
+        },
+        {
+            "name": "orderType",
+            "value": "Re-New"
+        },
+        {
+            "name": "productClass",
+            "value": "ontop"
+        }
+    ]
+}

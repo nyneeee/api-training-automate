@@ -1,0 +1,269 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "statusCode": {
+        "type": "string"
+      },
+      "statusDesc": {
+        "type": "string"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "prices": {
+            "type": "array",
+            "items": 
+              {
+                "type": "object",
+                "properties": {
+                  "priceGroup": {
+                    "type": "string"
+                  },
+                  "includeVat": {
+                    "type": "number"
+                  },
+                  "excludeVat": {
+                    "type": "number"
+                  },
+                  "vatRate": {
+                    "type": ["string","null"]
+                  },
+                  "vatAmount": {
+                    "type": "number"
+                  },
+                  "startDate": {
+                    "type": ["string","null"]
+                  }
+                },
+                "required": [
+                  "priceGroup",
+                  "includeVat",
+                  "excludeVat"
+                ]
+              }
+          },
+          "trades": {
+            "type": "array",
+            "items": 
+              {
+                "type": "object",
+                "properties": {
+                  "tradeNo": {
+                    "type": "string"
+                  },
+                  "tradeName": {
+                    "type": "string"
+                  },
+                  "packageKeyRef": {
+                    "type": ["string","null"]
+                  },
+                  "packageOnTopKeyRef": {
+                    "type": ["string","null"]
+                  },
+                  "minnimumPackagePrice": {
+                    "type": ["number","null"]
+                  },
+                  "maximumPackagePrice": {
+                    "type": ["number","null"]
+                  },
+                  "simLock": {
+                    "type": ["string","null"]
+                  },
+                  "serviceLockHs": {
+                    "type": ["string","null"]
+                  },
+                  "requireCheckQuota": {
+                    "type": "string"
+                  },
+                  "requireChangePromotion": {
+                    "type": "boolean"
+                  },
+                  "minimumPriceLength": {
+                    "type": ["number","null"]
+                  },
+                  "maximumPriceLength": {
+                    "type": ["number","null"]
+                  },
+                  "maxReceiveFreeGoods": {
+                    "type": ["number","null"]
+                  },
+                  "contractId": {
+                    "type": ["number","null"]
+                  },
+                  "durationContract": {
+                    "type": ["number","null"]
+                  },
+                  "limitContract": {
+                    "type": ["number","null"]
+                  },
+                  "pointGroupId": {
+                    "type": ["number","null"]
+                  },
+                  "tradePattern": {
+                    "type": ["string","null"]
+                  },
+                  "discount": {
+                    "type": ["object","null"],
+                    "properties": {
+                      "tradeDiscountId": {
+                        "type": ["number","null"]
+                      },
+                      "tradePriceExcludeVat": {
+                        "type": ["number","null"]
+                      },
+                      "tradePriceIncludeVat": {
+                        "type": ["number","null"]
+                      },
+                      "discountExcludeVat": {
+                        "type": ["number","null"]
+                      },
+                      "discountExcludeBy": {
+                        "type": ["string","null"]
+                      },
+                      "specialDiscountIncludeVat": {
+                        "type": ["number","null"]
+                      },
+                      "specialDiscountBy": {
+                        "type": ["string","null"]
+                      },
+                      "vatRate": {
+                        "type": "string"
+                      },
+                      "tradePrivilegeId": {
+                        "type": ["number","null"]
+                      },
+                      "installmentPartnerFlag": {
+                        "type": ["string","null"]
+                      },
+                      "startDate": {
+                        "type": ["string","null"]
+                      },
+                      "endDate": {
+                        "type": ["string","null"]
+                      }
+                    },
+                    "required": [
+                      "tradeDiscountId",
+                      "startDate"
+                    ]
+                  },
+                  "payAdvance": {
+                    "type": "object",
+                    "properties": {
+                      "payAdvanceGroupId": {
+                        "type": "number"
+                      },
+                      "tradeAirtimeId": {
+                        "type": ["number","null"]
+                      },
+                      "priceIncludeVat": {
+                        "type": "number"
+                      },
+                      "installmentFlag": {
+                        "type": "string"
+                      },
+                      "matAirtime": {
+                        "type": ["string","null"]
+                      },
+                      "description": {
+                        "type": ["string","null"]
+                      }
+                    },
+                    "required": [
+                      "payAdvanceGroupId"
+                    ]
+                  },
+                  "freegoods": {
+                    "type": "array",
+                    "items": 
+                      {
+                        "type": "object",
+                        "properties": {
+                          "matCode": {
+                            "type": ["string","null"]
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "qty": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "matCode",
+                          "qty"
+                        ]
+                      }
+                  },
+                  "privileges": {
+                    "type": "array",
+                    "items": 
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tradePrivilegeId": {
+                            "type": "number"
+                          },
+                          "privilegeId": {
+                            "type": "string"
+                          },
+                          "ussdCode": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "tradePrivilegeId",
+                          "privilegeId",
+                          "ussdCode"
+                        ]
+                      }
+                  },
+                  "criterias": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "product": {
+                    "type": "object",
+                    "properties": {
+                      "tradeProductId": {
+                        "type": "number"
+                      },
+                      "brand": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "matCode": {
+                        "type": ["string","null"]
+                      },
+                      "color": {
+                        "type": ["string","null"]
+                      }
+                    },
+                    "required": [
+                      "tradeProductId"
+                    ]
+                  }
+                },
+                "required": [
+                  "product",
+                  "tradeNo",
+                  "criterias"
+                ]
+              }
+          }
+        },
+        "required": [
+          "prices",
+          "trades"
+        ]
+      }
+    },
+    "required": [
+      "statusCode",
+      "statusDesc",
+      "data"
+    ]
+  }

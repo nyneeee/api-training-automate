@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "total": {
+      "type": "number"
+    },
+    "offset": {
+      "type": "number"
+    },
+    "maxRow": {
+      "type": "number"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "company": {
+              "type": ["string" , "null"]
+            },
+            "brand": {
+              "type": ["string" , "null"]
+            },
+            "model": {
+              "type": ["string" , "null"]
+            },
+            "matCode": {
+              "type": ["string" , "null"]
+            },
+            "commercialName": {
+              "type": ["string" , "null"]
+            },
+            "productType": {
+              "type": ["string" , "null"]
+            },
+            "productSubtype": {
+              "type": ["string" , "null"]
+            }
+          },
+          "required": [
+            "company",
+            "matCode"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "total",
+    "offset",
+    "maxRow",
+    "data"
+  ]
+}

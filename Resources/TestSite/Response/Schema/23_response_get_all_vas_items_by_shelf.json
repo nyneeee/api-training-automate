@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "offset": {
+      "type": "number"
+    },
+    "max": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "detailTH": {
+              "type": ["string","null"]
+            },
+            "detailEN": {
+              "type": ["string","null"]
+            },
+            "thumbnail": {
+              "type": ["string","null"]
+            },
+            "feedItemId": {
+              "type": "string"
+            },
+            "promotionCode": {
+              "type": ["string","null"]
+            },
+            "offeringCode": {
+              "type": ["string","null"]
+            },
+            "offeringId": {
+              "type": ["string","null"]
+            },
+            "packageId": {
+              "type": ["string","null"]
+            },
+            "featureCode": {
+              "type": ["string","null"]
+            },
+            "publish": {
+              "type": "boolean"
+            },
+            "priority": {
+              "type": "number"
+            },
+            "lastUpdated": {
+              "type": "string"
+            },
+            "prototype": {
+              "type": ["string","null"]
+            },
+            "customAttributes": {
+              "type": ["object","null"]
+            },
+            "orderFees": {
+              "type": "array",
+              "items":
+                {
+                  "type":"object",
+                  "properties": {
+                    "billingSystem": {
+                      "type": ["string","null"]
+                    },
+                    "priceExclVat":{
+                      "type": ["number","null"]
+                    },
+                    "priceInclVat":{
+                      "type": ["number","null"]
+                    },
+                    "productType":{
+                      "type": ["string","null"]
+                    },
+                    "wordInStatementThai":{
+                      "type": ["string","null"]
+                    },
+                    "wordInStatementEng":{
+                      "type": ["string","null"]
+                    }
+                  }
+                }
+            },
+            "accountFees": {
+              "type": "array",
+              "items":
+                {
+                  "type":"object",
+                  "properties": {
+                    "billingSystem": {
+                      "type": ["string","null"]
+                    },
+                    "priceExclVat":{
+                      "type": ["number","null"]
+                    },
+                    "priceInclVat":{
+                      "type": ["number","null"]
+                    },
+                    "productType":{
+                      "type": ["string","null"]
+                    },
+                    "wordInStatementThai":{
+                      "type": ["string","null"]
+                    },
+                    "wordInStatementEng":{
+                      "type": ["string","null"]
+                    }
+                  }
+                }
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "feedItemId",
+            "publish",
+            "priority",
+            "lastUpdated",
+            "prototype",
+            "customAttributes"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "offset",
+    "max",
+    "total",
+    "data"
+  ]
+}

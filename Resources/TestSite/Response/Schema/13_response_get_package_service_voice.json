@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "durationFrom": {
+              "type": "number"
+            },
+            "durationTo": {
+              "type": "number"
+            },
+            "durationUnit": {
+              "type": "string"
+            },
+            "billCycleValue": {
+              "type": "number"
+            },
+            "billCycleUnit": {
+              "type": ["string","null"]
+            },
+            "priceTypePattern": {
+              "type": ["string","null"]
+            },
+            "dayOfWeek": {
+              "type": ["string","null"]
+            },
+            "fromTiming": {
+              "type": ["string","null"]
+            },
+            "toTiming": {
+              "type": ["string","null"]
+            },
+            "freeResource": {
+              "type": ["number","null"]
+            },
+            "freeResourceUnit": {
+              "type": ["string","null"]
+            },
+            "voiceQuotaRollOver": {
+              "type": "string",
+              "enum": ["Y", "N"]
+            },
+            "maxRollOverQuota": {
+              "type": "string"
+            },
+            "maxRollOverQuotaUnit": {
+              "type": "string"
+            },
+            "allocate": {
+              "type": "array",
+              "items": 
+                {
+                  "type": ["string","null"]
+                }
+            },
+            "voiceRating": {
+              "type": "array",
+              "items": 
+                {
+                  "type": "object",
+                  "properties": {
+                    "rateProductType": {
+                      "type": "string"
+                    },
+                    "priceTypePattern": {
+                      "type": ["string","null"]
+                    },
+                    "voiceRateNetwork": {
+                      "type": "array",
+                      "items": 
+                        {
+                          "type": "object",
+                          "properties": {
+                            "rateNetwork": {
+                              "type": "string"
+                            },
+                            "rateDayOfWeek": {
+                              "type": "string"
+                            },
+                            "rateFromTiming": {
+                              "type": ["string","null"],
+                              "format": "time"
+                            },
+                            "rateToTiming": {
+                              "type": ["string","null"]
+                            },
+                            "exceedRateExcVat": {
+                              "type": "number"
+                            },
+                            "exceedRateExcVatDuration": {
+                              "type": "number"
+                            },
+                            "exceedRateExcVatDurationUnit": {
+                              "type": "string"
+                            },
+                            "exceedRateIncVat": {
+                              "type": "number"
+                            },
+                            "exceedRateIncVatDuration": {
+                              "type": "number"
+                            },
+                            "exceedRateIncVatDurationUnit": {
+                              "type": "string"
+                            },
+                            "voiceStepRating": {
+                              "type": "array",
+                              "items": 
+                                {
+                                }
+                            },
+                            "stepDurationFrom": {
+                              "type": "number"
+                            },
+                            "stepDurationTo": {
+                              "type": "number"
+                            },
+                            "stepDurationUnit": {
+                              "type": "string"
+                            },
+                            "stepRateExcVat": {
+                              "type": "number"
+                            },
+                            "stepRateIncVat": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                    }
+                  }
+                }
+            }
+          },
+          "required": [
+            "durationFrom",
+            "durationTo",
+            "durationUnit"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

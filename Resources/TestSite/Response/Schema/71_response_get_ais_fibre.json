@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "statusCode": {
+        "type": "string"
+      },
+      "statusDesc": {
+        "type": "string"
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "aisFibre": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "feeResourceType": {
+                  "type": ["string" , "null"]
+                },
+                "usageType": {
+                  "type": ["string" , "null"]
+                },
+                "quotaType": {
+                  "type": ["string" , "null"]
+                },
+                "fibrePattern": {
+                  "type": ["string" , "null"]
+                },
+                "durationType": {
+                  "type": ["string" , "null"]
+                },
+                "durationFrom": {
+                  "type": "number"
+                },
+                "durationTo": {
+                  "type": "number"
+                },
+                "durationUnit": {
+                  "type": ["string" , "null"]
+                },
+                "businessAisFibre": {
+                  "type": "object",
+                  "properties": {
+                    "freeResourceName": {
+                      "type": ["string" , "null"]
+                    },
+                    "techGenerateName": {
+                      "type": ["string" , "null"]
+                    },
+                    "coverAllDay": {
+                      "type": ["string" , "null"]
+                    },
+                    "status": {
+                      "type": ["string" , "null"]
+                    },
+                    "businessAisFibreDetails": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fromTiming": {
+                            "type": ["string" , "null"]
+                          },
+                          "toTiming": {
+                            "type": ["string" , "null"]
+                          },
+                          "downloadSpeed": {
+                            "type": ["string" , "null"]
+                          },
+                          "uploadSpeed": {
+                            "type": ["string" , "null"]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

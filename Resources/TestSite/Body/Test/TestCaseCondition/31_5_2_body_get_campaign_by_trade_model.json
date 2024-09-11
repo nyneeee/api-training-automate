@@ -1,0 +1,18 @@
+{
+    "location": 50183,
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IPHONEXSM256",
+    "color": "GOLD",
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "saleChannels": [
+        "TELEWIZ"
+    ],
+    "offset": 1,
+    "max": 10
+}

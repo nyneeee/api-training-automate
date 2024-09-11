@@ -1,0 +1,56 @@
+{
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "statusDesc": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "items": 
+            {
+              "type": "object",
+              "properties": {
+                "groupId": {
+                  "type": "number"
+                },
+                "groupDetailId": {
+                  "type": "number"
+                },
+                "patternName": {
+                  "type": "string"
+                },
+                "aisPoint": {
+                  "type": "number"
+                },
+                "discountExcludeVat": {
+                  "type": "number"
+                },
+                "discountIncludeVat": {
+                  "type": "number"
+                },
+                "ussdAisPoint": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "groupId",
+                "groupDetailId",
+                "patternName",
+                "aisPoint",
+                "discountExcludeVat",
+                "discountIncludeVat",
+                "ussdAisPoint"
+              ]
+            }
+        }
+      },
+      "required": [
+        "status",
+        "statusDesc",
+        "points"
+      ]
+}

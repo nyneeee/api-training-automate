@@ -1,0 +1,12 @@
+{
+    "brand": "APPLE",
+    "offset": "11",
+    "maxRow": "10",
+    "productType": [
+        "DEVICE"
+    ],
+    "productSubtype": [
+        "HANDSET",
+        "HANDSET BUNDLE"
+    ]
+}

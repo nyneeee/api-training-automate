@@ -1,0 +1,13 @@
+{
+      "location": "1110",
+      "brand": "APPLE",
+      "model": "IP12_256GB",
+      "productType": [
+            "DEVICE"
+      ],
+      "productSubtype": [
+            "N/A"
+      ],
+      "offset": 1,
+      "maxrow": 10
+}

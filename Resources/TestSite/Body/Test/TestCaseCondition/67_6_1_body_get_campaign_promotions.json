@@ -1,0 +1,23 @@
+{
+    "locationCode": "1100",
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ],
+    "brand": "APPLE",
+    "model": "IPHONEXSM256",
+    "color": "SPACE GREY",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "",
+    "company": "AWN",
+    "tradePattern": {
+        "includes": [
+            "Gadget & Accessories Trading"
+        ],
+        "excludes": []
+    },
+    "offset": 1,
+    "max": 10
+}

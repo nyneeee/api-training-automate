@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items":
+        {
+          "type": "object",
+          "properties": {
+            "promotionCode": {
+              "type": "string"
+            },
+            "rules": {
+              "type": "array",
+              "items": 
+                {
+                  "type": "object",
+                  "properties": {
+                    "ruleSet": {
+                      "type": "string"
+                    },
+                    "ruleType": {
+                      "type": "string"
+                    },
+                    "ruleValue": {
+                      "type": "string"
+                    },
+                    "chargeType": {
+                      "type": "string"
+                    },
+                    "activeFlag": {
+                      "type": "string"
+                    },
+                    "modificationNumber": {
+                      "type": "string"
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "endDate": {
+                      "type": "string",
+                      "format": "date-time" 
+                    }
+                  },
+                  "required": [
+                    "ruleSet",
+                    "ruleType",
+                    "ruleValue",
+                    "chargeType",
+                    "activeFlag",
+                    "startDate"
+                  ]
+                }
+            }
+          },
+          "required": [
+            "promotionCode",
+            "rules"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "data"
+  ]
+}

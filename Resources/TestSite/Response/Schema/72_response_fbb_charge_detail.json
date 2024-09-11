@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "statusCode": {
+            "type": "string"
+        },
+        "statusDesc": {
+            "type": "string"
+        },
+        "data": {
+            "type": "object",
+        "properties": {
+          "chargeDurationFrom": {
+            "type": "number"
+          },
+          "chargeDurationTo": {
+            "type": "number"
+          },
+          "chargeDurationUnit": {
+            "type": "string"
+          },
+          "chargeExcVat": {
+            "type": "number"
+          },
+          "chargeIncVat": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "required": [
+      "statusCode",
+      "statusDesc",
+      "data"
+    ]
+  }

@@ -1,0 +1,11 @@
+{
+    "matCode": "NEW0APXM256-GD01",
+    "productType": "DEVICE",
+    "productSubType": "HANDSET",
+    "location": "1100",
+    "saleChannels": [
+        "ACC"
+    ],
+    "offset": 1,
+    "max": 10
+}

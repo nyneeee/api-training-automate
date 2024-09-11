@@ -1,0 +1,68 @@
+{
+    "items": [
+        {
+            "priceGroup": "EUP",
+            "incVat": 18990,
+            "productId": 93511,
+            "vatAmt": 1242.34,
+            "vatRate": "7.00",
+            "excVat": 17747.66,
+            "priceId": 290037,
+            "effectiveDate": "28/01/2021 00:00:00"
+        },
+        {
+            "priceGroup": "EUP",
+            "incVat": 18990,
+            "productId": 93512,
+            "vatAmt": 1242.34,
+            "vatRate": "7.0",
+            "excVat": 17747.66,
+            "priceId": 290038,
+            "effectiveDate": "28/01/2021 00:00:00"
+        },
+        {
+            "priceGroup": "EUP",
+            "incVat": 21990,
+            "productId": 93511,
+            "vatAmt": 1438.6,
+            "vatRate": "7.0",
+            "expireDate": "27/01/2021 23:59:00",
+            "excVat": 20551.4,
+            "priceId": 285709,
+            "effectiveDate": "20/11/2020 00:00:00"
+        },
+        {
+            "priceGroup": "EUP",
+            "incVat": 21990,
+            "productId": 93512,
+            "vatAmt": 1438.6,
+            "vatRate": "7.0",
+            "expireDate": "27/01/2021 23:59:00",
+            "excVat": 20551.4,
+            "priceId": 285710,
+            "effectiveDate": "20/11/2020 00:00:00"
+        },
+        {
+            "priceGroup": "EUP",
+            "incVat": 21990,
+            "productId": 93511,
+            "vatAmt": 1438.6,
+            "vatRate": "7.0",
+            "expireDate": "27/01/2021 23:59:00",
+            "excVat": 20551.4,
+            "priceId": 285709,
+            "effectiveDate": "20/11/2020 00:00:00"
+        },
+        {
+            "priceGroup": "EUP",
+            "incVat": 21990,
+            "productId": 93512,
+            "vatAmt": 1438.6,
+            "vatRate": "7.0",
+            "expireDate": "27/01/2021 23:59:00",
+            "excVat": 20551.4,
+            "priceId": 285710,
+            "effectiveDate": "20/11/2020 00:00:00"
+        }
+    ]
+}

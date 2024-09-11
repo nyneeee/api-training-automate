@@ -1,0 +1,158 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"properties": {
+	  "statusCode": {
+		"type": "string"
+	  },
+	  "statusDesc": {
+		"type": "string"
+	  },
+	  "offset": {
+		"type": "integer"
+	  },
+	  "maxRow": {
+		"type": "integer"
+	  },
+	  "totalRow": {
+		"type": "integer"
+	  },
+	  "countRow": {
+		"type": "number"
+	  },
+	  "products": {
+		"type": "array",
+		"items": 
+		  {
+			"type": "object",
+			"properties": {
+			  "brand": {
+				"type": "string"
+			  },
+			  "name": {
+				"type": ["string","null"]
+			  },
+			  "model": {
+				"type": ["string","null"]
+			  },
+			  "imageUrl": {
+				"type": "string"
+			  },
+			  "dv": {
+				"type": "array",
+				"items": 
+				  {
+					"type": "object",
+					"properties": {
+					  "name": {
+						"type": ["string","null"]
+					  },
+					  "point": {
+						"type": "string"
+					  }
+					},
+					"required": [
+					  "name",
+					  "point"
+					]
+				  }
+			  },
+			  "subProducts": {
+				"type": "array",
+				"items": 
+				  {
+					"type": "object",
+					"properties": {
+					  "name": {
+						"type": ["string" , "null"]
+					  },
+					  "model": {
+						"type": ["string" , "null"]
+					  },
+					  "imageUrl": {
+						"type": "string"
+					  },
+					  "normalPrice": {
+						"type": "object",
+						"properties": {
+						  "min": {
+							"type": "string"
+						  },
+						  "max": {
+							"type": "string"
+						  }
+						},
+						"required": [
+						  "min",
+						  "max"
+						]
+					  },
+					  "promotionPrice": {
+						"type": "object",
+						"properties": {
+						  "min": {
+							"type": "string"
+						  },
+						  "max": {
+							"type": "string"
+						  }
+						},
+						"required": [
+						  "min",
+						  "max"
+						]
+					  }
+					},
+					"required": [
+					  "model"
+					]
+				  }
+			  },
+			  "normalPrice": {
+				"type": "object",
+				"properties": {
+				  "min": {
+					"type": "string"
+				  },
+				  "max": {
+					"type": "string"
+				  }
+				},
+				"required": [
+				  "min",
+				  "max"
+				]
+			  },
+			  "promotionPrice": {
+				"type": "object",
+				"properties": {
+				  "min": {
+					"type": "string"
+				  },
+				  "max": {
+					"type": "string"
+				  }
+				},
+				"required": [
+				  "min",
+				  "max"
+				]
+			  }
+			},
+			"required": [
+			  "name",
+			  "model",
+			  "imageUrl"
+			]
+		  }
+	  }
+	},
+	"required": [
+	  "statusCode",
+	  "statusDesc",
+	  "offset",
+	  "maxRow",
+	  "totalRow",
+	  "countRow"
+	]
+}

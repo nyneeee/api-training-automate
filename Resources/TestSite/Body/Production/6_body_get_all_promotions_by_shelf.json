@@ -1,0 +1,17 @@
+{
+    "userId": "B2RhWbHJ4yiWRQW3r4CUbUVb5qWQoeMEdzQaFBDGtxhsigHcP3Yofy2BkfblpVUDxbke7PIMaylu5aTY",
+    "sanitizedName": "5G-Max-Speed",
+    "parameters": [
+        {
+            "name": "billingSystem"
+        },
+        {
+            "name": "location",
+            "value": "2445"
+        },
+        {
+            "name": "orderType",
+            "value": "Change Charge Type"
+        }
+    ]
+}

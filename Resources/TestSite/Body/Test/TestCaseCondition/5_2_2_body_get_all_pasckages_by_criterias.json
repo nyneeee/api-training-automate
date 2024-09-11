@@ -1,0 +1,8 @@
+{
+    "orderType": "New Registration",
+    "chargeType": "Pre-paid",
+    "productClass": "Main",
+    "productPackageGroup": "Test Main",
+    "offset": 1,
+    "max": 10
+}

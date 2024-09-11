@@ -1,0 +1,13 @@
+{
+      "location": "1110",
+      "brand": "APPLE",
+      "model": "IP15_256GB",
+      "productType": [
+          "DEVICE"
+      ],
+      "productSubtype": [
+          "HANDSET"
+      ],
+      "offset": 1,
+      "maxrow": 10
+}

@@ -1,0 +1,970 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "statusCode": {
+            "type": "string"
+        },
+        "statusDesc": {
+            "type": "string"
+        },
+        "brand": {
+            "type": "string"
+        },
+        "model": {
+            "type": "string"
+        },
+        "color": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "productType": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "productSubtype": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "priceOptions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "campaignId": {
+                        "type": "string"
+                    },
+                    "campaignName": {
+                        "type": "string"
+                    },
+                    "campaignDesc": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "imageUrl": {
+                        "type": "string"
+                    },
+                    "minimumPackagePrice": {
+                        "type": "string"
+                    },
+                    "maximumPackagePrice": {
+                        "type": "string"
+                    },
+                    "packageKeyRef": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "minimumPackageOnTopPrice": {
+                        "type": "string"
+                    },
+                    "maximumPackageOnTopPrice": {
+                        "type": "string"
+                    },
+                    "packageOnTopKeyRef": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "conditionCode": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "promotionFlag": {
+                        "type": "string"
+                    },
+                    "publish": {
+                        "type": "boolean"
+                    },
+                    "priority": {
+                        "type": "string"
+                    },
+                    "allowedAddToCart": {
+                        "type": "boolean"
+                    },
+                    "code": {
+                        "type": [
+                          "string",
+                          "null"
+                      ]
+                    },
+                    "priceType": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "channels": {
+                        "type": "array",
+                        "items": 
+                            {
+                              "type": "string"
+                            }
+                    },
+                    "privileges": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "privilegeId": {
+                                    "type": "string"
+                                },
+                                "privilegeName": {
+                                    "type": "string"
+                                },
+                                "privilegeDesc": {
+                                    "type": "string"
+                                },
+                                "ussdCode": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                  ]
+                                },
+                                "freeGoods": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "tradeFreegoodsId": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "tradeNo": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "code": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "qty": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "tradeFreegoodsId",
+                                            "tradeNo",
+                                            "code"
+                                        ]
+                                    }
+                                },
+                                "channels": {
+                                    "type": "array",
+                                    "items": 
+                                        {
+                                          "type": "string"
+                                        }
+                                },
+                                "minimumPackageOnTopPrice": {
+                                    "type": "string"
+                                },
+                                "maximumPackageOnTopPrice": {
+                                    "type": "string"
+                                },
+                                "packageKeyRef": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "packageOnTopKeyRef": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ]
+                                },
+                                "maximumContract": {
+                                    "type": "string"
+                                },
+                                "minimumNormalPrice": {
+                                    "type": "string"
+                                },
+                                "maximumNormalPrice": {
+                                    "type": "string"
+                                },
+                                "minimumPromotionPrice": {
+                                    "type": "string"
+                                },
+                                "maximumPromotionPrice": {
+                                    "type": "string"
+                                },
+                                "minimumAdvancePay": {
+                                    "type": "string"
+                                },
+                                "maximumAdvancePay": {
+                                    "type": "string"
+                                },
+                                "customerGroups": {
+                                    "type": "array",
+                                    "items": 
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "code": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                },
+                                "trades": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "tradeProductId": {
+                                                "type": "string"
+                                            },
+                                            "tradeNo": {
+                                                "type": "string"
+                                            },
+                                            "tradeName": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "tradeDesc": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "normalPrice": {
+                                                "type": "integer"
+                                            },
+                                            "promotionPrice": {
+                                                "type": "string"
+                                            },
+                                            "contractId": {
+                                                "type": ["integer" , "null" , "string"]
+                                            },
+                                            "channels": {
+                                                "type": "array",
+                                                "items": 
+                                                    {
+                                                      "type": "string"
+                                                    }
+                                            },
+                                            "limitContract": {
+                                                "type": [
+                                                    "null",
+                                                    "number"
+                                                ]
+                                            },
+                                            "durationContract": {
+                                                "type": "string"
+                                            },
+                                            "advancePay": {
+                                                "type": [
+                                                    "object",
+                                                    "null"
+                                                ],
+                                                "properties": {
+                                                    "tradeAirtimeId": {
+                                                        "type": [
+                                                            "string",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "amount": {
+                                                        "type": "number"
+                                                    },
+                                                    "installmentFlag": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "Y",
+                                                            "N"
+                                                        ]
+                                                    },
+                                                    "matAirtime": {
+                                                        "type":  [
+                                                          "string",
+                                                          "null"
+                                                      ]
+                                                    },
+                                                    "description": {
+                                                        "type": ["string" , "null"]
+                                                    },
+                                                    "payAdvanceGroupId": {
+                                                        "type": ["integer", "null"]
+                                                    },
+                                                    "promotions": {
+                                                        "type": "array"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "tradeAirtimeId"
+                                                ]
+                                            },
+                                            "priceType": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "ussdCode": {
+                                                "type": [
+                                                  "string",
+                                                  "null"
+                                              ]
+                                            },
+                                            "packageKeyRef": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "packageOnTopKeyRef": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "priceDiscount": {
+                                                "type": "number"
+                                            },
+                                            "requireChangePack": {
+                                                "type": "boolean"
+                                            },
+                                            "focCode": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "focStartDate": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "focEndDate": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "focMinPackage": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "focMaxPackage": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "focContractId": {
+                                                "type": ["number" , "null"]
+                                            },
+                                            "focDurationContract": {
+                                                "type": "integer"
+                                            },
+                                            "productType": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "productSubtype": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "maximumPackage": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "minimumPackage": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "maximumPackageOnTop": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "minimumPackageOnTop": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "serviceLockHs": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "simLock": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "criterias": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "minProperties": 1
+                                                }
+                                            },
+                                            "campaignCode": {
+                                                "type": ["string", "null"]
+                                            },
+                                            "campaignName": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "pointGroupId": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "maxReceiveFreeGoods": {
+                                                "type": [
+                                                    "number",
+                                                    "null"
+                                                ]
+                                            },
+                                            "requireCheckQuota": {
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ]
+                                            },
+                                            "installmentOnBillAmount": {
+                                                "type": [
+                                                  "number",
+                                                  "null"
+                                              ]
+                                            },
+                                            "installmentOnBillTerm": {
+                                                "type": [
+                                                  "string",
+                                                  "null"
+                                              ]
+                                            }
+                                        },
+                                        "minimumPriceLength": {
+                                            "type": [
+                                                "number",
+                                                "null"
+                                            ]
+                                        },
+                                        "maximumPriceLength": {
+                                            "type": [
+                                                "number",
+                                                "null"
+                                            ]
+                                        },
+                                        "priceGroups": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "priceType": {
+                                                        "type": [
+                                                            "string",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "price": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            "discount": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "tradeDiscountId": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "value": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "amount": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "specialType": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "specialAmount": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "discountExcludeVat": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "discountIncludeVat": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "tradePriceExcludeVat": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "tradePriceIncludeVat": {
+                                                        "type": [
+                                                            "number",
+                                                            "null"
+                                                        ]
+                                                    },
+                                                    "installmentPartnerFlag": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "option": {
+                                                        "type": [
+                                                            "null",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "payAdvanceGroupId": {
+                                                        "type": ["integer", "null"]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "tradeDiscountId"
+                                                ]
+                                            },
+                                            "payments": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "cardType": {
+                                                            "type": "string"
+                                                        },
+                                                        "method": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "installId": {
+                                                            "type": [
+                                                                "null",
+                                                                "number"
+                                                            ]
+                                                        },
+                                                        "banks": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "bankAbbr": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "bankDescEn": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "bankDescTh": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "imageUrl": {
+                                                                        "type": "string"
+                                                                    },
+                                                                    "installments": {
+                                                                        "type": "array",
+                                                                        "items": {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "installmentId": {
+                                                                                    "type": "number"
+                                                                                },
+                                                                                "installmentAbbr": {
+                                                                                    "type": "string"
+                                                                                },
+                                                                                "installmentRate": {
+                                                                                    "type": "number"
+                                                                                },
+                                                                                "installmentTerms": {
+                                                                                    "type": "number"
+                                                                                },
+                                                                                "balloonMonths": {
+                                                                                    "type": "number"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "bankAbbr"
+                                                                ]
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "banks": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "abb": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "imageUrl": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "installment": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "balloonMonths": {
+                                                            "type": "number"
+                                                        },
+                                                        "remark": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "name",
+                                                        "abb"
+                                                    ]
+                                                }
+                                            },
+                                            "freeGoods": {
+                                                "type": "array",
+                                                "items": 
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "tradeFreegoodsId": {
+                                                                "type": [
+                                                                    "string",
+                                                                    "null"
+                                                                ]
+                                                            },
+                                                            "tradeNo": {
+                                                                "type": [
+                                                                    "string",
+                                                                    "null"
+                                                                ]
+                                                            },
+                                                            "code": {
+                                                                "type": ["string", "null"],
+                                                                "items": {}
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "qty": {
+                                                                "type": [
+                                                                    "string",
+                                                                    "null"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "tradeFreegoodsId",
+                                                            "tradeNo",
+                                                            "code",
+                                                            "name"
+                                                        ]
+                                                    }
+                                            },
+                                            "customerGroups": {
+                                                "type": "array",
+                                                "items": 
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "code": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                            },
+                                            "tradeChannels": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "locationCode": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "partnerCode": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "locationCodePartner": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "region": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "locType": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "locSubtype": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "province": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "saleChannel": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "shopType": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "shopTypeGroup": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "publicName": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        },
+                                                        "serviceLockHs": {
+                                                            "type": [
+                                                                "string",
+                                                                "null"
+                                                            ]
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "required": [
+                                            "tradeProductId",
+                                            "tradeName",
+                                            "tradeDesc",
+                                            "normalPrice",
+                                            "campaignCode",
+                                            "campaignName"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "privilegeId",
+                                "privilegeName",
+                                "minimumAdvancePay",
+                                "maximumAdvancePay"
+                            ]
+                        }
+                    },
+                    "price": {
+                        "type": "string"
+                    },
+                    "maximumContract": {
+                        "type": "string"
+                    },
+                    "minimumNormalPrice": {
+                        "type": "string"
+                    },
+                    "maximumNormalPrice": {
+                        "type": "string"
+                    },
+                    "minimumPromotionPrice": {
+                        "type": "string"
+                    },
+                    "maximumPromotionPrice": {
+                        "type": "string"
+                    },
+                    "minimumAdvancePay": {
+                        "type": "string"
+                    },
+                    "maximumAdvancePay": {
+                        "type": "string"
+                    },
+                    "maximumInstallment": {
+                        "type": "string"
+                    },
+                    "customerGroups": {
+                        "type": "array",
+                        "items": 
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "code"
+                                ]
+                            }
+                    },
+                    "freeGoods": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "tradeFreegoodsId": {
+                                    "type": "string"
+                                },
+                                "tradeNo": {
+                                    "type": "string"
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "items": {}
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "qty": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "tradeFreegoodsId",
+                                "tradeNo",
+                                "code",
+                                "name"
+                            ]
+                        }
+                    },
+                    "requireCheckBlacklistAcrossOper": {
+                        "type": "string",
+                        "enum": [
+                            "Y",
+                            "N"
+                        ]
+                    }
+                },
+                "required": [
+                    "campaignName",
+                    "campaignDesc",
+                    "priceType",
+                    "price",
+                    "minimumNormalPrice",
+                    "maximumNormalPrice",
+                    "minimumPromotionPrice",
+                    "maximumPromotionPrice",
+                    "minimumAdvancePay",
+                    "maximumAdvancePay"
+                ]
+            }
+        }
+    },
+    "required": [
+        "statusCode",
+        "statusDesc",
+        "brand",
+        "model"
+    ]
+  }

@@ -1,0 +1,20 @@
+{
+    "blacklistAcrossOper": null,
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IPHONEXSM256",
+    "color": "GOLD",
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "offset": 1,
+    "max": 10,
+    "aspFlag": true,
+    "location": "1117",
+    "searchText": "Prepaid"    
+}

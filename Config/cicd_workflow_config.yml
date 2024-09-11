@@ -1,0 +1,57 @@
+#  คำสั่ง Run Robot ผ่าน Terminal
+#  EX_1. Run ทุกเคส Site Test (testsite:Test) 
+#  ...   ให้แก้ตัวแปร $TEST_SITE == Test
+#  ==>   robot -d log_post_automate -v testsite:Test cpc_api.robot
+#  ...
+#  EX_2. Run ทุกเคส Site Production (testsite:Production) 
+#  ...   ให้แก้ตัวแปร $TEST_SITE == Production
+#  ==>   robot -d log_post_automate -v testsite:Production cpc_api.robot
+#  ...
+#  EX_3. Run ทุกเฉพาะเคส 35 และ 51 (-i) 
+#  ...   ให้แก้ตัวแปร $TAG_RUN == -i 35 -i 51
+#  ==>   robot -d log_post_automate -i 35 -i 51 -v testsite:Production cpc_api.robot
+#  ...
+#  EX_4. Run ทุกเคสแต่ยกเว้นเคส 35 และ 51 (-e) 
+#  ...   ให้แก้ตัวแปร $TAG_RUN == -e 35 -e 51
+#  ==>   robot -d log_post_automate -exclude 35 -exclude 51 -v testsite:Production cpc_api.robot
+
+# -d = Documentation
+# ...   "log_pre_automate_asse" / "log_post_automate_asse"
+# ...   "log_pre_automate_asea" / "log_post_automate_asea"
+
+# testsite = 
+# ...   "Test"
+# ...   "Production"
+
+# write_res = 
+# ...   "pre_response_asse" / "post_response_asse"
+# ...   "pre_response_asea" / "post_response_asea"
+
+# region = 
+# ...   "asse"
+# ...   "asea"  
+
+# TrafficManager
+# ...  robot -d log_automate_traffic_manager -v testsite:Test -v region:trafficmanager -v write_res:pre -i test cpc_api.robot
+# ...  robot -d log_automate_traffic_manager -v testsite:Test -v region:trafficmanager -v write_res:post -i test cpc_api.robot
+
+# Pre Test 
+cmd_run_robot_automate_pre_test_asse_sit: robot -d log_pre_automate_asse --exclude 24 --exclude 25 --exclude 26 --exclude 66 -v testsite:Test -v region:asse -v write_res:pre cpc_api.robot
+cmd_run_robot_automate_pre_test_asea_sit: robot -d log_pre_automate_asea --exclude 24 --exclude 25 --exclude 26 --exclude 66 -v testsite:Test -v region:asea -v write_res:pre cpc_api.robot
+
+cmd_run_robot_automate_pre_test_asse_prd: robot -d log_pre_automate_asse --exclude Conditions --exclude 21 --exclude 22 --exclude 24 --exclude 25 --exclude 26 --exclude 43 --exclude 66 -v testsite:Production -v region:asse -v write_res:pre cpc_api.robot
+cmd_run_robot_automate_pre_test_asea_prd: robot -d log_pre_automate_asea --exclude Conditions --exclude 21 --exclude 22 --exclude 24 --exclude 25 --exclude 26 --exclude 43 --exclude 66 -v testsite:Production -v region:asea -v write_res:pre cpc_api.robot
+
+# Post Test
+cmd_run_robot_automate_post_test_asse_sit: robot -d log_post_automate_asse --exclude 24 --exclude 25 --exclude 26 --exclude 66 -v testsite:Test -v region:asse -v write_res:post cpc_api.robot
+cmd_run_robot_automate_post_test_asea_sit: robot -d log_post_automate_asea --exclude 24 --exclude 25 --exclude 26 --exclude 66 -v testsite:Test -v region:asea -v write_res:post cpc_api.robot
+
+cmd_run_robot_automate_post_test_asse_prd: robot -d log_post_automate_asse --exclude Conditions --exclude 21 --exclude 22 --exclude 24 --exclude 25 --exclude 26 --exclude 43 --exclude 66 -v testsite:Production -v region:asse -v write_res:post cpc_api.robot
+cmd_run_robot_automate_post_test_asea_prd: robot -d log_post_automate_asea --exclude Conditions --exclude 21 --exclude 22 --exclude 24 --exclude 25 --exclude 26 --exclude 43 --exclude 66 -v testsite:Production -v region:asea -v write_res:post cpc_api.robot
+
+# Comepare
+cmd_run_robot_automate_compare_asse_sit: robot -d compare_asse -v testsite:Test -v region:asse compare_response.robot
+cmd_run_robot_automate_compare_asea_sit: robot -d compare_asea -v testsite:Test -v region:asea compare_response.robot
+
+cmd_run_robot_automate_compare_asse_prd: robot -d compare_asse -v testsite:Production -v region:asse compare_response.robot
+cmd_run_robot_automate_compare_asea_prd: robot -d compare_asea -v testsite:Production -v region:asea compare_response.robot

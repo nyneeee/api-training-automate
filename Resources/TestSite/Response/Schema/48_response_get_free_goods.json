@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "freeGoods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "matCode": {
+            "type": "string"
+          },
+          "sapDescition": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "matCode",
+          "qty"
+        ]
+      }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "freeGoods"
+  ]
+}

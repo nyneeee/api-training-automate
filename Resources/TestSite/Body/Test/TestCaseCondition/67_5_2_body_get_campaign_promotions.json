@@ -1,0 +1,17 @@
+{
+    "locationCode": "1100",
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IP12_128GB",
+    "color": "BLACK",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "MNP-P",
+    "offset": 1,
+    "max": 10,
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ]
+}

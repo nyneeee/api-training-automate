@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bankGroupName": {
+            "type": "string"
+          },
+          "handsetOnlyFlag": {
+            "type": ["string"],
+            "enum": ["Y", "N"]
+          },
+          "bankFlag": {
+            "type": ["string"],
+            "enum": ["Y", "N"]
+          },
+          "campaignOnlyFlag": {
+            "type": ["string"],
+            "enum": ["Y", "N"]
+          },
+          "bank": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "bankAbbr": {
+                  "type": "string"
+                },
+                "bankDescitionEn": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "bankDescitionTh": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "image": {
+                  "type": ["string", "null"]
+                },
+                "installmentTerm": {
+                  "type": "string"
+                },
+                "minimumAmount": {
+                  "type": "number"
+                },
+                "cardDigits": {
+                  "type": "string"
+                },
+                "prefix": {
+                  "type": ["string", "null"]
+                }
+              },
+              "required": [
+                "id",
+                "bankAbbr",
+                "bankDescitionEn",
+                "bankDescitionTh",
+                "installmentTerm",
+                "minimumAmount"
+              ]
+            }
+          }
+        },
+        "required": [
+          "bankGroupName",
+          "handsetOnlyFlag",
+          "bankFlag",
+          "campaignOnlyFlag",
+          "bank"
+        ]
+      }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

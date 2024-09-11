@@ -1,0 +1,98 @@
+{
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "statusDesc": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "campaigns": {
+          "type": "array",
+          "items": 
+            {
+              "type": "object",
+              "properties": {
+                "campaignId": {
+                  "type": "number"
+                },
+                "campaignName": {
+                  "type": "string"
+                },
+                "campaignDesc": {
+                  "type": ["string","null"]
+                },
+                "imageUrl": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                },
+                "recommendFlag": {
+                  "type": "boolean"
+                },
+                "customerGroup": {
+                  "type": "string"
+                },
+                "conditionCode": {
+                  "type": ["string","null"]
+                },
+                "payAdvanceFlag": {
+                  "type": "boolean"
+                },
+                "campaignCodes": {
+                  "type": "array",
+                  "items": 
+                    {
+                      "type": "string"
+                    }
+                },
+                "pointGroupIds": {
+                  "type": ["array","null"],
+                  "items": 
+                    {
+                      "type": "number"
+                    }
+                },
+                "installmentFlag": {
+                  "type": "boolean"
+                },
+                "fullPaymentFlag": {
+                  "type": "boolean"
+                },
+                "maximumContract": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "campaignId",
+                "campaignName",
+                "recommendFlag",
+                "customerGroup",
+                "payAdvanceFlag",
+                "installmentFlag",
+                "fullPaymentFlag",
+                "maximumContract"
+              ]
+            }
+        },
+        "total": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "statusCode",
+        "statusDesc",
+        "offset",
+        "max",
+        "total",
+        "campaigns"
+      ]
+    }

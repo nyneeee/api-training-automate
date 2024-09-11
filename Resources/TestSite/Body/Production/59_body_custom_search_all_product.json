@@ -1,0 +1,40 @@
+{
+    "location": "1100",
+    "brands": [
+        {
+            "name": "SAMSUNG"
+        }
+    ],
+    "price": {
+        "min": "5000",
+        "max": "40600"
+    },
+    "display": {
+        "min": "4",
+        "max": "6.7"
+    },
+    "dualSIM": "N",
+    "memorySize": {
+        "min": "0",
+        "max": "100"
+    },
+    "mainCamera": {
+        "min": "5",
+        "max": "20"
+    },
+    "secondaryCamera": {
+        "min": "2",
+        "max": "20"
+    },
+    "banks": [
+        {
+            "abb": "KBNK"
+        },
+        {
+            "abb": "BAY"
+        }
+    ],
+    "flagAISPromotion": "N",
+    "offset": "1",
+    "maxrow": "10"
+}

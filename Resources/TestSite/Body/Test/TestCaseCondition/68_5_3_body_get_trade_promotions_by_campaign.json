@@ -1,0 +1,16 @@
+{
+    "locationCode": "1100",
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ],
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IP12PM_512GB",
+    "color": "GRAPHITE",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "",
+    "campaignId": 1090890
+}

@@ -1,0 +1,10 @@
+{
+    "productTypes": [
+         "DEVICE"
+     ],
+     "productSubtypes": [
+         "HANDSET"
+     ],
+     "offset": 480,
+     "maxRow": 15
+ }

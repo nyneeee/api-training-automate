@@ -1,0 +1,14 @@
+{
+    "userId": "kFZ0BqsIeKCyfRVvz8OCykqTzV1yAEixZJBp3aV8SDwxcNK0POvp8wK7PDW02joM7qyUAhuv0maCdwCs",
+    "sanitizedName": "sale-channel-myChannel-customerType-Pre-paid",
+    "parameters": [
+        {
+            "name": "billingSystem",
+            "value": "ALL"
+        },
+        {
+            "name": "orderType",
+            "value": "New Registration"
+        }
+    ]
+}

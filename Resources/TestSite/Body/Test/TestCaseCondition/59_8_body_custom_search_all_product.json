@@ -1,0 +1,37 @@
+{
+    "location": "1234",
+    "brands": [
+        {
+            "name": "SAMSUNG"
+        }
+    ],
+    "price": {
+        "min": "0",
+        "max": "60000"
+    },
+    "display": {
+        "min": "0",
+        "max": "10"
+    },
+    "dualSIM": "Y",
+    "memorySize": {
+        "min": "0",
+        "max": "100"
+    },
+    "mainCamera": {
+        "min": "0",
+        "max": "100"
+    },
+    "secondaryCamera": {
+        "min": "0",
+        "max": "4"
+    },
+    "banks": [
+        {
+            "abb": "SCB"
+        }
+    ],
+    "flagAISPromotion": "N",
+    "offset": "1",
+    "maxrow": "10"
+}

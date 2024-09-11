@@ -1,0 +1,13 @@
+{
+    "locationCode": "1100",
+    "saleChannels": [
+        "ALL AIS",
+        "BRN",
+        "ACC"
+    ],
+    "company": "AWN",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "customerGroup": "MNP",
+    "campaignId": 1090850
+}

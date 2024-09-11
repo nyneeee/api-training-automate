@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "allocate": {
+              "type": ["array","null"]
+            },
+            "durationFrom": {
+              "type": ["number","null"]
+            },
+            "durationTo": {
+              "type": ["number","null"]
+            },
+            "durationUnit": {
+              "type": ["string","null"]
+            },
+            "freeResource": {
+              "type": ["number","null"]
+            },
+            "freeResourceUnit": {
+              "type": ["string","number"]
+            },
+            "messageRating": {
+              "type": "array",
+              "items": 
+                {
+                  "type": "object",
+                  "properties": {
+                    "rateProductType": {
+                      "type": ["string","number"]
+                    },
+                    "exceedRateExcVat": {
+                      "type": ["number","null"]
+                    },
+                    "exceedRateIncVat": {
+                      "type": ["number","null"]
+                    }
+                  }
+                }
+            }
+          },
+          "required": [
+            "durationFrom",
+            "durationTo",
+            "durationUnit"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

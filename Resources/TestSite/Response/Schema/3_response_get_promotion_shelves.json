@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "array",
+      "items":
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "titleEn": {
+              "type": ["string","null"]
+            },
+            "icon": {
+              "type": ["string","null"]
+            },
+            "sanitizedName": {
+              "type": ["string","null"]
+            },
+            "publish": {
+              "type": "boolean"
+            },
+            "priority": {
+              "type": "number"
+            },
+            "lastUpdated": {
+              "type": "number"
+            },
+            "tags": {
+              "type": "array"
+            },
+            "type": {
+              "type": ["string","null"]
+            },
+            "conditionCode": {
+              "type": ["string","null"]
+            },
+            "subShelves": {
+              "type": "array",
+              "items":
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "titleEn": {
+                      "type": ["string","null"]
+                    },
+                    "icon": {
+                      "type": ["string","null"]
+                    },
+                    "sanitizedName": {
+                      "type": ["string","null"]
+                    },
+                    "publish": {
+                      "type": "boolean"
+                    },
+                    "priority": {
+                      "type": "number"
+                    },
+                    "lastUpdated": {
+                      "type": "number"
+                    },
+                    "tags": {
+                      "type": "array"
+                    },
+                    "type": {
+                      "type": ["string","null"]
+                    },
+                    "conditionCode": {
+                      "type": ["string","null"]
+                    },
+                    "subShelves": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "titleEn",
+                    "icon",
+                    "sanitizedName",
+                    "publish",
+                    "priority",
+                    "lastUpdated"
+                  ]
+                }
+            },
+            "items": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "titleEn",
+            "icon",
+            "sanitizedName",
+            "publish",
+            "priority",
+            "lastUpdated"
+          ]
+        }
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "data"
+  ]
+}

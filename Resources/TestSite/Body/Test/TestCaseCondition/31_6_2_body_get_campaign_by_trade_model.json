@@ -1,0 +1,19 @@
+{
+    "location": 50183,
+    "company": "AWN",
+    "matCode": "NEW0APXM256-GD01",
+    "orderTypes": [
+        "New Registration"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "aspFlag": "Y",
+    "blacklistAcrossOper": ["1"],
+    "saleChannels": [
+        "AISBUDDY"
+    ],
+    "regularPrice": null,
+    "offset": 1,
+    "max": 10
+}

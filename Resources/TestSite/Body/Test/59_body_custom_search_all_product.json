@@ -1,0 +1,33 @@
+{
+    "location": "1100",
+    "brands": [
+        {
+            "name": "APPLE"
+        }
+    ],
+    "price": {
+        "min": "0",
+        "max": "60000"
+    },
+    "display": {
+        "min": "4",
+        "max": "15"
+    },
+    "dualSIM": "N",
+    "memorySize": {
+        "min": "0",
+        "max": "256"
+    },
+    "mainCamera": {
+        "min": "0",
+        "max": "20"
+    },
+    "secondaryCamera": {
+        "min": "0",
+        "max": "20"
+    },
+    "banks": [],
+    "flagAISPromotion": "N",
+    "offset": 1,
+    "maxrow": 10
+}

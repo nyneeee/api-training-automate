@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "statusCode": {
+            "type": "string"
+        },
+        "statusDesc": {
+            "type": "string"
+        },
+        "criterias": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "minProperties": 1
+            }
+        }
+    },
+    "required": [
+        "statusCode",
+        "statusDesc",
+        "criterias"
+    ]
+}

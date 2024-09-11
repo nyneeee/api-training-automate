@@ -1,0 +1,8 @@
+{
+    "orderType": "New Registration",
+    "chargeType": "Post-paid",
+    "productClass": "Main",
+    "maximumPrice": 99,
+    "offset": 1,
+    "max": 5
+}

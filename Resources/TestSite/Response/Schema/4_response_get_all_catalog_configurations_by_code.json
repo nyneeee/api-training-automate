@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDesc": {
+      "type": "string"
+    },
+    "offset": {
+      "type": "number"
+    },
+    "max": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    },
+    "data": {
+      "type": "array",
+      "items": 
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "code": {
+              "type": "string"
+            },
+            "cset": {
+              "type": "number"
+            },
+            "priority": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            },
+            "effectiveStartDate": {
+              "type": ["string","null"]
+            },
+            "effectiveEndDate": {
+              "type": ["string","null"]
+            }
+          },
+          "required": [
+            "id",
+            "code",
+            "cset",
+            "priority",
+            "type",
+            "value",
+            "effectiveStartDate",
+            "effectiveEndDate"
+          ]
+        }
+      
+    }
+  },
+  "required": [
+    "statusCode",
+    "statusDesc",
+    "offset",
+    "max",
+    "total",
+    "data"
+  ]
+}

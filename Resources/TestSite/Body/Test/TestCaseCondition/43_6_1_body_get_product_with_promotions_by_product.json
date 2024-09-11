@@ -1,0 +1,22 @@
+{
+    "company": "AWN",
+    "brand": "APPLE",
+    "model": "IPHONEXSM256",
+    "productType": "DEVICE",
+    "productSubtype": "HANDSET",
+    "offset": 1,
+    "max": 30,
+    "priceType": "EUP",
+    "matCode": "NEW0APXM256-GD01",
+    "location": "1003354",
+    "blacklistAcrossOper": ["2"],
+    "saleChannels": [
+        "LOCALRETAILCHAIN"
+    ],
+    "orderTypes": [
+        "Existing"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ]
+}

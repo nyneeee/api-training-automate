@@ -1,0 +1,13 @@
+{
+    "location": 50183,
+    "company": "AWN",
+    "matCode": "NEW0APXM256-GD01",
+    "orderTypes": [
+        "New Registration"
+    ],
+    "chargeTypes": [
+        "Post-paid"
+    ],
+    "offset": 1,
+    "max": 10
+}

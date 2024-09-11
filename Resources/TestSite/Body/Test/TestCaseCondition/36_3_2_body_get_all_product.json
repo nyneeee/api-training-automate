@@ -1,0 +1,11 @@
+{
+    "brand": "HUAWEI",
+    "offset": "1",
+    "maxRow": "10",
+    "productType": [
+        "DEVICE"
+    ],
+    "productSubtype": [
+        "SPECIAL PRODUCT"
+    ]
+}
