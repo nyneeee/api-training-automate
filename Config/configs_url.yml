@@ -15,21 +15,23 @@ Domain:
 
 # Config Path
 TestCase_001:
+  Method: GET
   Path: /api/users
   QueryString:
-    page: 2
+    page: "2"
+  Ecode: "200"
 
 TestCase_002:
-  Path: /api/users
-  QueryString:
-    page: 2
+  Method: GET
+  Path: /api/users/2
+  Ecode: "200"
 
 TestCase_003:
-  Path: /api/users
-  QueryString:
-    page: 2
+  Method: POST
+  Path: /api/register
+  Ecode: "200"
 
 TestCase_004:
-  Path: /api/users
-  QueryString:
-    page: 2
+  Method: POST
+  Path: /api/login
+  Ecode: "200"

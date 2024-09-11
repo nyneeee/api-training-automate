@@ -1,3 +1,8 @@
+request_api_timeout: 60
+timeout_return_status: 3
+wait_state_timeout: 30
+limit_while_loop: 10
+
 parameter_header_default:
   Content-Type: application/json
   User-Agent: PostmanRuntime
