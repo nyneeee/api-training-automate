@@ -1,9 +1,9 @@
-domain_cpc:
+Domain:
   Test:
-    asse: http://10.84.13.71
-    asea: http://10.84.145.12
-    trafficmanager: https://sit-cpc.cdc.ais.th  
+    SG_ASSE: 
+    HK_ASEA: 
+    TrafficManager: 
   Production:
-    asse: http://10.85.13.71
-    asea: http://10.85.145.12
-    trafficmanager: https://cpc.ais.co.th
+    SG_ASSE: 
+    HK_ASEA: 
+    TrafficManager: 
