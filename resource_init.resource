@@ -6,7 +6,9 @@ Library     Collections
 Library     OperatingSystem
 
 Variables   ./Config/configs_header.yml
-Variables   ./Config/configs_url.yml
+Variables   ./Config/configs_domain.yml
+Variables   ./Config/configs_testdata.yml
+Variables   ./Config/configs_timeout.yml
 
 Resource    ./Resources/Variables/commomVariables.resource
 Resource    ./Resources/Keywords/commomKeyword.resource

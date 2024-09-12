@@ -1,0 +1,15 @@
+# Run Required 
+run_Site: SIT       
+run_Domain: Mockup      
+
+Domain:
+  SIT:
+    SG_ASSE: http://10.84.13.71
+    HK_ASEA: http://10.84.145.12
+    TrafficManager: https://reqres.sit.in
+    Mockup: https://reqres.in
+  PRD:
+    SG_ASSE: http://10.84.13.712
+    HK_ASEA: http://10.84.145.123
+    TrafficManager: https://reqres.prd.in
+    Mockup: https://reqres.in

@@ -56,7 +56,6 @@ Get List Key And Count From Json
     ...    Get list "key" from "response" and create "list" 
     ...    ${json_path} Config path : "./Resources/Response/file.json" 
     ...    ${type} Support ["ArrayObject", "Object"]
-    [Tags]    keyword_action
     [Arguments]    ${json_path}    ${json_object}=${EMPTY}    
     IF  "${json_object}" == "${EMPTY}"
             @{values}	Get Value From Json    ${response.json()}	${json_path}
@@ -80,14 +79,18 @@ Get List Key And Count From Json
 
 Log Response Json
     [Documentation]    Owner : Patipan.w
-    [Tags]    keyword_action
-    [Arguments]    ${json}
-    ${json_formatter}    Evaluate    json.dumps(${json}, indent=4, ensure_ascii=False)    json
+    [Arguments]    ${value}
+    ${json_formatter}    Convert To Json Format Document    ${value}
     Log Many    ${json_formatter}
+
+Convert To Json Format Document
+    [Documentation]    Owner : Patipan.w  
+    [Arguments]    ${value}
+    ${json_formatter}    Evaluate    json.dumps(${value}, indent=4, ensure_ascii=False)    json
+    RETURN    ${json_formatter}
 
 Check Type
     [Documentation]    Owner : Patipan.w  
-    [Tags]    keyword_action
     [Arguments]    ${value}
     ${type_value}    Evaluate    type($value)
     [Return]    ${type_value}
