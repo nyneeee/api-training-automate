@@ -96,13 +96,12 @@ Check Type
     ${type_value}    Evaluate    type($value)
     [Return]    ${type_value}
 
-# Mockup Response สำหรับ Test เท่านั้นไม่ใช่ Response ของจริง
 Mock Up Response For Test
     [Documentation]    Owner : Patipan.w  
     ...    *** สำหรับ Mockup Response เพื่อ Test เท่านั้น ***
     ...    *** หลังจบโปรเจคจะนำออก หรือ Comment ***
     ...    สร้างไฟล์ "mockup_response.json" ใน path = "/Resources/Mock"
-    ...    ส่ง path = "${CURDIR}/mockup_response.json" ใน path = "Resources/TestSite/URL/common/jsonfile_config.resource"
+    ...    ส่ง path ที่อยู่ของไฟล์ "mockup_response.json" ใน path_file_mockup_response = "${CURDIR}/../Resources/Mock/mockup_response.json"
     ...    สามารถ Mockup Response API ในไฟล์ mockup_response.json เพื่อตรวจเช็ค JSON SCHEMA ได้
     [Arguments]    ${path_file_mockup_response}
     ${json_response_mockup}    Load Json From File    ${path_file_mockup_response}    encoding=UTF-8
