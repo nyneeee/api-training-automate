@@ -536,9 +536,10 @@ Ex17_Validate Json By Schema (ตัวอย่างการเช็ค O/M 
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
     ...    ** Test Step Description **
-    ...    - ยิง API เพื่อทดสอบ Condition Multiple
-    ...    (โดยใช้ TestData ที่ 004 เพื่อยิง API - POST Login - successful)
+    ...    - 
     ...    ${\n} ==>
     ...    ** Expected Result **
-    ...    - "json path" == "$.data" จะต้องมี length >= "1"
-    [Tags]    sendAPI    POST
+    ...    - 
+    [Tags]    ValidateJsonSchema 
+    ${response_mockup}    Mock Up Response For Test    path_file_mockup_response=${CURDIR}/../Resources/Mock/mockup_response.json
+    ${response_mockup}    Convert To Json Format Document    ${response_mockup}
