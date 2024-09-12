@@ -541,5 +541,6 @@ Ex17_Validate Json By Schema (ตัวอย่างการเช็ค O/M 
     ...    ** Expected Result **
     ...    - 
     [Tags]    ValidateJsonSchema 
+    # กรณีนี้ขอจำลอง สร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค Schema
     ${response_mockup}    Mock Up Response For Test    path_file_mockup_response=${CURDIR}/../Resources/Mock/mockup_response.json
     ${response_mockup}    Convert To Json Format Document    ${response_mockup}
