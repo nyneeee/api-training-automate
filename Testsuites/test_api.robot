@@ -5,6 +5,10 @@ Resource    ../resource_init.resource
 Ex01_Variables (ตัวอย่าง)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i var -d log test_api.robot  # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -d log test_api.robot         # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ตัวอย่างทดสอบ Variables
     ...    ${\n} ==>
@@ -29,9 +33,13 @@ Ex01_Variables (ตัวอย่าง)
 Ex02_Keywords - Arguments & Embed (ตัวอย่าง)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i arg&embed -d log test_api.robot  # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -d log test_api.robot               # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ตัวอย่างทดสอบ Arguments
-    [Tags]    arg    embed
+    [Tags]    arg&embed
     # ตัวอย่างการส่ง Arguments
     ${result}    Convert Value To Upper Case    value=Nick Name
     # ตัวอย่างการส่ง Embed
@@ -39,6 +47,11 @@ Ex02_Keywords - Arguments & Embed (ตัวอย่าง)
 
 Ex03_Condition - IF/ELSE (ตัวอย่าง)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i IF/ELSE -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i condition -d log test_api.robot  # หากต้องการ Run Case Condition ทั้งหมด
+    ...    - robot -d log test_api.robot               # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ตัวอย่างทดสอบ IF/ELSE
@@ -49,6 +62,11 @@ Ex03_Condition - IF/ELSE (ตัวอย่าง)
 Ex04_Condition - Inline IF (ตัวอย่าง)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i inlineIF -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i condition -d log test_api.robot   # หากต้องการ Run Case Condition ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ตัวอย่างทดสอบ IF/ELSE
     [Tags]    condition    inlineIF
@@ -57,6 +75,11 @@ Ex04_Condition - Inline IF (ตัวอย่าง)
 
 Ex05_Condition - Multiple and / or (ตัวอย่าง 1 Validate แล้ว Success ตรงตามเงื่อนไขที่ดัก)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i multiple -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i condition -d log test_api.robot   # หากต้องการ Run Case Condition ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -80,6 +103,11 @@ Ex05_Condition - Multiple and / or (ตัวอย่าง 1 Validate แล�
 Ex06_Condition - Multiple and / or (ตัวอย่าง 2 Validate แล้ว Success ตรงตามเงื่อนไขที่ดัก)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i multiple -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i condition -d log test_api.robot   # หากต้องการ Run Case Condition ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 002 เพื่อยิง API - GET SINGLE USER)
@@ -98,6 +126,11 @@ Ex06_Condition - Multiple and / or (ตัวอย่าง 2 Validate แล�
 Ex07_Condition - Multiple and / or (ตัวอย่าง 3 Validate แล้ว Fail ไม่ตรงตามเงื่อนไขที่ดัก)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i multiple -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i condition -d log test_api.robot   # หากต้องการ Run Case Condition ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 001 เพื่อยิง API - GET SINGLE USER)
@@ -115,6 +148,11 @@ Ex07_Condition - Multiple and / or (ตัวอย่าง 3 Validate แล�
 
 Ex08_Loop - Loop List (ตัวอย่างที่ 1)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i loop_list -d log test_api.robot   # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot        # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -166,6 +204,11 @@ Ex08_Loop - Loop List (ตัวอย่างที่ 1)
 
 Ex09_Loop - Loop Dic (ตัวอย่างที่ 2)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i loop_dic -d log test_api.robot    # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot        # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -222,6 +265,11 @@ Ex09_Loop - Loop Dic (ตัวอย่างที่ 2)
 Ex10_Loop - Loop IN RANGE (ตัวอย่างที่ 3)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i loop_range -d log test_api.robot  # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot        # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 001 เพื่อยิง API)
@@ -239,7 +287,6 @@ Ex10_Loop - Loop IN RANGE (ตัวอย่างที่ 3)
     ...    method=${TestData_001.Method}    
     ...    verify_ecode=${TestData_001.Ecode}    
     ...    url=${Domain.${run_Site}.${run_Domain}}${TestData_001.Path}?page=${TestData_001.QueryString.page}
-    ...    path_body_request=${CURDIR}/../../Body/9_service_reliability/${run_Site}/9_body_check_death_status.json
     # Count Value และ Get Value ตามที่ส่ง Json Path ไป 
     # ...  - ${KEY_VALUE} จะถูก Set Variable ขึ้นให้เรียกใช้
     # ...  - ${count} จะถูก RETURN ให้เรียกใช้
@@ -279,6 +326,11 @@ Ex10_Loop - Loop IN RANGE (ตัวอย่างที่ 3)
 
 Ex11_Loop - Loop IN ENUMERATE (ตัวอย่างที่ 4)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i loop_enum -d log test_api.robot   # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot        # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -332,6 +384,11 @@ Ex11_Loop - Loop IN ENUMERATE (ตัวอย่างที่ 4)
 Ex12_Loop - Loop Exit And Continue (ตัวอย่างที่ 5)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i loop_exit&continue -d log test_api.robot   # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot                 # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                         # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 001 เพื่อยิง API)
@@ -374,6 +431,11 @@ Ex12_Loop - Loop Exit And Continue (ตัวอย่างที่ 5)
 
 Ex13_WHILE Loop (ตัวอย่างที่ 1)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i while_loop -d log test_api.robot   # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot         # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                 # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -434,6 +496,11 @@ Ex13_WHILE Loop (ตัวอย่างที่ 1)
 
 Ex14_WHILE Loop (ตัวอย่างที่ 2)
     [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i while_loop -d log test_api.robot   # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i loop -d log test_api.robot         # หากต้องการ Run Case Loop ทั้งหมด
+    ...    - robot -d log test_api.robot                 # หากต้องการ Run Case ทั้งหมด
     ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
@@ -499,6 +566,11 @@ Ex14_WHILE Loop (ตัวอย่างที่ 2)
 Ex15_Send Request API : GET - LIST USERS (ตัวอย่างที่ 1 เขียนตาม Doc)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i GET -d log test_api.robot        # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i sendAPI -d log test_api.robot    # หากต้องการ Run Case sendAPI ทั้งหมด
+    ...    - robot -d log test_api.robot               # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 001 เพื่อยิง API - GET LIST USERS)
@@ -516,6 +588,11 @@ Ex15_Send Request API : GET - LIST USERS (ตัวอย่างที่ 1 �
 Ex16_Send Request API : POST - LOGIN SUCCESSFUL (ตัวอย่างที่ 2 เขียนตาม Doc)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i POST -d log test_api.robot       # หากต้องการ Run เฉพาะ Case นี้
+    ...    - robot -i sendAPI -d log test_api.robot    # หากต้องการ Run Case sendAPI ทั้งหมด
+    ...    - robot -d log test_api.robot               # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
     ...    - ยิง API เพื่อทดสอบ Condition Multiple
     ...    (โดยใช้ TestData ที่ 004 เพื่อยิง API - POST Login - successful)
@@ -532,19 +609,23 @@ Ex16_Send Request API : POST - LOGIN SUCCESSFUL (ตัวอย่างที�
     ...    verify=${True}
     Log Many    ${response.json()}
 
-Ex17_Validate Json By Schema (ใช้ Keyword จาก JSONLibrary)
+Ex17_Validate Json By Schema (ตัวอย่างที่ 1 ใช้ Keyword จาก JSONLibrary)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i validateJsonSchema -d log test_api.robot    # หากต้องการ Run Case ValidateJsonSchema ทั้งหมด
+    ...    - robot -d log test_api.robot                          # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
-    ...    1. Mockup Response
-    ...    2. ใช้ Validate Json By Schema จาก JSONLibrary ในการ Validate
+    ...    - Mockup Response
+    ...    - ใช้ Validate Json By Schema จาก JSONLibrary ในการ Validate
     ...    ${\n} ==>
     ...    ** Expected Result **
     ...    - Validate Parameter Required (M/O) และ Type Parameter (String / Integer / Boolean / Number / Null )
     ...    ${\n} ==>
     ...    ** ข้อเสีย **
     ...    - ถ้าหากเกิด Fail จะไม่สามารถแสดง Error ได้ว่า Fail ที่ตัวไหน
-    [Tags]    ValidateJsonSchema 
+    [Tags]    validateJsonSchema 
     # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
     ${response_mockup}    Mock Up Response For Test
     # เช็คการ Validate 
@@ -552,19 +633,23 @@ Ex17_Validate Json By Schema (ใช้ Keyword จาก JSONLibrary)
     Validate Json By Schema    json_object=${response_mockup}    
     ...                        schema=${json_schema}
 
-Ex18_Validate Json By Schema (ใช้ Keyword จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้)
+Ex18_Validate Json By Schema (ตัวอย่างที่ 2 ใช้ Keyword จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
+    ...    ** CMD Run Robot **
+    ...    - robot -i validateJsonSchema -d log test_api.robot    # หากต้องการ Run Case ValidateJsonSchema ทั้งหมด
+    ...    - robot -d log test_api.robot                          # หากต้องการ Run Case ทั้งหมด
+    ...    ${\n} ==>
     ...    ** Test Step Description **
-    ...    1. Mockup Response
-    ...    2. ใช้ Validate Json Schema And Return Error จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้ในการ Validate
+    ...    - Mockup Response
+    ...    - ใช้ Validate Json Schema And Return Error จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้ในการ Validate
     ...    ${\n} ==>
     ...    ** Expected Result **
     ...    - Validate Parameter Required (M/O) และ Type Parameter (String / Integer / Boolean / Number / Null )
     ...    ${\n} ==>
     ...    ** ข้อดี **
     ...    - สามารถแสดง Error ได้ว่า Fail ที่ Parameter ตัวไหน
-    [Tags]    ValidateJsonSchema 
+    [Tags]    validateJsonSchema 
     # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
     ${response_mockup}    Mock Up Response For Test
     # เช็คการ Validate
