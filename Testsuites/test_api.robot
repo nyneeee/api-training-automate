@@ -532,15 +532,42 @@ Ex16_Send Request API : POST - LOGIN SUCCESSFUL (ตัวอย่างที�
     ...    verify=${True}
     Log Many    ${response.json()}
 
-Ex17_Validate Json By Schema (ตัวอย่างการเช็ค O/M และประเภท Type ของ Parameter)
+Ex17_Validate Json By Schema (ใช้ Keyword จาก JSONLibrary)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
     ...    ** Test Step Description **
-    ...    - 
+    ...    1. Mockup Response
+    ...    2. ใช้ Validate Json By Schema จาก JSONLibrary ในการ Validate
     ...    ${\n} ==>
     ...    ** Expected Result **
-    ...    - 
+    ...    - Validate Parameter Required (M/O) และ Type Parameter (String / Integer / Boolean / Number / Null )
+    ...    ${\n} ==>
+    ...    ** ข้อเสีย **
+    ...    - ถ้าหากเกิด Fail จะไม่สามารถแสดง Error ได้ว่า Fail ที่ตัวไหน
     [Tags]    ValidateJsonSchema 
-    # กรณีนี้ขอจำลอง สร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค Schema
-    ${response_mockup}    Mock Up Response For Test    path_file_mockup_response=${CURDIR}/../Resources/Mock/mockup_response.json
-    ${response_mockup}    Convert To Json Format Document    ${response_mockup}
+    # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
+    ${response_mockup}    Mock Up Response For Test
+    # เช็คการ Validate 
+    ${json_schema}    Load Json Schema File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
+    Validate Json By Schema    json_object=${response_mockup}    
+    ...                        schema=${json_schema}
+
+Ex18_Validate Json By Schema (ใช้ Keyword จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้)
+    [Documentation]    Owner : Patipan.w
+    ...    ${\n} ==>
+    ...    ** Test Step Description **
+    ...    1. Mockup Response
+    ...    2. ใช้ Validate Json Schema And Return Error จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้ในการ Validate
+    ...    ${\n} ==>
+    ...    ** Expected Result **
+    ...    - Validate Parameter Required (M/O) และ Type Parameter (String / Integer / Boolean / Number / Null )
+    ...    ${\n} ==>
+    ...    ** ข้อดี **
+    ...    - สามารถแสดง Error ได้ว่า Fail ที่ Parameter ตัวไหน
+    [Tags]    ValidateJsonSchema 
+    # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
+    ${response_mockup}    Mock Up Response For Test
+    # เช็คการ Validate
+    ${json_schema}    Load Json Schema File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
+    Validate Json Schema And Return Error      json_object=${response_mockup}    
+    ...                                        schema=${json_schema}

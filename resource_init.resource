@@ -4,6 +4,7 @@ Library     JSONLibrary
 Library     String
 Library     Collections   
 Library     OperatingSystem
+Library     ./Resources/Keywords/CustomLibraryAPI/lib_api.py
 
 Variables   ./Config/configs_header.yml
 Variables   ./Config/configs_domain.yml

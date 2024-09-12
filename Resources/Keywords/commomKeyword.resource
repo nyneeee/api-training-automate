@@ -103,6 +103,12 @@ Mock Up Response For Test
     ...    สร้างไฟล์ "mockup_response.json" ใน path = "/Resources/Mock"
     ...    ส่ง path ที่อยู่ของไฟล์ "mockup_response.json" ใน path_file_mockup_response = "${CURDIR}/../Resources/Mock/mockup_response.json"
     ...    สามารถ Mockup Response API ในไฟล์ mockup_response.json เพื่อตรวจเช็ค JSON SCHEMA ได้
-    [Arguments]    ${path_file_mockup_response}
+    [Arguments]    ${path_file_mockup_response}=${CURDIR}/../Mock/mockup_response.json
     ${json_response_mockup}    Load Json From File    ${path_file_mockup_response}    encoding=UTF-8
     RETURN    ${json_response_mockup}
+
+Load Json Schema File
+    [Documentation]    Owner : Patipan.w  
+    [Arguments]    ${file}
+    ${json_schema}    Load Json From File    ${file}    encoding=UTF-8
+    RETURN    ${json_schema}
