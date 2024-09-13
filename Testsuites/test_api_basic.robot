@@ -9,6 +9,7 @@ Variables   ../Config/configs_header.yml
 Variables   ../Config/configs_domain.yml
 Variables   ../Config/configs_testdata.yml
 Variables   ../Config/configs_timeout.yml
+Resource    ../Resources/Keywords/commomKeyword.resource
 
 *** Variables ***
 ${my_variable}    Hello there
@@ -28,7 +29,9 @@ ${url_api_post}    https://reqres.in/api/login
 Get Value Json With JsonPath ${path} And Verify Should Be Equal ${expected_value}
     [Documentation]    Owner : Patipan.w
     Should Have Value In Json    ${response.json()}    json_path=${path}
-    ${actual_value}    Get Value From Json    ${response.json()}	json_path=${path}
+    ${value}    Get Value From Json    ${response.json()}	json_path=${path}
+    ${expected_value}    Convert To String    ${expected_value}
+    ${actual_value}      Convert To String    ${value}[0]
     Should Be Equal    ${actual_value}    ${expected_value}
     Log Many    ${response.json()}
 
@@ -37,8 +40,10 @@ Get Value Json And Verify Should Be Equal
     [Documentation]    Owner : Patipan.w
     [Arguments]    ${path}    ${expected_value}
     Should Have Value In Json    ${response.json()}    json_path=${path}
-    ${actual_value}    Get Value From Json    ${response.json()}	json_path=${path}
-    Should Be Equal    ${actual_value}    ${expected_value}
+    ${value}    Get Value From Json    ${response.json()}	json_path=${path}
+    ${expected_value}    Convert To String    ${expected_value}
+    ${actual_value}      Convert To String    ${value}[0]
+    Should Be Equal    ${actual_value}   ${expected_value}
     Log Many    ${response.json()}
 
 *** Test Cases ***
@@ -92,7 +97,7 @@ Ex02_Send Request API : GET - LIST USERS (ตัวอย่างที่ 1 �
     ${response}       GET    url=${url_api_get}          headers=${json_header}    
     ...    expected_status=200     timeout=60    
     ${result_total}    Get Value From Json    ${response.json()}	json_path=$.total
-    Should Be Equal As Integers    ${result_total}    12
+    Should Be Equal As Integers    ${result_total}[0]    12
     Log Many    ${response.json()}
     
 Ex03_Send Request API : POST - LOGIN SUCCESSFUL (ตัวอย่างที่ 2 เขียนตาม Doc RequestsLibrary)
@@ -140,7 +145,8 @@ Ex04_Keywords - Embed (ตัวอย่างที่ 1)
     [Tags]    keyword&embed    
     &{json_header}    Create Dictionary    Content-Type=application/json    User-Agent=PostmanRuntime
     ${response}       GET    url=${url_api_get}    headers=${json_header}    
-    ...    expected_status=200     timeout=60  
+    ...    expected_status=200     timeout=60 
+    Set Test Variable    ${response}    ${response}
     Get Value Json With JsonPath $.total And Verify Should Be Equal 12
 
 Ex05_Keywords - Arguments (ตัวอย่างที่ 2)
@@ -161,7 +167,8 @@ Ex05_Keywords - Arguments (ตัวอย่างที่ 2)
     [Tags]    keyword&arg  
     &{json_header}    Create Dictionary    Content-Type=application/json    User-Agent=PostmanRuntime
     ${response}       GET    url=${url_api_get}    headers=${json_header}    
-    ...    expected_status=200     timeout=60  
+    ...    expected_status=200     timeout=60
+    Set Test Variable    ${response}    ${response}     
     Get Value Json And Verify Should Be Equal    path=$.total    expected_value=12
 
 Ex06_Validate Json By Schema (ตัวอย่างที่ 1 ใช้ Keyword จาก JSONLibrary)
