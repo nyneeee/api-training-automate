@@ -1,5 +1,10 @@
 ##### กด Ctrl+Shift+v (เพื่ออ่านง่ายขึ้น)
 
+## การเปิด Terminal เพื่อ Run Automate
+* คลิ๊กขวาที่ Folder **Testsuites** หรือ **File** ที่แสดงอยู่ใน Folder Testsuites
+* ไปที่ **Open in Integrated Terminal**
+## คำสั่ง Run Robot ผ่าน Terminal
+
 ###  **คำสั่ง Run Robot Framework ผ่าน Terminal**
 __ให้เข้าไปที่ path ที่เก็บไฟล์ Testsuite__
 * เปิด Terminal ใน VS Code
@@ -16,12 +21,6 @@ Run     robot -d log ชื่อไฟล์ที่เขียน Automate.r
 |Run เฉพาะ Case ที่เป็น Tag "sendAPI"|-i|robot -d log -i sendAPI test_api_basic.robot|
 |Run ทุก Case แต่ยกเว้น Case ที่เป็น Tag "var"|-e หรือ --exclude|robot -d log -e var test_api_basic.robot|
 |Run ทุก Case แต่มีการส่งค่า var เข้าไปเปลื่ยนแปลง value ของ var ที่ชื่อว่า "run_Site" ให้มีค่าเท่ากับ SIT |-v|robot -d log -v run_Site:SIT test_api_basic.robot|
-
-
-## การเปิด Terminal เพื่อ Run Automate
-* คลิ๊กขวาที่ Folder **Testsuites** หรือ **File** ที่แสดงอยู่ใน Folder Testsuites
-* ไปที่ **Open in Integrated Terminal**
-## คำสั่ง Run Robot ผ่าน Terminal
 
 * -d    คือการสร้าง Folder แล้วตั้งชื่อเพื่อเก็บ Log
 
