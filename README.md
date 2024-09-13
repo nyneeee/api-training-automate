@@ -1,58 +1,22 @@
 ##### กด Ctrl+Shift+v (เพื่ออ่านง่ายขึ้น)
 
 ###  **คำสั่ง Run Robot Framework ผ่าน Terminal**
+__ให้เข้าไปที่ path ที่เก็บไฟล์ Testsuite__
+* เปิด Terminal ใน VS Code
+* รันคำสั่ง `cd Testsuites` 
 
-|คำอธิบาย|Argument Flags ที่ใช้|ตัวอย่าง CMD|
+```python
+Run     cd Testsuites
+Run     robot -d log ชื่อไฟล์ที่เขียน Automate.robot
+```
+
+|คำอธิบาย|Argument Flags ที่ใช้|ตัวอย่าง Run CMD|
 | :----: | :---- | :---- |
 |Run ทุก Case และสร้าง documents ที่ชื่อว่า "log" ไว้เก็บไฟล์ log ของ robot|-d|robot -d log test_api_basic.robot หรือ robot -d log test_api_advanced.robot|
 |Run เฉพาะ Case ที่เป็น Tag "sendAPI"|-i|robot -d log -i sendAPI test_api_basic.robot|
 |Run ทุก Case แต่ยกเว้น Case ที่เป็น Tag "var"|-e หรือ --exclude|robot -d log -e var test_api_basic.robot|
 |Run ทุก Case แต่มีการส่งค่า var เข้าไปเปลื่ยนแปลง value ของ var ที่ชื่อว่า "run_Site" ให้มีค่าเท่ากับ SIT |-v|robot -d log -v run_Site:SIT test_api_basic.robot|
 
-### การสร้างโปรเจค **Environment**
-
-__ให้สร้างไว้ชั้นนอกสุดของโปรเจค__
-* เปิด Terminal ใน VS Code
-* รันคำสั่ง `python -m venv (ชื่อ Environment)` 
-
-```python
-Run     python -m venv ชื่อ Environment
-```
-
-#### Activate Environment 
-##### Windows 
-  
-  ให้เปิด Terminal ใน VS Code ชั้นนอกสุดของโปรเจค  และ Run คำสั่งตามนี้
-
-```python
-Run     <ชื่อ Environment>\Scripts\activate
-```
-* เมื่อ Run คำสั่งข้างต้นแล้ว สังเกตใน Terminal จะแสดง ชื่อ (Environment) ที่เราตั้ง ตามด้วย Devices ที่เก็บโปรเจค
-```python
-(Environment) C:\Users\....>
-```
-##### Mac หรือ Linux
-  
-  ให้เปิด Terminal ใน VS Code ชั้นนอกสุดของโปรเจค  และ Run คำสั่งตามนี้
-
-```python
-Run     Source <ชื่อ Environment>/bin/activate
-```
-* เมื่อ Run คำสั่งข้างต้นแล้ว สังเกตใน Terminal จะแสดง ชื่อ (Environment) ที่เราตั้ง ตามด้วย Devices ที่เก็บโปรเจค
-```python
-(Environment) folder/..
-```
-
-*note* :  ถ้าต้องการออกจาก Environment ที่สร้าง
-```python
-Run     deactivate
-```
-
-### การ Install Library **requirements.txt**  
-* ใช้คำสั่ง
-```python
-Run     pip install -r requirements.txt
-```
 
 ## การเปิด Terminal เพื่อ Run Automate
 * คลิ๊กขวาที่ Folder **Testsuites** หรือ **File** ที่แสดงอยู่ใน Folder Testsuites
