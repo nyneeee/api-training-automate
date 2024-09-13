@@ -75,7 +75,7 @@ Get List Key And Count From Json
         Fail    msg=No Support Type == "${value_type}",
     END
     Log Response Json    ${values}   
-    [Return]             ${count}
+    RETURN             ${count}
 
 Log Response Json
     [Documentation]    Owner : Patipan.w
@@ -94,7 +94,7 @@ Check Type
     [Documentation]    Owner : Patipan.w  
     [Arguments]    ${value}
     ${type_value}    Evaluate    type($value)
-    [Return]    ${type_value}
+    RETURN    ${type_value}
 
 Mock Up Response For Test
     [Documentation]    Owner : Patipan.w  

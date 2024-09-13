@@ -8,8 +8,3 @@ ${my_variable}    Hello there
 &{profile}        firstname=Patipan
 ...               nickname=Nine
 ...               phone=0903921321
-
-
-
-
-
