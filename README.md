@@ -4,10 +4,10 @@
 
 |คำอธิบาย|Argument Flags ที่ใช้|ตัวอย่าง CMD|
 | :----: | :---- | :---- |
-|Run ทุก TestCase และสร้าง documents ที่ชื่อว่า "log" ไว้เก็บไฟล์ log ของ robot|-d|robot -d log test_api_basic.robot หรือ robot -d log test_api_advanced.robot|
-|Run เฉพาะ TestCase ที่เป็น Tag sendAPI|-i|robot -d log -i sendAPI test_api_basic.robot|
-|Run ทุก TestCase แต่ ยกเว้น TestCase ที่เป็น Tag var|-e หรือ --exclude|robot -d log -e var test_api_basic.robot|
-|Run ทุก TestCase แต่มีการส่งค่า variable เข้าไปเปลื่ยนแปลง value ของ variable ที่ชื่อว่า run_Site ให้มีค่าเท่ากับ SIT |-e หรือ --exclude|robot -d log -v run_Site:SIT test_api_basic.robot|
+|Run ทุก Case และสร้าง documents ที่ชื่อว่า "log" ไว้เก็บไฟล์ log ของ robot|-d|robot -d log test_api_basic.robot หรือ robot -d log test_api_advanced.robot|
+|Run เฉพาะ Case ที่เป็น Tag "sendAPI"|-i|robot -d log -i sendAPI test_api_basic.robot|
+|Run ทุก Case แต่ยกเว้น Case ที่เป็น Tag "var"|-e หรือ --exclude|robot -d log -e var test_api_basic.robot|
+|Run ทุก Case แต่มีการส่งค่า var เข้าไปเปลื่ยนแปลง value ของ var ที่ชื่อว่า "run_Site" ให้มีค่าเท่ากับ SIT |-v|robot -d log -v run_Site:SIT test_api_basic.robot|
 
 ### การสร้างโปรเจค **Environment**
 
@@ -70,9 +70,9 @@ Run     robot -d "Result" -v "testsite:Test" Test.robot
 Run     robot -d "Result" -v "testsite:Production" Test.robot
 ```
 
-* -t    รันเฉพาะข้อ Testcase
+* -t    รันเฉพาะข้อ Case
 ```python
-Run     robot -d "Result" -t "Testcase" -v "testsite:Test" Test.robot
+Run     robot -d "Result" -t "Case" -v "testsite:Test" Test.robot
 ```
 
 * -e    รันทุกข้อ ยกเว้น Tag On-Hold
