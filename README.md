@@ -7,10 +7,10 @@
 ## คำสั่ง Run Robot ผ่าน Terminal
 __ให้เข้าไปที่ path ที่เก็บไฟล์ Testsuite__
 * เปิด Terminal ใน VS Code
-* รันคำสั่ง `robot -d log ชื่อไฟล์ที่เขียน test_automate.robot` 
+* รันคำสั่ง `robot -d log test_automate.robot(ชื่อไฟล์ที่เขียน Test)` 
 
 ```python
-Run     robot -d log ชื่อไฟล์ที่เขียน test_automate.robot
+Run     robot -d log test_automate.robot(ชื่อไฟล์ที่เขียน Test)
 ```
 
 |คำอธิบาย Argument Flags |Argument Flags ที่ใช้|ตัวอย่าง Run CMD|
