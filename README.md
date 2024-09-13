@@ -3,19 +3,17 @@
 ## การเปิด Terminal เพื่อ Run Automate
 * คลิ๊กขวาที่ Folder **Testsuites** หรือ **File** ที่แสดงอยู่ใน Folder Testsuites
 * ไปที่ **Open in Integrated Terminal**
-## คำสั่ง Run Robot ผ่าน Terminal
 
-###  **คำสั่ง Run Robot Framework ผ่าน Terminal**
+## คำสั่ง Run Robot ผ่าน Terminal
 __ให้เข้าไปที่ path ที่เก็บไฟล์ Testsuite__
 * เปิด Terminal ใน VS Code
-* รันคำสั่ง `cd Testsuites` 
+* รันคำสั่ง `robot -d log ชื่อไฟล์ที่เขียน test_automate.robot` 
 
 ```python
-Run     cd Testsuites
-Run     robot -d log ชื่อไฟล์ที่เขียน Automate.robot
+Run     robot -d log ชื่อไฟล์ที่เขียน test_automate.robot
 ```
 
-|คำอธิบาย|Argument Flags ที่ใช้|ตัวอย่าง Run CMD|
+|คำอธิบาย Argument Flags |Argument Flags ที่ใช้|ตัวอย่าง Run CMD|
 | :----: | :---- | :---- |
 |Run ทุก Case และสร้าง documents ที่ชื่อว่า "log" ไว้เก็บไฟล์ log ของ robot|-d|robot -d log test_api_basic.robot หรือ robot -d log test_api_advanced.robot|
 |Run เฉพาะ Case ที่เป็น Tag "sendAPI"|-i|robot -d log -i sendAPI test_api_basic.robot|
@@ -26,26 +24,26 @@ Run     robot -d log ชื่อไฟล์ที่เขียน Automate.r
 
 * run ทุกข้อ Site Test
 ```python
-Run     robot -d "Result" -v "testsite:Test" Test.robot
+Run     robot -d "Result" -v "testsite:Test" test_automate.robot
 
 * run ทุกข้อ Site Production
 ```python
-Run     robot -d "Result" -v "testsite:Production" Test.robot
+Run     robot -d "Result" -v "testsite:Production" test_automate.robot
 ```
 
 * -t    รันเฉพาะข้อ Case
 ```python
-Run     robot -d "Result" -t "Case" -v "testsite:Test" Test.robot
+Run     robot -d "Result" -t "Case" -v "testsite:Test" test_automate.robot
 ```
 
 * -e    รันทุกข้อ ยกเว้น Tag On-Hold
 
 ```python
-Run     robot -d "Result" -e "On-Hold" -v "testsite:Test" Test.robot
+Run     robot -d "Result" -e "On-Hold" -v "testsite:Test" test_automate.robot
 ```
 * -i    รันทุกข้อ ที่มี Tag On-Hold
 ```python
-Run     robot -d "Result" -i "On-Hold" -v "testsite:Test" Test.robot
+Run     robot -d "Result" -i "On-Hold" -v "testsite:Test" test_automate.robot
 ```
 
 ## การแก้ไข Data ที่ใช้ในการเทส API
