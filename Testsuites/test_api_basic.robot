@@ -184,9 +184,8 @@ Ex06_Validate Json By Schema (ตัวอย่างที่ 1 ใช้ Keyw
     # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
     ${response_mockup}    Mock Up Response For Test
     # เช็คการ Validate 
-    ${json_schema}    Load Json Schema File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
-    Validate Json By Schema    json_object=${response_mockup}    
-    ...                        schema=${json_schema}
+    ${json_schema}    Load Json From File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
+    Validate Json By Schema    json_object=${response_mockup}    schema=${json_schema}
 
 Ex07_Validate Json By Schema (ตัวอย่างที่ 2 ใช้ Keyword จาก CustomLibraryAPI ที่ทางทีม Automate เขียนไว้)
     [Documentation]    Owner : Patipan.w
@@ -208,6 +207,5 @@ Ex07_Validate Json By Schema (ตัวอย่างที่ 2 ใช้ Keyw
     # กรณีนี้ขอจำลอง Response โดยการสร้าง Mockup Response ขึ้นเพื่อใช้ เป็นตัวอย่างการเช็ค JsonSchema
     ${response_mockup}    Mock Up Response For Test
     # เช็คการ Validate
-    ${json_schema}    Load Json Schema File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
-    Validate Json Schema And Return Error      json_object=${response_mockup}    
-    ...                                        schema=${json_schema}
+    ${json_schema}    Load Json From File    file=${CURDIR}/../Resources/TestSite/Schema/001_schema.json
+    Validate Json Schema And Return Error      json_object=${response_mockup}    schema=${json_schema}
