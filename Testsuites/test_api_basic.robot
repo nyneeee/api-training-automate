@@ -57,6 +57,7 @@ Ex01_Variables (ตัวอย่าง)
     ...    ** Test Step Description **
     ...    - ตัวอย่างทดสอบ Variables
     ...    ${\n} ==>
+    
     ...    ** Expected Result **
     ...    Log เพื่อดู Result
     ...        -  $my_variable 
