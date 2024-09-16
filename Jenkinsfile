@@ -5,6 +5,9 @@ pipeline {
         SITE_TEST = "main"
         PATH = "/opt/homebrew/bin:${env.PATH}"
     }
+    triggers {
+        githubPush()  // สำหรับ GitHub
+    }
     stages {
         stage('Test Checkout GitHub') {
             steps {
