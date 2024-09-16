@@ -46,7 +46,7 @@ Get Value Json And Verify Should Be Equal
     Should Be Equal    ${actual_value}   ${expected_value}
     Log Many    ${response.json()}
 
-*** Test Cases ***
+*** Test Cases *** 
 Ex01_Variables (ตัวอย่าง)
     [Documentation]    Owner : Patipan.w
     ...    ${\n} ==>
