@@ -1,0 +1,257 @@
+name: pre-test
+
+on:
+  workflow_call:
+    secrets:
+      PASS_GMAIL:
+        required: true
+      ACC_TOKEN:
+        required: true
+      USER_GMAIL:
+        required: true
+    inputs:
+      GH_RUNNER_TAG:
+        type: string
+        description: "Image tag"
+        required: true
+      REGION:
+        type: string
+        description: "Region"
+        required: true
+      SITE_TEST:
+        type: string
+        description: "Site Test Automate"
+        required: true
+      BRANCH_REF: 
+        type: string
+        description: "Branch Automate"
+        required: true
+
+jobs:
+  automate:
+    runs-on: ${{ inputs.GH_RUNNER_TAG }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: corp-ais/cpc-ate
+          ref: ${{ inputs.BRANCH_REF }}
+          token: ${{ secrets.ACC_TOKEN }}
+
+      - name: Get CMD_RUN_PRE_TEST from .yaml [PRE_TEST][${{ inputs.REGION }}]
+        run: |
+          cd Config
+          ls -lrt
+          CMD_RUN_PRE_TEST=$(cat cicd_workflow_config.yml | grep 'cmd_run_robot_automate_pre_test_${{ inputs.REGION }}_${{ inputs.SITE_TEST }}' | cut -d ':' -f 2- )
+          echo "$CMD_RUN_PRE_TEST"
+          echo "CMD_RUN_PRE_TEST=${CMD_RUN_PRE_TEST}" >> $GITHUB_ENV
+
+      - name: Run Robot [PRE_TEST][${{ inputs.REGION }}]
+        run: |
+          cd Testsuites
+          $CMD_RUN_PRE_TEST
+
+      - name: Upload Log Automate [PRE_TEST][${{ inputs.REGION }}]
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log_pre_automate_${{ inputs.REGION }}
+          path: ./Testsuites/log_pre_automate_${{ inputs.REGION }}
+
+      - name: Upload Response Json [PRE_TEST][${{ inputs.REGION }}]
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: response_json_pre_test_${{ inputs.REGION }}
+          path: ./Testsuites/pre_response_${{ inputs.REGION }}
+
+  mail-fail:
+    if: always() && (needs.automate.result == 'failure')
+    needs: [automate]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Log Automate [PRE_TEST][${{ inputs.REGION }}]
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: log_pre_automate_${{ inputs.REGION }}
+          path: ./Testsuites/log_pre_automate_${{ inputs.REGION }}
+
+    # Get Status Test
+      - name: Get Status Result [PRE-TEST]   
+        if: always()
+        run: |
+          cd Testsuites
+          cd log_pre_automate_${{ inputs.REGION }}
+          ls -lrt
+          PRE_STATUS=$(grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' output.xml | sed -n 's/.*pass="\([0-9]*\)" fail="\([0-9]*\)" skip="\([0-9]*\)">All Tests<\/stat>.*/Pass: \1, Fail: \2, Skip: \3/p')
+          PRE_PASS=$(echo "$PRE_STATUS" | grep -oP '(?<=Pass: )[0-9]+')
+          PRE_FAIL=$(echo "$PRE_STATUS" | grep -oP '(?<=Fail: )[0-9]+')
+          PRE_SKIP=$(echo "$PRE_STATUS" | grep -oP '(?<=Skip: )[0-9]+')
+          PRE_PASS=${PRE_PASS:-0}
+          PRE_FAIL=${PRE_FAIL:-0}
+          PRE_SKIP=${PRE_SKIP:-0}
+          PRE_TOTAL=$(($PRE_PASS + $PRE_FAIL + $PRE_SKIP))
+          echo Pre-Test TOTAL:"$PRE_TOTAL"
+          echo Pre-Test PASS:"$PRE_PASS"
+          echo Pre-Test FAIL:"$PRE_FAIL"
+          echo Pre-Test SKIP:"$PRE_SKIP"
+          echo "PRE_TOTAL='${PRE_TOTAL}'" >> $GITHUB_ENV
+          echo "PRE_PASS='${PRE_PASS}'" >> $GITHUB_ENV
+          echo "PRE_FAIL='${PRE_FAIL}'" >> $GITHUB_ENV
+          echo "PRE_SKIP='${PRE_SKIP}'" >> $GITHUB_ENV
+          echo "PRE_STATUS='${PRE_STATUS}'" >> $GITHUB_ENV
+            
+    # Convert Site To Upper
+      - name: Convert name site to upper
+        if: always()
+        run: |
+          SITE_TEST_UPPER=$(echo "${{ inputs.SITE_TEST }}" | awk '{print toupper($0)}')
+          REGION_UPPER=$(echo "${{ inputs.REGION }}" | awk '{print toupper($0)}')
+          echo "SITE_TEST_UPPER=${SITE_TEST_UPPER}" >> $GITHUB_ENV
+          echo "REGION_UPPER=${REGION_UPPER}" >> $GITHUB_ENV
+          
+    # Send Mail Error
+      - name: Zip Reports [PRE_TEST][${{ inputs.REGION }}]
+        if: always()
+        run: |
+          cd Testsuites
+          zip -r ../Reports_${{ env.SITE_TEST_UPPER }}.zip log_pre_automate_${{ inputs.REGION }}/*
+
+      # Send Mail
+      - name: Send Email Notification [PRE-TEST][${{ inputs.REGION }}]
+        if: always()
+        run: |
+          python - <<EOF
+          import smtplib
+          from email.mime.multipart import MIMEMultipart
+          from email.mime.text import MIMEText
+          from email.mime.base import MIMEBase
+          from email import encoders
+  
+          # Email settings
+          subject_email = "WORKFLOW-${{ env.SITE_TEST_UPPER }}-CPC-ATE-${{ env.REGION_UPPER }}: Fail / Pre-Test"
+          heading_email = "Automate Result : Fail"
+          sender_email = "${{ secrets.USER_GMAIL }}"
+          receiver_email = "kachain.a@entronica.co.th, wattana.k@entronica.co.th, patipan.w@entronica.co.th, chalothorn.v@aware.co.th"
+          password = "${{ secrets.PASS_GMAIL }}"
+          attachments_file = "Reports_${{ env.SITE_TEST_UPPER }}.zip"
+          on_region = "${{ env.REGION_UPPER }}"
+          on_site_test = "${{ env.SITE_TEST_UPPER }}"
+          pre_total = "${{ env.PRE_TOTAL }}"  
+          pre_passed = "${{ env.PRE_PASS }}"
+          pre_failed = "${{ env.PRE_FAIL }}"
+          pre_skiped = "${{ env.PRE_SKIP }}"
+    
+          # Create the email content
+          msg = MIMEMultipart('mixed')
+          msg['Subject'] = subject_email
+          msg['From'] = sender_email
+          msg['To'] = receiver_email
+  
+          html = f"""
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Test Report</title>
+              <style>
+                  body {{
+                      font-family: Arial, sans-serif;
+                      margin: 5px;
+                  }}
+                  .container {{
+                      max-width: 800px;
+                      margin: 0 300 auto auto;
+                      padding: 5px 20px 20px 20px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                  }}
+                  h1 {{
+                      color: #000000;
+                  }}   
+                  p {{
+                      color: #5f5f5f;
+                  }}
+                  #resource {{
+                      color: #232222;
+                      margin: 0 0 0 30px;
+                  }}
+                  #detail {{
+                      color: #232222;
+                      margin: 0 0 0 30px;
+                  }}   
+                  #group_detail {{
+                      padding: 0 0 5px 0;
+                  }}            
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h2>{heading_email}</h2>
+                  <p>🤖 Workflow Main. Please find the summary of the test results below:</p>
+                  <div id="group_detail">
+                    <p id="detail">Workflow: Main [Error]</p>
+                    <p id="detail">Job: Pre-Test</p>
+                    <p id="detail">Region: {on_region}</p>
+                    <p id="detail">Site Test: {on_site_test}</p>
+                  </div>
+                  <p id="resource">Total Pre-Test: {pre_total}</p>
+                  <p id="resource">✅ Passed: {pre_passed} , ❌ Failed: {pre_failed} , ⏭️ Skiped: {pre_skiped}</p>
+                  <p>Thank you.</p>
+              </div>
+          </body>
+          </html>
+          """
+  
+          msg.attach(MIMEText(html, 'html'))
+  
+          # Attach log.html file
+          log_file_path = attachments_file
+          with open(log_file_path, "rb") as attachment:
+              part = MIMEBase("application", "octet-stream")
+              part.set_payload(attachment.read())
+  
+          encoders.encode_base64(part)
+          part.add_header(
+              "Content-Disposition",
+              f"attachment; filename={attachments_file}",
+          )
+          part.add_header("Content-ID", "<log.html>")
+  
+          msg.attach(part)
+  
+          # Send the email
+          with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+              server.login(sender_email, password)
+              server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
+          EOF          
+          
+  report:
+    if: always()
+    needs: [automate]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            repository: corp-ais/cpc-ate
+            ref: ${{ inputs.BRANCH_REF }}
+            token: ${{ secrets.ACC_TOKEN }}
+
+      - name: Download Log Automate [PRE_TEST][${{ inputs.REGION }}]
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: log_pre_automate_${{ inputs.REGION }}
+          path: ./Testsuites/log_pre_automate_${{ inputs.REGION }}
+          
+      - name: Robot Reporter [PRE_TEST][${{ inputs.REGION }}]
+        if: always()
+        uses: joonvena/robotframework-reporter-action@v2.3
+        with:
+          gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+          report_path: ./Testsuites/log_pre_automate_${{ inputs.REGION }}
