@@ -43,9 +43,6 @@ node {
         !(axis['BROWSER'] == 'edge' && axis['PLATFORM'] != 'windows')
     }
 
-    // จัดเก็บค่าที่กรองแล้วไว้ใน environment variables เพื่อใช้ในขั้นตอนถัดไป
-    env.AXES = axes.toString()
-
     // สร้าง map สำหรับพารามิเตอร์ที่จะส่งไปยัง job อื่น
     def tasks = [:]
 
