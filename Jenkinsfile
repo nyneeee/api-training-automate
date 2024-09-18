@@ -26,17 +26,8 @@ pipeline {
         stage('Trigger Tests') {
             steps {
                 script {
-                    List getMatrixAxes(params.REGION) {
-                        List axes = []
-                        matrix_axes.each { axis, values ->
-                            List axisList = []
-                            values.each { value ->
-                                axisList << [(axis): value]
-                            }
-                            axes << axisList
-                        }
-                        axes.combinations()*.sum()
-                    }
+                    def regions = params.region.split(',').collect { it.trim().replace('[','').replace(']','').replace('\'', '') }
+                    echo "regions"
                 }
             }
         }
