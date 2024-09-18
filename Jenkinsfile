@@ -42,6 +42,9 @@ pipeline {
                 // Echo regions from environment variable
                 echo "Regions from environment variable: ${env.REGIONS}"
             }
+            parallel{
+                echo "Regions from environment variable: ${env.REGIONS}"
+            }
         }
     }
 }
