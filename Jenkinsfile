@@ -29,11 +29,11 @@ pipeline {
                     def regions = params.REGION.split(',').collect { it.trim() }
 
                     def validRegions = ['asse', 'asea']                    
-                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    def invalidRegions = regions.findAll { validRegions.contains(it) }
                     if (invalidRegions) {
-                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+                        echo "Regions are valid: ${regions.join(', ')}."
                     } else {
-                        echo "Regions are valid: ${regions.join(', ')}. and ${invalidRegions.join(', ')}"
+                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
                     }
 
                     def tasks = [:]
