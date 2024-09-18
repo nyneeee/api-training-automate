@@ -45,14 +45,6 @@ pipeline {
                             echo "REGION: ${region}"
                             echo "SITE_TEST: ${params.SITE_TEST}"
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
-                            build job: "Pre-Test Automate",
-                                  parameters: [
-                                      string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
-                                      string(name: 'REGION', value: region),
-                                      string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                      string(name: 'BRANCH_REF', value: params.BRANCH_REF)
-                                  ]
-                        }
                     }
 
                     echo "Starting tasks: ${tasks.keySet().join(', ')}"
