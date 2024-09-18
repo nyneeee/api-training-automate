@@ -23,30 +23,28 @@ pipeline {
         )
     }
     stages {
-        stage('Prepare Regions') {
+        stage('Validate Regions') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
-                    env.REGIONS = regions.join(',')
-                }
-            }
-        }
-        stage('Validate Regions') {
-            matrix {
-                axes {
-                    axis {
-                        name 'RUNREGION'
-                        values env.REGIONS.split(',').collect { it.trim() }.join('\n')
-                    }                   
-                }
-                stages {
-                    stage('Build') {
-                        steps {
-                            script {
-                                echo "Building on ${RUNREGION}"
+                    if (regions.size() == 0) {
+                        error "No regions specified."
+                    }
+                    
+                    // Parallel execution for each region
+                    def branches = [:]
+                    for (region in regions) {
+                        branches["Build on ${region}"] = {
+                            stage("Build on ${region}") {
+                                steps {
+                                    script {
+                                        echo "Building on ${region}"
+                                    }
+                                }
                             }
                         }
                     }
+                    parallel branches
                 }
             }
         }
