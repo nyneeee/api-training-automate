@@ -44,6 +44,13 @@ pipeline {
                     regions.each { region ->
                         tasks["Test ${region}"] = {
                             echo "Running tests for region: ${region}"
+                            build job: "Pre-Test Automate",
+                                  parameters: [
+                                      string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                      string(name: 'REGION', value: region),
+                                      string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                      string(name: 'BRANCH_REF', value: params.BRANCH_REF)
+                                  ]
                         }
                     }
                     
