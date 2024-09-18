@@ -36,7 +36,7 @@ pipeline {
                         echo "Regions are valid: ${regions.join(', ')}."
                     }
                     echo "REGIONS: ${regions}"
-                    env.REGIONS = REGIONS
+                    env.REGIONS = regions
                 }
             }
         }
