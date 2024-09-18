@@ -46,9 +46,7 @@ pipeline {
         
         stage('Parallel Execution') {
             parallel {
-                stage('test'){
                     echo "Regions from environment variable: ${env.REGIONS}"
-                }
             }
         }
     }
