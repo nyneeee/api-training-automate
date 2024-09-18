@@ -37,8 +37,8 @@ pipeline {
                     echo "regions: ${regions}"
                     env.REGIONS = REGIONS
                 }
-                echo "${env.CMD_RUN_PRE_TEST}"
-            }
+                echo "${env.regions}"
+            
         }  
     }
 }
