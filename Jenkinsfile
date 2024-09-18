@@ -38,6 +38,7 @@ pipeline {
 
                     def tasks = [:]
                     for (region in regions) {
+                        echo "Creating task for region: ${region}"  // Debugging line
                         tasks["Pre-Test in ${region}"] = {
                             echo "Running tests for ${region} with parameters:"
                             echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
