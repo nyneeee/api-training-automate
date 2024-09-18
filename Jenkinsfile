@@ -27,9 +27,6 @@ pipeline {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
-                    // เช็คว่าต้องเป็น asse หรือ asea โดยที่เช็คว่าค่าที่ส่งเข้ามา จะต้องไม่ contains กับ "validRegions" = ['asse', 'asea'] 
-                    //    1. กรณีที่ "ไม่ contains กัน" จะถูกมองเป็น "True" ตามเงื่อนไข !validRegions.contains(it) และจะ return ค่าเข้า "invalidRegions" จะมีค่า "REGION ที่ไม่กับ ['asse', 'asea']"
-                    //    2. กรณีที่ "contains กัน" จะถูกมองเป็น "False" และไม่เข้าเงื่อนไข !validRegions.contains(it) และ "invalidRegions" จะเท่ากับ "0" หรือ "ไม่มีค่า" เพราะมีค่าที่ "contains" กันจึงไม่ถูกเก็บไว้ใน invalidRegions
                     def validRegions = ['asse', 'asea']                    
                     def invalidRegions = regions.findAll { !validRegions.contains(it) }
                     if (invalidRegions) {
@@ -47,7 +44,6 @@ pipeline {
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
                         }
                     }
-                    // สั่งให้ทำงานแบบ parallel
                     parallel tasks
                 }
             }
