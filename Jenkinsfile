@@ -38,7 +38,6 @@ pipeline {
 
                     def tasks = [:]
                     for (region in regions) {
-                        echo "Creating task for region: ${region}"  // Debugging line
                         tasks["Pre-Test in ${region}"] = {
                             echo "Running tests for ${region} with parameters:"
                             echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
@@ -46,8 +45,6 @@ pipeline {
                             echo "SITE_TEST: ${params.SITE_TEST}"
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
                     }
-
-                    echo "Starting tasks: ${tasks.keySet().join(', ')}"
                     parallel tasks
                 }
             }
