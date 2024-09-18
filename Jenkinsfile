@@ -27,6 +27,9 @@ pipeline {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
                     echo "Regions selected: ${regions}"
+                    for(run_region in regions){
+                        echo "Regions selected: ${run_region}"
+                    }
                 }
             }
         }
