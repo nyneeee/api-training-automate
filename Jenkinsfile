@@ -41,12 +41,7 @@ pipeline {
                 }
                 // Echo regions from environment variable
                 echo "Regions from environment variable: ${env.REGIONS}"
-            }
-        }
-        
-        stage('Parallel Execution') {
-            parallel {
-                    echo "Regions from environment variable: ${env.REGIONS}"
+                parallel tasks
             }
         }
     }
