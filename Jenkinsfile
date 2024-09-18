@@ -14,8 +14,8 @@ pipeline {
                                   parameters: [
                                       string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
                                       string(name: 'REGION', value: params.REGION),
-                                      string(name: 'SITE_TEST', value: ${params.SITE_TEST),
-                                      string(name: 'BRANCH_REF', value: ${params.BRANCH_REF)
+                                      string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                      string(name: 'BRANCH_REF', value: params.BRANCH_REF)
                                   ]
             }
         }
