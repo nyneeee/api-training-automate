@@ -1,0 +1,1 @@
+cmd_run_robot_asse_main: robot -d log test_api_basic.robot
