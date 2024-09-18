@@ -22,16 +22,22 @@ pipeline {
             description: 'Branch to run tests.'
         )
     }
-    stages {
-        stage('Parallel Execution from List') {
-            parallel {
+    stage('Test Grep CMD Run PreTest Robot') {
+        steps {
+            script {
                 def regions = params.REGION.split(',').collect { it.trim() }
-                for (region in regions) {
-                    stage('Test') {
-                        echo "Running tests for ${region} with parameters:"
-                    }
+                def validRegions = ['asse', 'asea']
+                def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                
+                if (invalidRegions) {
+                    error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+                } else {
+                    echo "Regions are valid: ${regions.join(', ')}."
                 }
+                echo "regions: ${regions}"
+                env.REGIONS = REGIONS
             }
+            echo "${env.CMD_RUN_PRE_TEST}"
         }
     }
 }
