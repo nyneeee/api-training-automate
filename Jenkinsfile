@@ -37,17 +37,13 @@ pipeline {
                     }
 
                     def tasks = [:]
-                    for (region in regions) {
                         tasks["Pre-Test in ${region}"] = {
-                            stage("Test") {
-                                echo "Running tests for ${region} with parameters:"
-                                echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
-                                echo "REGION: ${region}"
-                                echo "SITE_TEST: ${params.SITE_TEST}"
-                                echo "BRANCH_REF: ${params.BRANCH_REF}"
-                            }
+                            echo "Running tests for ${region} with parameters:"
+                            echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
+                            echo "REGION: ${region}"
+                            echo "SITE_TEST: ${params.SITE_TEST}"
+                            echo "BRANCH_REF: ${params.BRANCH_REF}"
                         }
-                    }
                     parallel(tasks)
                 }
             }
