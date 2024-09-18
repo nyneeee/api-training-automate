@@ -9,6 +9,7 @@ pipeline {
         string(
             name: 'REGION',
             description: 'Region to run tests (comma-separated for multiple regions, e.g., "asse,asea")',
+            defaultValue: 'asse,asea'  // ค่าพื้นฐานที่ควรตั้งไว้
         )
         choice(
             name: 'SITE_TEST',
@@ -22,13 +23,26 @@ pipeline {
         )
     }
     stages {
-        stage('Trigger Pipeline with Parameters') {
-            steps {
-                script {
-                    def regions = params.REGION.split(',').collect { it.trim() }
-                    echo "Regions selected: ${regions}"
-                    for(run_region in regions){
-                        echo "Regions selected: ${run_region}"
+        stage('Matrix Execution') {
+            matrix {
+                axes {
+                    axis {
+                        name 'REGION'
+                        values params.REGION.split(',')
+                    }
+                }
+                stages {
+                    stage('Run Test') {
+                        steps {
+                            script {
+                                echo "Running tests with parameters:"
+                                echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
+                                echo "REGION: ${env.REGION}"
+                                echo "SITE_TEST: ${env.SITE_TEST}"
+                                echo "BRANCH_REF: ${env.BRANCH_REF}"
+                                // สั่งรัน build หรือขั้นตอนที่ต้องการที่นี่
+                            }
+                        }
                     }
                 }
             }
