@@ -26,21 +26,16 @@ pipeline {
         stage('Trigger Tests') {
             steps {
                 script {
-                    // Split the REGION parameter into a list of regions and trim whitespace
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def validRegions = ['asse', 'asea']
                     def invalidRegions = regions.findAll { !validRegions.contains(it) }
-                    
                     if (invalidRegions) {
                         error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
                     } else {
                         echo "Regions are valid: ${regions.join(', ')}."
                     }
-
-                    // Define a map of parallel tasks
                     def tasks = [:]
-                    
-                    // Iterate over regions and create a parallel task for each
+                    // ให้ทำ Loop Each โดยแต่ละรอบจะดึงค่าตาม list ที่ loop
                     regions.each { region ->
                         tasks["Test ${region}"] = {
                             echo "Running tests for region: ${region}"
@@ -53,8 +48,7 @@ pipeline {
                                   ]
                         }
                     }
-                    
-                    // Execute the tasks in parallel
+                    // สั่งให้ทำ parallel
                     parallel tasks
                 }
             }
