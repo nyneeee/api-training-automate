@@ -23,13 +23,58 @@ pipeline {
         )
     }
     stages {
-        stage('Trigger Tests') {
+        stage('Check REGION') {
             steps {
                 script {
-                    def regions = params.region.split(',').collect { it.trim().replace('[','').replace(']','').replace('\'', '') }
-                    echo "regions"
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def validRegions = ['asse', 'asea']
+                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    
+                    if (invalidRegions) {
+                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+                    } else {
+                        echo "Regions are valid: ${regions.join(', ')}."
+                    }
+                    echo "REGIONS: ${regions}"
+                    env.REGIONS = REGIONS
                 }
             }
         }
+        // stage('Trigger Tests') {
+        //     steps {
+        //         script {
+        //             def regions = params.REGION.split(',').collect { it.trim() }
+        //             def validRegions = ['asse', 'asea']
+        //             def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    
+        //             if (invalidRegions) {
+        //                 error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+        //             } else {
+        //                 echo "Regions are valid: ${regions.join(', ')}."
+        //             }
+
+        //             def tasks = [:]
+        //             for (region in regions) {
+        //                 tasks["Pre-Test in ${region}"] = {
+        //                     echo "Running tests for ${region} with parameters:"
+        //                     echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
+        //                     echo "REGION: ${region}"
+        //                     echo "SITE_TEST: ${params.SITE_TEST}"
+        //                     echo "BRANCH_REF: ${params.BRANCH_REF}"
+        //                     build job: "Pre-Test Automate",
+        //                           parameters: [
+        //                               string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+        //                               string(name: 'REGION', value: region),
+        //                               string(name: 'SITE_TEST', value: params.SITE_TEST),
+        //                               string(name: 'BRANCH_REF', value: params.BRANCH_REF)
+        //                           ]
+        //                 }
+        //             }
+
+        //             echo "Starting tasks: ${tasks.keySet().join(', ')}"
+        //             parallel tasks
+        //         }
+        //     }
+        // }
     }
 }
