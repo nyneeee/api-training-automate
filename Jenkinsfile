@@ -22,7 +22,8 @@ pipeline {
             description: 'Branch to run tests.'
         )
     }
-    stage('Test Grep CMD Run PreTest Robot') {
+    stages {
+        stage('Test Grep CMD Run PreTest Robot') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -34,11 +35,13 @@ pipeline {
                     } else {
                         echo "Regions are valid: ${regions.join(', ')}."
                     }
-                    echo "regions: ${regions}"
-                    env.REGIONS = REGIONS
+                    
+                    // Save regions to environment variable
+                    env.REGIONS = regions
                 }
-                echo "${env.regions}"
-            
-        }  
+                // Echo regions from environment variable
+                echo "Regions from environment variable: ${env.REGIONS}"
+            }
+        }
     }
 }
