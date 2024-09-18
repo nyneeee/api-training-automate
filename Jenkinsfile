@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     def tasks = [:]
-                    for (index_region in ${env.REGIONS}) {
+                    for (index_region in env.REGIONS) {
                         tasks["Pre-Test in ${index_region}"] = {
                             echo "Running tests for ${index_region} with parameters:"
                             echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
