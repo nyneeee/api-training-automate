@@ -23,28 +23,29 @@ pipeline {
         )
     }
     stages {
-        stage('Trigger Tests') {
-            steps {
+        stage('Parallel Execution from List') {
+            parallel {
                 script {
-                    def regions = params.REGION.split(',').collect { it.trim() }
-                    def validRegions = ['asse', 'asea']
-                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    // List of stages to run in parallel
+                    def stagesList = params.REGION.split(',').collect { it.trim() }
                     
-                    if (invalidRegions) {
-                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
-                    } else {
-                        echo "Regions are valid: ${regions.join(', ')}."
-                    }
-
-                    def tasks = [:]
-                        tasks["Pre-Test in ${region}"] = {
-                            echo "Running tests for ${region} with parameters:"
-                            echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
-                            echo "REGION: ${region}"
-                            echo "SITE_TEST: ${params.SITE_TEST}"
-                            echo "BRANCH_REF: ${params.BRANCH_REF}"
+                    // Define a map to hold parallel stages
+                    def parallelStages = [:]
+                    
+                    // Iterate over the list and create parallel stages
+                    stagesList.each { region ->
+                        parallelStages["Stage for ${region}"] = {
+                            stage("Stage for ${region}") {
+                                steps {
+                                    echo "Running tests for region: ${region}"
+                                    // คำสั่งที่ใช้รัน Job ตามชื่อ stage
+                                }
+                            }
                         }
-                    parallel(tasks)
+                    }
+                    
+                    // Execute the parallel stages
+                    parallel parallelStages
                 }
             }
         }
