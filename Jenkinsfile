@@ -23,7 +23,7 @@ pipeline {
         )
     }
     stages {
-        stage('Test Grep CMD Run PreTest Robot') {
+        stage('Validate Regions') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -37,13 +37,13 @@ pipeline {
                     }
                     
                     // Save regions to environment variable
-                    env.REGIONS = regions
+                    env.REGIONS = params.REGION
                 }
                 // Echo regions from environment variable
                 echo "Regions from environment variable: ${env.REGIONS}"
             }
         }
-    }
+        
         stage('Parallel Execution') {
             parallel {
                 matrix {
@@ -57,7 +57,7 @@ pipeline {
                         stage('Echo Region') {
                             steps {
                                 script {
-                                    echo "Regions from environment variable: ${env.REGIONS}"
+                                    echo "Processing region: ${REGION}"
                                 }
                             }
                         }
