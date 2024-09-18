@@ -41,7 +41,7 @@ pipeline {
                     // สร้าง task สำหรับแต่ละ region
                     def tasks = [:]
                     for (running in regions) {
-                        tasks["Pre-Test in ${region_test}"] = {
+                        tasks["Pre-Test in ${running}"] = {
                             echo "Running tests for region: ${running}"
                             build job: "Pre-Test Automate",
                                   parameters: [
