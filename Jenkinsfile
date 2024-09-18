@@ -46,22 +46,8 @@ pipeline {
         
         stage('Parallel Execution') {
             parallel {
-                matrix {
-                    axes {
-                        axis {
-                            name 'REGION'
-                            values params.REGION.split(',').collect { it.trim() }
-                        }
-                    }
-                    stages {
-                        stage('Echo Region') {
-                            steps {
-                                script {
-                                    echo "Processing region: ${REGION}"
-                                }
-                            }
-                        }
-                    }
+                stage('test'){
+                    echo "Regions from environment variable: ${env.REGIONS}"
                 }
             }
         }
