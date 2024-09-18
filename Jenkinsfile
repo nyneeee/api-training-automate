@@ -27,17 +27,19 @@ pipeline {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
-                    def validRegions = ['asse', 'asea']                    
+                    def validRegions = ['asse', 'asea']
                     def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    
                     if (invalidRegions) {
                         error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
                     } else {
                         echo "Regions are valid: ${regions.join(', ')}."
                     }
+
                     def tasks = [:]
                     for (region in regions) {
-                        tasks["Pre-Test Automate in ${region}"] = {
-                            echo "Running tests with parameters:"
+                        tasks["Pre-Test in ${region}"] = {
+                            echo "Running tests for ${region} with parameters:"
                             echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
                             echo "REGION: ${region}"
                             echo "SITE_TEST: ${params.SITE_TEST}"
@@ -51,6 +53,8 @@ pipeline {
                                   ]
                         }
                     }
+
+                    echo "Starting tasks: ${tasks.keySet().join(', ')}"
                     parallel tasks
                 }
             }
