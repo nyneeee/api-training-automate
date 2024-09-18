@@ -42,17 +42,17 @@ pipeline {
 
                     // สร้าง task สำหรับแต่ละ region
                     def tasks = [:]
-                    for (region in regions) {
-                        tasks["Pre-Test in ${region}"] = {
-                            echo "Running tests for ${region} with parameters:"
+                    for (region_test in regions) {
+                        tasks["Pre-Test in ${region_test}"] = {
+                            echo "Running tests for ${region_test} with parameters:"
                             echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
-                            echo "REGION: ${region}"
+                            echo "REGION: ${region_test}"
                             echo "SITE_TEST: ${params.SITE_TEST}"
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
                             build job: "Pre-Test Automate",
                                   parameters: [
                                       string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
-                                      string(name: 'REGION', value: region),
+                                      string(name: 'REGION', value: region_test),
                                       string(name: 'SITE_TEST', value: params.SITE_TEST),
                                       string(name: 'BRANCH_REF', value: params.BRANCH_REF)
                                   ]
