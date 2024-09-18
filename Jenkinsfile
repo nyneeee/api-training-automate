@@ -15,8 +15,7 @@ pipeline {
                                 name: 'GH_RUNNER_TAG' 
                             ),
                             choice(
-                                choices: ['asse', 'asea'], 
-                                description: 'Region to run tests.', 
+                                description: 'Region to run tests (comma-separated for multiple regions, e.g., asse,asea")', 
                                 name: 'REGION' 
                             ),
                             choice(
