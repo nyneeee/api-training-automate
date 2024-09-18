@@ -1,53 +1,54 @@
-// Define the matrix axes
-Map matrix_axes = [
-    PLATFORM: ['linux', 'windows', 'mac'],
-    BROWSER: ['firefox', 'chrome', 'safari', 'edge']
-]
-
-@NonCPS
-List getMatrixAxes(Map matrix_axes) {
-    List axes = []
-    matrix_axes.each { axis, values ->
-        List axisList = []
-        values.each { value ->
-            axisList << [(axis): value]
-        }
-        axes << axisList
-    }
-    // Calculate the cartesian product
-    axes.combinations()*.sum()
-}
-
-// Filter out invalid combinations
-List axes = getMatrixAxes(matrix_axes).findAll { axis ->
-    !(axis['BROWSER'] == 'safari' && axis['PLATFORM'] == 'linux') &&
-    !(axis['BROWSER'] == 'edge' && axis['PLATFORM'] != 'windows')
-}
-
 pipeline {
-    agent none
+    agent any
+    parameters {
+        choice(
+            name: 'GH_RUNNER_TAG',
+            choices: ['cpc-ate-dev', 'cpc-ate-prd'],
+            description: 'Runner to run tests.'
+        )
+        string(
+            name: 'REGION',
+            description: 'Region to run tests (comma-separated for multiple regions, e.g., "asse,asea")',
+            defaultValue: 'asse,asea'
+        )
+        choice(
+            name: 'SITE_TEST',
+            choices: ['prd', 'sit'],
+            description: 'Site to run tests.'
+        )
+        choice(
+            name: 'BRANCH_REF',
+            choices: ['main', 'sit'],
+            description: 'Branch to run tests.'
+        )
+    }
     stages {
-        stage('Matrix builds') {
-            parallel {
-                axes.each { axis ->
-                    def axisEnv = axis.collect { k, v -> "${k}=${v}" }
-                    def nodeLabel = "os:${axis['PLATFORM']} && browser:${axis['BROWSER']}"
-                    stage("Build and Test for ${nodeLabel}") {
-                        agent {
-                            label nodeLabel
-                        }
-                        steps {
-                            script {
-                                withEnv(axisEnv) {
-                                    echo "Running on ${nodeLabel}"
-                                    // Build step
-                                    sh 'echo Do Build for ${PLATFORM} - ${BROWSER}'
-                                    // Test step
-                                    sh 'echo Do Test for ${PLATFORM} - ${BROWSER}'
-                                }
-                            }
+        stage('Trigger Tests') {
+            steps {
+                script {
+                    // Split the REGION parameter into a list of regions and trim whitespace
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def validRegions = ['asse', 'asea']
+                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                    
+                    if (invalidRegions) {
+                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+                    } else {
+                        echo "Regions are valid: ${regions.join(', ')}."
+                    }
+
+                    // Define a map of parallel tasks
+                    def tasks = [:]
+                    
+                    // Iterate over regions and create a parallel task for each
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            echo "Running tests for region: ${region}"
                         }
                     }
+                    
+                    // Execute the tasks in parallel
+                    parallel tasks
                 }
             }
         }
