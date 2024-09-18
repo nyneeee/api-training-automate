@@ -23,28 +23,20 @@ pipeline {
         )
     }
     stages {
-        stage('Validate Regions') {
+        stage('Trigger Tests') {
             steps {
                 script {
-                    def regions = params.REGION.split(',').collect { it.trim() }
-                    if (regions.size() == 0) {
-                        error "No regions specified."
-                    }
-                    
-                    // Parallel execution for each region
-                    def branches = [:]
-                    for (region in regions) {
-                        branches["Build on ${region}"] = {
-                            stage("Build on ${region}") {
-                                steps {
-                                    script {
-                                        echo "Building on ${region}"
-                                    }
-                                }
+                    List getMatrixAxes(params.REGION) {
+                        List axes = []
+                        matrix_axes.each { axis, values ->
+                            List axisList = []
+                            values.each { value ->
+                                axisList << [(axis): value]
                             }
+                            axes << axisList
                         }
+                        axes.combinations()*.sum()
                     }
-                    parallel branches
                 }
             }
         }
