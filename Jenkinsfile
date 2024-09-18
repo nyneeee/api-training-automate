@@ -25,22 +25,11 @@ pipeline {
     stages {
         stage('Parallel Execution from List') {
             parallel {
-                script {
-                    def stagesList = params.REGION.split(',').collect { it.trim() }
-                    def parallelStages = [:]
-                    
-                    stagesList.each { region ->
-                        parallelStages["Stage for ${region}"] = {
-                            node {
-                                stage("Stage for ${region}") {
-                                    echo "Running tests for region: ${region}"
-                                    // Add your testing commands here
-                                }
-                            }
-                        }
+                def regions = params.REGION.split(',').collect { it.trim() }
+                for (region in regions) {
+                    stage('Test') {
+                        echo "Running tests for ${region} with parameters:"
                     }
-                    
-                    parallel parallelStages
                 }
             }
         }
