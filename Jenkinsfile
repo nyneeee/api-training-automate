@@ -8,7 +8,8 @@ pipeline {
         )
         string(
             name: 'REGION',
-            description: 'Region to run tests (comma-separated for multiple regions, e.g., "asse,asea")'
+            description: 'Region to run tests (comma-separated for multiple regions, e.g., "asse,asea")',
+            defaultValue: 'asse,asea'
         )
         choice(
             name: 'SITE_TEST',
@@ -32,7 +33,7 @@ pipeline {
                     if (invalidRegions) {
                         error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
                     } else {
-                        echo "Regions are valid: ${regions.join(', ')}."
+                        echo "Regions are valid: ${regions.join(', ')}. and ${invalidRegions.join(', ')}"
                     }
 
                     def tasks = [:]
