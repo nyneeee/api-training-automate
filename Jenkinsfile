@@ -11,6 +11,7 @@ pipeline {
                     ]
 
                     // ฟังก์ชันในการคำนวณ matrix axes
+                    @NonCPS
                     List getMatrixAxes(Map matrix_axes) {
                         List axes = []
                         matrix_axes.each { axis, values ->
