@@ -44,6 +44,7 @@ pipeline {
                             echo "REGION: ${region}"
                             echo "SITE_TEST: ${params.SITE_TEST}"
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
+                        }
                     }
                     parallel tasks
                 }
