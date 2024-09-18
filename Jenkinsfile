@@ -1,5 +1,3 @@
-import groovy.transform.NonCPS
-
 pipeline {
     agent any
     parameters {
