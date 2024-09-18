@@ -23,27 +23,22 @@ pipeline {
         )
     }
     stages {
-        stage('Matrix Execution') {
-            matrix {
-                axes {
-                    axis {
-                        name 'REGION'
-                        values params.REGION.split(',')
-                    }
-                }
-                stages {
-                    stage('Run Test') {
-                        steps {
-                            script {
-                                echo "Running tests with parameters:"
-                                echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
-                                echo "REGION: ${env.REGION}"
-                                echo "SITE_TEST: ${env.SITE_TEST}"
-                                echo "BRANCH_REF: ${env.BRANCH_REF}"
-                                // สั่งรัน build หรือขั้นตอนที่ต้องการที่นี่
-                            }
+        stage('Trigger Tests') {
+            steps {
+                script {
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+                    for (region in regions) {
+                        tasks["Test in ${region}"] = {
+                            echo "Running tests with parameters:"
+                            echo "GH_RUNNER_TAG: ${params.GH_RUNNER_TAG}"
+                            echo "REGION: ${region}"
+                            echo "SITE_TEST: ${params.SITE_TEST}"
+                            echo "BRANCH_REF: ${params.BRANCH_REF}"
+                            // สั่งรัน build หรือขั้นตอนที่ต้องการที่นี่
                         }
                     }
+                    parallel tasks
                 }
             }
         }
