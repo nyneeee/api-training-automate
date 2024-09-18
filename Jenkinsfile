@@ -26,25 +26,20 @@ pipeline {
         stage('Parallel Execution from List') {
             parallel {
                 script {
-                    // List of stages to run in parallel
                     def stagesList = params.REGION.split(',').collect { it.trim() }
-                    
-                    // Define a map to hold parallel stages
                     def parallelStages = [:]
                     
-                    // Iterate over the list and create parallel stages
                     stagesList.each { region ->
                         parallelStages["Stage for ${region}"] = {
-                            stage("Stage for ${region}") {
-                                steps {
+                            node {
+                                stage("Stage for ${region}") {
                                     echo "Running tests for region: ${region}"
-                                    // คำสั่งที่ใช้รัน Job ตามชื่อ stage
+                                    // Add your testing commands here
                                 }
                             }
                         }
                     }
                     
-                    // Execute the parallel stages
                     parallel parallelStages
                 }
             }
