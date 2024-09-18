@@ -37,6 +37,7 @@ pipeline {
                     }
                     echo "REGIONS: ${regions}"
                     env.REGIONS = regions
+                    echo ${env.REGIONS}
                 }
             }
         }
