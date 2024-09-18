@@ -23,25 +23,31 @@ pipeline {
         )
     }
     stages {
-        stage('Validate Regions') {
+        stage('Prepare Regions') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
-                    def validRegions = ['asse', 'asea']
-                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
-                    
-                    if (invalidRegions) {
-                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
-                    } else {
-                        echo "Regions are valid: ${regions.join(', ')}."
-                    }
-                    
-                    // Save regions to environment variable
-                    env.REGIONS = params.REGION
+                    env.REGIONS = regions.join(',')
                 }
-                // Echo regions from environment variable
-                echo "Regions from environment variable: ${env.REGIONS}"
-                parallel tasks
+            }
+        }
+        stage('Validate Regions') {
+            matrix {
+                axes {
+                    axis {
+                        name 'RUNREGION'
+                        values env.REGIONS.split(',').collect { it.trim() }.join('\n')
+                    }                   
+                }
+                stages {
+                    stage('Build') {
+                        steps {
+                            script {
+                                echo "Building on ${RUNREGION}"
+                            }
+                        }
+                    }
+                }
             }
         }
     }
