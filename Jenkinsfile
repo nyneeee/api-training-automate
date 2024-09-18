@@ -45,9 +45,9 @@ pipeline {
                             echo "REGION: ${region}"
                             echo "SITE_TEST: ${params.SITE_TEST}"
                             echo "BRANCH_REF: ${params.BRANCH_REF}"
-                            // สั่งรัน build หรือขั้นตอนที่ต้องการที่นี่
                         }
                     }
+                    // สั่งให้ทำงานแบบ parallel
                     parallel tasks
                 }
             }
