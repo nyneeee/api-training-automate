@@ -23,9 +23,15 @@ pipeline {
         )
     }
     stages {
-        stage('Trigger Pre-Test Automate params.REGION') {
+        stage('Analyze') {
+             steps {
+                echo "Analyze"
+             }
+        }
+        stage('Trigger Pre-Test Automate') {
             steps {
                 script {
+                  try {
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def validRegions = ['asse', 'asea']
                     def invalidRegions = regions.findAll { !validRegions.contains(it) }
@@ -50,10 +56,23 @@ pipeline {
                     }
                     // สั่งให้ทำ parallel โดยแบ่งงานตามใน tasks หรือ Map ที่อยู่ใน loop
                     parallel(tasks)
+                  }catch (Exception e) {
+                    pretestResult = 'FAILURE'
+                    echo e.message
+                  }
                 }
             }
         }
         stage('Deploy Mockup') {
+             needs {
+                stage('Analyze')
+                stage('Trigger Pre-Test Automate')
+             }
+             when {
+                 expression {
+                     pretestResult != 'FAILURE'
+                 }
+             }
              steps {
                 script {
                     def DeployMuti = [:]
