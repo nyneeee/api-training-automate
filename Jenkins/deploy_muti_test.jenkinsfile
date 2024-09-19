@@ -24,56 +24,51 @@ pipeline {
     }
     stages {
         stage('Analyze') {
-             steps {
+            steps {
                 echo "Analyze"
-             }
+            }
         }
         stage('Trigger Pre-Test Automate') {
             steps {
                 script {
-                  try {
-                    def regions = params.REGION.split(',').collect { it.trim() }
-                    def validRegions = ['asse', 'asea']
-                    def invalidRegions = regions.findAll { !validRegions.contains(it) }
-                    if (invalidRegions) {
-                        error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
-                    } else {
-                        echo "Regions are valid: ${regions.join(', ')}."
-                    }
-                    def tasks = [:]
-                    // ให้ทำ Loop Each โดยแต่ละรอบจะดึงค่าตาม list ที่ loop
-                    regions.each { region ->
-                        tasks["Test ${region}"] = {
-                            echo "Running tests for region: ${region}"
-                            build job: "Pre-Test Automate",
-                                  parameters: [
-                                      string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
-                                      string(name: 'REGION', value: region),
-                                      string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                      string(name: 'BRANCH_REF', value: params.BRANCH_REF)
-                                  ]
+                    def pretestResult = 'SUCCESS' // ประกาศตัวแปรก่อนใช้งาน
+                    try {
+                        def regions = params.REGION.split(',').collect { it.trim() }
+                        def validRegions = ['asse', 'asea']
+                        def invalidRegions = regions.findAll { !validRegions.contains(it) }
+                        if (invalidRegions) {
+                            error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
+                        } else {
+                            echo "Regions are valid: ${regions.join(', ')}."
                         }
+                        def tasks = [:]
+                        regions.each { region ->
+                            tasks["Test ${region}"] = {
+                                echo "Running tests for region: ${region}"
+                                build job: "Pre-Test Automate",
+                                      parameters: [
+                                          string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                          string(name: 'REGION', value: region),
+                                          string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF)
+                                      ]
+                            }
+                        }
+                        parallel(tasks)
+                    } catch (Exception e) {
+                        pretestResult = 'FAILURE'
+                        echo e.message
                     }
-                    // สั่งให้ทำ parallel โดยแบ่งงานตามใน tasks หรือ Map ที่อยู่ใน loop
-                    parallel(tasks)
-                  }catch (Exception e) {
-                    pretestResult = 'FAILURE'
-                    echo e.message
-                  }
                 }
             }
         }
         stage('Deploy Mockup') {
-             needs {
-                stage('Analyze')
-                stage('Trigger Pre-Test Automate')
-             }
-             when {
-                 expression {
-                     pretestResult != 'FAILURE'
-                 }
-             }
-             steps {
+            when {
+                expression {
+                    return pretestResult != 'FAILURE' // ตรวจสอบว่า pretestResult ไม่ใช่ 'FAILURE'
+                }
+            }
+            steps {
                 script {
                     def DeployMuti = [:]
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -84,7 +79,7 @@ pipeline {
                     }
                     parallel(DeployMuti)
                 }
-             }
+            }
         }
     }
 }
