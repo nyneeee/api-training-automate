@@ -23,7 +23,7 @@ pipeline {
         )
     }
     stages {
-        stage('Trigger Tests') {
+        stage('Trigger Pre-Test Automate ${params.REGION}') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -50,8 +50,21 @@ pipeline {
                     }
                     // สั่งให้ทำ parallel โดยแบ่งงานตามใน tasks ที่อยู่ใน loop
                     parallel(tasks)
+                    env.LIST_REGIONS = regions
                 }
             }
+        }
+        stage('Deploy Mockup') {
+             steps {
+                script {
+                    def tasks = [:]
+                    env.LIST_REGIONS.each { region ->
+                        tasks["Test ${region}"] = {
+                            echo "Deploy region: ${region}"
+                        }
+                    }
+                }
+             }
         }
     }
 }
