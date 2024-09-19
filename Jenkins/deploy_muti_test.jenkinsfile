@@ -23,7 +23,7 @@ pipeline {
         )
     }
     stages {
-        stage("Trigger Pre-Test Automate ${params.REGION}") {
+        stage('Trigger Pre-Test Automate params.REGION') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
