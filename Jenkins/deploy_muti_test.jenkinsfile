@@ -50,7 +50,6 @@ pipeline {
                     }
                     // สั่งให้ทำ parallel โดยแบ่งงานตามใน tasks หรือ Map ที่อยู่ใน loop
                     parallel(tasks)
-                    env.LIST_REGIONS = regions
                 }
             }
         }
@@ -58,7 +57,8 @@ pipeline {
              steps {
                 script {
                     def DeployMuti = [:]
-                    env.LIST_REGIONS.each { region ->
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    regions.each { region ->
                         DeployMuti["Test ${region}"] = {
                             echo "Deploy region: ${region}"
                         }
