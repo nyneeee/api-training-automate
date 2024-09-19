@@ -48,8 +48,8 @@ pipeline {
                                   ]
                         }
                     }
-                    // สั่งให้ทำ parallel
-                    parallel tasks
+                    // สั่งให้ทำ parallel โดยแบ่งงานตามใน tasks ที่อยู่ใน loop
+                    parallel(tasks)
                 }
             }
         }
