@@ -78,7 +78,7 @@ pipeline {
                                 sed -n 's/.*pass="\\([0-9]*\\)" fail="\\([0-9]*\\)" skip="\\([0-9]*\\)">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p'
                             """, returnStdout: true).trim()
                             
-                            // ดำเนินการแยกค่า Pass, Fail, Skip
+                            // แยกค่า Pass, Fail, Skip
                             def prePass = sh(script: """
                                 echo "${preStatus}" | 
                                 sed -n 's/.*Pass: \\([0-9]*\\).*/\\1/p'
@@ -94,11 +94,12 @@ pipeline {
                                 sed -n 's/.*Skip: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-
+                            // Set default = 0 หาก Sed 's' ได้ null
                             prePass = prePass ?: "0"
                             preFail = preFail ?: "0"
                             preSkip = preSkip ?: "0"
 
+                            // Set Total 
                             def preTotal = (prePass.toInteger() + preFail.toInteger() + preSkip.toInteger())
                             echo "Pre-Test TOTAL: ${preTotal}"
                             echo "Pre-Test PASS: ${prePass}"
