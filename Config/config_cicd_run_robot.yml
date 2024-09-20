@@ -1,5 +1,5 @@
 cmd_run_robot_asse_prd: robot -d log_prd test_api_basic.robot
 cmd_run_robot_asse_sit: robot -d log_sit test_api_basic.robot
 
-cmd_run_robot_asea_prd: robot -d log_prd test_api_basic.robot
-cmd_run_robot_asea_sit: robot -d log_sit test_api_basic.robot
+cmd_run_robot_asesa_prd: robot -d log_prd test_api_basic.robot
+cmd_run_robot_asesa_sit: robot -d log_sit test_api_basic.robot
