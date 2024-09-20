@@ -11,17 +11,14 @@ pipeline {
         stage('Receive Artifacts') {
             steps {
                 script {
-                      echo "ARTIFACTS: ${params.ARTIFACTS}"
-                      echo "BUILD_NUMBER: ${params.BUILD_NUMBER}"
-                    // รับ artifacts
-                    try {
-                        copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
-                        unzip zipFile: "${params.ARTIFACTS}", dir: './archive_new'
-                        sh 'cat archive_new'
-                        sh 'ls -lrt'
-                    } catch (Exception e) {
-                        error "Failed to copy artifacts: ${e.message}"
-                    }
+                    echo "ARTIFACTS: ${params.ARTIFACTS}"
+                    echo "BUILD_NUMBER: ${params.BUILD_NUMBER}"
+                    copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
+                    sh(script: """
+                        ls -lrt
+                        cd Testsuites
+                        ls -lrt
+                    """)
                 }
             }
         }
