@@ -31,19 +31,13 @@ pipeline {
         stage('Trigger Pre-Test Automate') {
             steps {
                 script {
-                    def pretestResult = 'SUCCESS' // ประกาศตัวแปรก่อนใช้งาน
-                    try {
-                        def regions = params.REGION.split(',').collect { it.trim() }
-                        def validRegions = ['asse', 'asea']
-                        def invalidRegions = regions.findAll { !validRegions.contains(it) }
-                        if (invalidRegions) {
-                            error "Invalid regions detected: ${invalidRegions.join(', ')}. Valid regions are: ${validRegions.join(', ')}."
-                        } else {
-                            echo "Regions are valid: ${regions.join(', ')}."
-                        }
-                        def tasks = [:]
-                        regions.each { region ->
-                            tasks["Test ${region}"] = {
+                    def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            try {
                                 echo "Running tests for region: ${region}"
                                 build job: "Pre-Test Automate",
                                       parameters: [
@@ -52,12 +46,23 @@ pipeline {
                                           string(name: 'SITE_TEST', value: params.SITE_TEST),
                                           string(name: 'BRANCH_REF', value: params.BRANCH_REF)
                                       ]
+                                echo "Tests for region ${region} completed successfully."
+                            } catch (Exception e) {
+                                errorRegions << region  // เก็บ region ที่มี error ลงใน list
+                                echo "Tests for region ${region} failed: ${e.message}"
                             }
                         }
-                        parallel(tasks)
-                    } catch (Exception e) {
-                        pretestResult = 'FAILURE'
-                        echo e.message
+                    }
+
+                    parallel(tasks)  // รัน parallel tasks
+
+                    // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
+                    if (errorRegions) {
+                        echo "Errors encountered in regions: ${errorRegions.join(', ')}"
+                        env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable
+                    } else {
+                        echo "All tests completed successfully."
+                        env.ERROR_REGIONS = ''  // ถ้าไม่มี error
                     }
                 }
             }
@@ -65,7 +70,11 @@ pipeline {
         stage('Deploy Mockup') {
             when {
                 expression {
-                    return pretestResult != 'FAILURE' // ตรวจสอบว่า pretestResult ไม่ใช่ 'FAILURE'
+                    def errorRegions = env.ERROR_REGIONS.split(',')
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    
+                    // เงื่อนไข: ถ้ามี error ใน region ใด region หนึ่ง แต่ไม่ทุก region ให้ deploy
+                    return (errorRegions.size() < regions.size()) && (errorRegions.size() > 0)
                 }
             }
             steps {
@@ -73,11 +82,11 @@ pipeline {
                     def DeployMuti = [:]
                     def regions = params.REGION.split(',').collect { it.trim() }
                     regions.each { region ->
-                        DeployMuti["Test ${region}"] = {
+                        DeployMuti["Deploy ${region}"] = {
                             echo "Deploy region: ${region}"
                         }
                     }
-                    parallel(DeployMuti)
+                    parallel(DeployMuti)  // Deploy งานให้ parallel
                 }
             }
         }
