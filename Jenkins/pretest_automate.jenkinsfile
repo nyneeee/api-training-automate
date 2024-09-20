@@ -57,9 +57,10 @@ pipeline {
                     script {
                         sh(script: """
                             cd Testsuites
+                            zip -r log_${params.REGION}_${params.SITE_TEST}.zip log_${params.REGION}_${params.SITE_TEST}/
                             ls -lrt
                         """)
-                        archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}", allowEmptyArchive: true
+                        archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip", allowEmptyArchive: true
                         echo "Upload archiveArtifacts Success."
                     }
                 }
