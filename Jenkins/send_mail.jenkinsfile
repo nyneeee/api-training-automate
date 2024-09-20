@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'ARTIFACTS', defaultValue: '', description: 'Artifacts to retrieve')
+        string(name: 'BUILD_NUMBER', defaultValue: '', description: '')
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
@@ -10,15 +11,17 @@ pipeline {
         stage('Receive Artifacts') {
             steps {
                 script {
+                      echo "ARTIFACTS: ${params.ARTIFACTS}"
+                      echo "BUILD_NUMBER: ${params.BUILD_NUMBER}"
                     // รับ artifacts
                     try {
-                        copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}"
+                        copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
+                        unzip zipFile: 'test.zip', dir: './archive_new'
+                        sh 'cat archive_new/test.txt'
+                        sh 'ls -lrt'
                     } catch (Exception e) {
                         error "Failed to copy artifacts: ${e.message}"
                     }
-
-                    // เช็คไฟล์ใน directory
-                    sh 'ls -lrt' // แสดงไฟล์ทั้งหมดใน directory
                 }
             }
         }

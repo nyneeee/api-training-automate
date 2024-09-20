@@ -105,10 +105,12 @@ pipeline {
                             echo "Pre-Test PASS: ${prePass}"
                             echo "Pre-Test FAIL: ${preFail}"
                             echo "Pre-Test SKIP: ${preSkip}"
+                            echo "Current Build Number: ${env.BUILD_NUMBER}"
 
                             // Trigger the next job
                             build job: 'Robot Send-Mail', propagate: false, parameters: [
                                 string(name: 'ARTIFACTS', value: "log_${params.REGION}_${params.SITE_TEST}.zip")
+                                string(name: 'BUILD_NUMBER', value: "${env.BUILD_NUMBER}")
                             ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
