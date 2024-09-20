@@ -105,11 +105,6 @@ pipeline {
                             echo "Pre-Test PASS: ${prePass}"
                             echo "Pre-Test FAIL: ${preFail}"
                             echo "Pre-Test SKIP: ${preSkip}"
-
-                            // Trigger the next job
-                            build job: 'Robot Send-Mail', propagate: false, parameters: [
-                                string(name: 'ARTIFACTS', value: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip")
-                            ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
                         }
