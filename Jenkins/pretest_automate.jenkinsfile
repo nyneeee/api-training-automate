@@ -60,6 +60,7 @@ pipeline {
                             sh(script: """
                                 cd Testsuites
                                 zip -r log_${params.REGION}_${params.SITE_TEST}.zip log_${params.REGION}_${params.SITE_TEST}/
+                                ls -lrt
                             """)
                             archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip", allowEmptyArchive: true
                             echo "Upload log_${params.REGION}_${params.SITE_TEST} archiveArtifacts Success."
@@ -69,7 +70,12 @@ pipeline {
                     }
                 }
                 failure {
-                    echo "Send Email: Pre-Test for region ${env.errorRegion} failed: ${e.message}"
+                    script {
+                        // Download Log
+                        sh '''
+                                cd Testsuites
+                                ls -lrt
+                        '''
                 }
             }
         }
