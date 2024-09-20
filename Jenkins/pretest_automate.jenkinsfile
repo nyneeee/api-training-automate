@@ -59,11 +59,12 @@ pipeline {
                         if (fileExists(logDir)) {
                             sh(script: """
                                 cd Testsuites
-                                zip -r log_${params.REGION}_${params.SITE_TEST}.zip log_${params.REGION}_${params.SITE_TEST}/
+                                zip -r report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip log_${params.REGION}_${params.SITE_TEST}/
                                 ls -lrt
                             """)
-                            archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip", allowEmptyArchive: true
-                            echo "Upload log_${params.REGION}_${params.SITE_TEST} archiveArtifacts Success."
+                            echo "Current Build Number: ${env.BUILD_NUMBER}"
+                            archiveArtifacts artifacts: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip", allowEmptyArchive: true
+                            echo "Upload report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip archiveArtifacts Success."
                         } else {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
@@ -105,11 +106,10 @@ pipeline {
                             echo "Pre-Test PASS: ${prePass}"
                             echo "Pre-Test FAIL: ${preFail}"
                             echo "Pre-Test SKIP: ${preSkip}"
-                            echo "Current Build Number: ${env.BUILD_NUMBER}"
 
                             // Trigger the next job
                             build job: 'Robot Send-Mail', propagate: false, parameters: [
-                                string(name: 'ARTIFACTS', value: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip"),
+                                string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
                                 string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER)
                             ]
                         } else {
