@@ -79,27 +79,31 @@ pipeline {
                             """, returnStdout: true).trim()
                             
                             // ดำเนินการแยกค่า Pass, Fail, Skip
-                            def PRE_PASS = sh(script: """
-                                echo "${preStatus}" | grep -oP '(?<=Pass: )[0-9]+'
+                            def prePass = sh(script: """
+                                echo "${preStatus}" | 
+                                sed -n 's/.*Pass: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-                            def PRE_FAIL = sh(script: """
-                                echo "${preStatus}" | grep -oP '(?<=Fail: )[0-9]+'
+                            def preFail = sh(script: """
+                                echo "${preStatus}" | 
+                                sed -n 's/.*Fail: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-                            def PRE_SKIP = sh(script: """
-                                echo "${preStatus}" | grep -oP '(?<=Skip: )[0-9]+'
+                            def preSkip = sh(script: """
+                                echo "${preStatus}" | 
+                                sed -n 's/.*Skip: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-                            PRE_PASS = PRE_PASS ?: "0"
-                            PRE_FAIL = PRE_FAIL ?: "0"
-                            PRE_SKIP = PRE_SKIP ?: "0"
 
-                            def PRE_TOTAL = (PRE_PASS.toInteger() + PRE_FAIL.toInteger() + PRE_SKIP.toInteger())
-                            echo "Pre-Test TOTAL: ${PRE_TOTAL}"
-                            echo "Pre-Test PASS: ${PRE_PASS}"
-                            echo "Pre-Test FAIL: ${PRE_FAIL}"
-                            echo "Pre-Test SKIP: ${PRE_SKIP}"
+                            prePass = prePass ?: "0"
+                            preFail = preFail ?: "0"
+                            preSkip = preSkip ?: "0"
+
+                            def preTotal = (prePass.toInteger() + preFail.toInteger() + preSkip.toInteger())
+                            echo "Pre-Test TOTAL: ${preTotal}"
+                            echo "Pre-Test PASS: ${prePass}"
+                            echo "Pre-Test FAIL: ${preFail}"
+                            echo "Pre-Test SKIP: ${preSkip}"
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
                         }
