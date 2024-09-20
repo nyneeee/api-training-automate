@@ -16,8 +16,8 @@ pipeline {
                     // รับ artifacts
                     try {
                         copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
-                        unzip zipFile: 'test.zip', dir: './archive_new'
-                        sh 'cat archive_new/test.txt'
+                        unzip zipFile: "${params.ARTIFACTS}", dir: './archive_new'
+                        sh 'cat archive_new'
                         sh 'ls -lrt'
                     } catch (Exception e) {
                         error "Failed to copy artifacts: ${e.message}"
