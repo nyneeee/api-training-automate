@@ -109,8 +109,8 @@ pipeline {
 
                             // Trigger the next job
                             build job: 'Robot Send-Mail', propagate: false, parameters: [
-                                string(name: 'ARTIFACTS', value: "log_${params.REGION}_${params.SITE_TEST}.zip")
-                                string(name: 'BUILD_NUMBER', value: "${env.BUILD_NUMBER}")
+                                string(name: 'ARTIFACTS', value: "log_${params.REGION}_${params.SITE_TEST}.zip"),
+                                string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER)
                             ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
