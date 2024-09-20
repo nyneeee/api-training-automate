@@ -9,11 +9,17 @@ pipeline {
     stages {
         stage('Receive Artifacts') {
             steps {
-                // รับ artifacts
-                copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}"
+                script {
+                    // รับ artifacts
+                    try {
+                        copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}"
+                    } catch (Exception e) {
+                        error "Failed to copy artifacts: ${e.message}"
+                    }
 
-                // เช็คไฟล์ใน directory
-                sh 'ls -lrt' // แสดงไฟล์ทั้งหมดใน directory
+                    // เช็คไฟล์ใน directory
+                    sh 'ls -lrt' // แสดงไฟล์ทั้งหมดใน directory
+                }
             }
         }
     }
