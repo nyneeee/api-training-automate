@@ -64,7 +64,7 @@ pipeline {
                         env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable
                     } else {
                         echo "All tests completed successfully."
-                        env.ERROR_REGIONS = ''  // ถ้าไม่มี error
+                        env.ERROR_REGIONS = ''
                     }
 
                     // แสดงรายชื่อ regions ที่ทดสอบผ่าน
@@ -73,7 +73,7 @@ pipeline {
                         env.SUCCESS_REGIONS = successRegions.join(',')  // เก็บค่า successRegions ไว้ใน environment variable
                     } else {
                         echo "No tests passed."
-                        env.SUCCESS_REGIONS = ''  // ถ้าไม่มี region ที่ผ่าน
+                        env.SUCCESS_REGIONS = ''
                     }
                 }
             }
@@ -81,11 +81,12 @@ pipeline {
         stage('Deploy Mockup') {
             when {
                 expression {
+                    def successRegions = env.SUCCESS_REGIONS.split(',').findAll { it }
                     def errorRegions = env.ERROR_REGIONS.split(',').findAll { it }
                     def regions = params.REGION.split(',').collect { it.trim() }
                     
                     // เงื่อนไข: ถ้ามี error ใน region ใด region หนึ่ง แต่ไม่ทุก region ให้ deploy
-                    return (errorRegions.size() < regions.size()) && (errorRegions.size() > 0)
+                    return successRegions.size() == regions.size() && successRegions.containsAll(regions) && errorRegions.isEmpty()
                 }
             }
             steps {
