@@ -42,10 +42,17 @@ pipeline {
         }
         stage('Run Robot PreTest') {
             steps {
-                sh(script: """
-                    cd Testsuites
-                    ${env.CMD_RUN_PRE_TEST}
-                """)
+                script {
+                    try {
+                        sh(script: """
+                            cd Testsuites
+                            ${env.CMD_RUN_PRE_TEST}
+                        """)
+                    } catch (Exception e) {
+                        env.errorRegion = params.REGION
+                        echo "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
+                    }
+                }
             }
         }
     }

@@ -61,7 +61,7 @@ pipeline {
                     // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
                     if (errorRegions) {
                         echo "Errors encountered in regions: ${errorRegions.join(', ')}"
-                        env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable
+                        env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable แปลงค่าเป็น String
                     } else {
                         echo "All tests completed successfully."
                         env.ERROR_REGIONS = ''
@@ -70,7 +70,7 @@ pipeline {
                     // แสดงรายชื่อ regions ที่ทดสอบผ่าน
                     if (successRegions) {
                         echo "Success in regions: ${successRegions.join(', ')}"
-                        env.SUCCESS_REGIONS = successRegions.join(',')  // เก็บค่า successRegions ไว้ใน environment variable
+                        env.SUCCESS_REGIONS = successRegions.join(',')  // เก็บค่า successRegions ไว้ใน environment variable แปลงค่าเป็น String
                     } else {
                         echo "No tests passed."
                         env.SUCCESS_REGIONS = ''
