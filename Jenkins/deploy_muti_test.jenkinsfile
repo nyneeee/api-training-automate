@@ -32,6 +32,7 @@ pipeline {
             steps {
                 script {
                     def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
+                    def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def tasks = [:]
 
@@ -47,6 +48,7 @@ pipeline {
                                           string(name: 'BRANCH_REF', value: params.BRANCH_REF)
                                       ]
                                 echo "Tests for region ${region} completed successfully."
+                                successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
                             } catch (Exception e) {
                                 errorRegions << region  // เก็บ region ที่มี error ลงใน list
                                 echo "Tests for region ${region} failed: ${e.message}"
@@ -64,13 +66,22 @@ pipeline {
                         echo "All tests completed successfully."
                         env.ERROR_REGIONS = ''  // ถ้าไม่มี error
                     }
+
+                    // แสดงรายชื่อ regions ที่ทดสอบผ่าน
+                    if (successRegions) {
+                        echo "Success in regions: ${successRegions.join(', ')}"
+                        env.SUCCESS_REGIONS = successRegions.join(',')  // เก็บค่า successRegions ไว้ใน environment variable
+                    } else {
+                        echo "No tests passed."
+                        env.SUCCESS_REGIONS = ''  // ถ้าไม่มี region ที่ผ่าน
+                    }
                 }
             }
         }
         stage('Deploy Mockup') {
             when {
                 expression {
-                    def errorRegions = env.ERROR_REGIONS.split(',')
+                    def errorRegions = env.ERROR_REGIONS.split(',').findAll { it }
                     def regions = params.REGION.split(',').collect { it.trim() }
                     
                     // เงื่อนไข: ถ้ามี error ใน region ใด region หนึ่ง แต่ไม่ทุก region ให้ deploy
@@ -80,13 +91,14 @@ pipeline {
             steps {
                 script {
                     def DeployMuti = [:]
-                    def regions = params.REGION.split(',').collect { it.trim() }
-                    regions.each { region ->
+                    def successRegions = env.SUCCESS_REGIONS.split(',').findAll { it }  // เอาเฉพาะ regions ที่ทดสอบผ่านมา deploy
+
+                    successRegions.each { region ->
                         DeployMuti["Deploy ${region}"] = {
                             echo "Deploy region: ${region}"
                         }
                     }
-                    parallel(DeployMuti)  // Deploy งานให้ parallel
+                    parallel(DeployMuti)  // Deploy งานให้ parallel เฉพาะ regions ที่ผ่าน
                 }
             }
         }
