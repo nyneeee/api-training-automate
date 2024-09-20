@@ -55,13 +55,17 @@ pipeline {
             post {
                 always {
                     script {
-                        sh(script: """
-                            cd Testsuites
-                            zip -r log_${params.REGION}_${params.SITE_TEST}.zip log_${params.REGION}_${params.SITE_TEST}/
-                            ls -lrt
-                        """)
-                        archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip", allowEmptyArchive: true
-                        echo "Upload archiveArtifacts Success."
+                        def logDir = "Testsuites/log_${params.REGION}_${params.SITE_TEST}/"
+                        if (fileExists(logDir)) {
+                            sh(script: """
+                                cd Testsuites
+                                zip -r log_${params.REGION}_${params.SITE_TEST}.zip log_${params.REGION}_${params.SITE_TEST}/
+                            """)
+                            archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}.zip", allowEmptyArchive: true
+                            echo "Upload log_${params.REGION}_${params.SITE_TEST} archiveArtifacts Success."
+                        } else {
+                            error "Log directory not found: ${logDir}. Skipping ZIP creation."
+                        }
                     }
                 }
                 failure {
