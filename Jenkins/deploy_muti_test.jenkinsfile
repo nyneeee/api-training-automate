@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        SECRET_QA_USER_GMAIL = credentials('user_gmail_qa_automate')
+    }
     parameters {
         choice(
             name: 'GH_RUNNER_TAG',
@@ -26,6 +29,7 @@ pipeline {
         stage('Analyze') {
             steps {
                 echo "Analyze"
+                echo "My secret value is: ${SECRET_QA_USER_GMAIL}" // ใช้งาน Secret
             }
         }
         stage('Trigger Pre-Test Automate') {
