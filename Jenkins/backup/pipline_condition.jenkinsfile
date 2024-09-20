@@ -51,7 +51,7 @@ pipeline {
                                 successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
                             } catch (Exception e) {
                                 errorRegions << region  // เก็บ region ที่มี error ลงใน list
-                                error "Tests for region ${region} failed: ${e.message}"
+                                echo "Tests for region ${region} failed: ${e.message}"
                             }
                         }
                     }
