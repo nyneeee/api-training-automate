@@ -77,7 +77,29 @@ pipeline {
                                 grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
                                 sed -n 's/.*pass="\\([0-9]*\\)" fail="\\([0-9]*\\)" skip="\\([0-9]*\\)">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p'
                             """, returnStdout: true).trim()
-                            echo "Test Results: ${preStatus}"
+                            
+                            // ดำเนินการแยกค่า Pass, Fail, Skip
+                            def PRE_PASS = sh(script: """
+                                echo "${preStatus}" | grep -oP '(?<=Pass: )[0-9]+'
+                            """, returnStdout: true).trim()
+
+                            def PRE_FAIL = sh(script: """
+                                echo "${preStatus}" | grep -oP '(?<=Fail: )[0-9]+'
+                            """, returnStdout: true).trim()
+
+                            def PRE_SKIP = sh(script: """
+                                echo "${preStatus}" | grep -oP '(?<=Skip: )[0-9]+'
+                            """, returnStdout: true).trim()
+
+                            PRE_PASS = PRE_PASS ?: "0"
+                            PRE_FAIL = PRE_FAIL ?: "0"
+                            PRE_SKIP = PRE_SKIP ?: "0"
+
+                            def PRE_TOTAL = (PRE_PASS.toInteger() + PRE_FAIL.toInteger() + PRE_SKIP.toInteger())
+                            echo "Pre-Test TOTAL: ${PRE_TOTAL}"
+                            echo "Pre-Test PASS: ${PRE_PASS}"
+                            echo "Pre-Test FAIL: ${PRE_FAIL}"
+                            echo "Pre-Test SKIP: ${PRE_SKIP}"
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
                         }
