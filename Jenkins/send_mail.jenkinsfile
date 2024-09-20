@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'ARTIFACTS', defaultValue: '', description: 'Artifacts to retrieve') // เพิ่ม parameter สำหรับ ARTIFACTS
+        string(name: 'ARTIFACTS', defaultValue: '', description: 'Artifacts to retrieve')
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
@@ -10,7 +10,7 @@ pipeline {
         stage('Receive Artifacts') {
             steps {
                 // รับ artifacts
-                copyArtifacts projectName: 'previous-job-name', filter: "${params.ARTIFACTS}"
+                copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}"
 
                 // เช็คไฟล์ใน directory
                 sh 'ls -lrt' // แสดงไฟล์ทั้งหมดใน directory
