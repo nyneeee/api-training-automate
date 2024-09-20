@@ -105,3 +105,124 @@ pipeline {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pipeline {
+    agent any
+    parameters {
+        choice(
+            name: 'GH_RUNNER_TAG',
+            choices: ['cpc-ate-dev', 'cpc-ate-prd'],
+            description: 'Runner to run tests.'
+        )
+        string(
+            name: 'REGION',
+            description: 'Region to run tests (comma-separated for multiple regions, e.g., "asse,asea")',
+            defaultValue: 'asse,asea'
+        )
+        choice(
+            name: 'SITE_TEST',
+            choices: ['prd', 'sit'],
+            description: 'Site to run tests.'
+        )
+        choice(
+            name: 'BRANCH_REF',
+            choices: ['main', 'sit'],
+            description: 'Branch to run tests.'
+        )
+    }
+    stages {
+        stage('Analyze') {
+            steps {
+                echo "Analyze"
+            }
+        }
+        stage('Trigger Pre-Test Automate') {
+            steps {
+                script {
+                    def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
+                    def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            try {
+                                echo "Running tests for region: ${region}"
+                                build job: "Pre-Test Automate",
+                                      parameters: [
+                                          string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                          string(name: 'REGION', value: region),
+                                          string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF)
+                                      ]
+                                echo "Tests for region ${region} completed successfully."
+                                successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
+                            } catch (Exception e) {
+                                errorRegions << region  // เก็บ region ที่มี error ลงใน list
+                                echo "Tests for region ${region} failed: ${e.message}"
+                            }
+                        }
+                    }
+
+                    parallel(tasks)  // รัน parallel tasks
+
+                    // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
+                    if (errorRegions) {
+                        echo "Errors encountered in regions: ${errorRegions.join(', ')}"
+                        env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable
+                    } else {
+                        echo "All tests completed successfully."
+                        env.ERROR_REGIONS = ''  // ถ้าไม่มี error
+                    }
+
+                    // แสดงรายชื่อ regions ที่ทดสอบผ่าน
+                    if (successRegions) {
+                        echo "Success in regions: ${successRegions.join(', ')}"
+                        env.SUCCESS_REGIONS = successRegions.join(',')  // เก็บค่า successRegions ไว้ใน environment variable
+                    } else {
+                        echo "No tests passed."
+                        env.SUCCESS_REGIONS = ''  // ถ้าไม่มี region ที่ผ่าน
+                    }
+                }
+            }
+        }
+        stage('Deploy Mockup') {
+            steps {
+                script {
+                    def successRegions = env.SUCCESS_REGIONS.split(',').findAll { it }
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def errorRegions = env.ERROR_REGIONS.split(',').findAll { it }
+
+                    // ตรวจสอบเงื่อนไข ถ้าตรง deploy ได้
+                    if (successRegions.size() == regions.size() && successRegions.containsAll(regions) && errorRegions.isEmpty()) {
+                        def DeployMuti = [:]
+
+                        successRegions.each { region ->
+                            DeployMuti["Deploy ${region}"] = {
+                                echo "Deploy region: ${region}"
+                            }
+                        }
+                        parallel(DeployMuti)  // Deploy งานให้ parallel เฉพาะ regions ที่ผ่าน
+                    } else {
+                        // ถ้าไม่ผ่านเงื่อนไข ให้โยน error
+                        error "Deployment failed: Some regions either encountered errors or did not pass all tests."
+                    }
+                }
+            }
+        }
+    }
+}
