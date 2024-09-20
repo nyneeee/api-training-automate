@@ -54,6 +54,9 @@ pipeline {
             }
             post {
                 always {
+                    sh 'ls -lrt'
+                    sh 'cd Testsuites'
+                    sh 'ls -lrt'
                     script {
                         archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}", allowEmptyArchive: true
                         echo "Upload archiveArtifacts Success."
