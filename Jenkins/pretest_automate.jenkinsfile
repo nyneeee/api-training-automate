@@ -71,13 +71,18 @@ pipeline {
                 }
                 failure {
                     script {
-                        // Download Log
-                        def preStatus = sh(script: """
-                            grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' Testsuites/log_${params.REGION}_${params.SITE_TEST}/output.xml | sed -n "s/.*pass=\"\\([0-9]*\\)\" fail=\"\\([0-9]*\\)\" skip=\"\\([0-9]*\\)\">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p"
-                        """, returnStdout: true).trim()
-                        echo "Test Results: ${preStatus}"
-                    } 
-                } 
+                        def xmlPath = "Testsuites/log_${params.REGION}_${params.SITE_TEST}/output.xml"
+                        if (fileExists(xmlPath)) {
+                            def preStatus = sh(script: """
+                                grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
+                                sed -n 's/.*pass="\([0-9]*\)" fail="\([0-9]*\)" skip="\([0-9]*\)">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p'
+                            """, returnStdout: true).trim()
+                            echo "Test Results: ${preStatus}"
+                        } else {
+                            error "output.xml not found at path: ${xmlPath}"
+                        }
+                    }
+                }
             }
         }
     }
