@@ -75,7 +75,7 @@ pipeline {
                         def preStatus = sh(script: """
                             cd Testsuites/log_${params.REGION}_${params.SITE_TEST}
                             ls -lrt
-                            grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' output.xml | sed -n 's/.*pass="\([0-9]*\)" fail="\([0-9]*\)" skip="\([0-9]*\)">All Tests<\/stat>.*/Pass: \1, Fail: \2, Skip: \3/p'
+                            grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' output.xml | sed -n "s/.*pass=\"\\([0-9]*\\)\" fail=\"\\([0-9]*\\)\" skip=\"\\([0-9]*\\)\">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p"
                         """, returnStdout: true).trim()
                         echo "Test Results: ${preStatus}"
                     } 
