@@ -7,8 +7,6 @@ pipeline {
         string(name: 'BRANCH_REF', defaultValue: '', description: '')
     }
     environment {
-        REGION = "REGION test"
-        SITE_TEST = "SITE_TEST test"
         PATH = "/opt/homebrew/bin:${env.PATH}"
     }
     stages {
@@ -33,7 +31,7 @@ pipeline {
                         returnStdout: true
                     ).trim()  
                     if (!CMD_RUN_PRE_TEST) {
-                     error "CMD_RUN_PRE_TEST is empty or null. Failing the build."
+                        error "CMD_RUN_PRE_TEST is empty or null. Failing the build."
                     }
                     echo "CMD_RUN_PRE_TEST: ${CMD_RUN_PRE_TEST}"
                     env.CMD_RUN_PRE_TEST = CMD_RUN_PRE_TEST
@@ -52,6 +50,17 @@ pipeline {
                         env.errorRegion = params.REGION
                         echo "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                     }
+                }
+            }
+            post {
+                always {
+                    script {
+                        archiveArtifacts artifacts: "Testsuites/log_${params.REGION}_${params.SITE_TEST}", allowEmptyArchive: true
+                        echo "Upload archiveArtifacts Success."
+                    }
+                }
+                failure {
+                    echo "Send Email: Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                 }
             }
         }
