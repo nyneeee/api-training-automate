@@ -90,8 +90,7 @@ pipeline {
                 msg['From'] = sender_email
                 msg['To'] = receiver_email
 
-                html = f'''
-                <!DOCTYPE html>
+                html = f"""
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
@@ -109,7 +108,7 @@ pipeline {
                 </head>
                 <body>
                     <div class="container">
-                        <h2>{heading_email}</h2>
+                        <h2>{{heading_email}}</h2>
                         <p>🤖 Workflow Main. Please find the summary of the test results below:</p>
                         <div id="group_detail">
                             <p id="detail">Workflow: Main [Error]</p>
@@ -123,7 +122,7 @@ pipeline {
                     </div>
                 </body>
                 </html>
-                '''
+                """
                 msg.attach(MIMEText(html, 'html'))
 
                 with open(attachments_file, "rb") as attachment:
