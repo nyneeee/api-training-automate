@@ -28,7 +28,7 @@ pipeline {
                 echo "Analyze"
             }
         }
-        stage('Pre-Test Automate') {
+        stage('Pre-Test') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -70,7 +70,7 @@ pipeline {
                 }
             }
         }
-        stage('Post-Test Automate') {
+        stage('Post-Test') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -98,7 +98,7 @@ pipeline {
                 }
             }
         }
-        stage('Compare-Test Automate') {
+        stage('Compare-Test') {
             steps {
                 script {
                     def errorRegions = [] 
