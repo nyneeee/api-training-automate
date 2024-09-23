@@ -17,7 +17,7 @@ cmd_run_robot_post_test_asea_prd: robot -d log_post_asea_prd test_api_basic.robo
 # Compare Test 
 # ASSE
 cmd_run_robot_compare_test_asse_sit: robot -d log_compare_asse_sit test_api_advanced.robot
-cmd_run_robot_compare_test_asse_prd: robot -d log_compare_asse_prd test_api_advanced.robot
+cmd_run_robot_compare_test_asse_prd: robot -d log_compare_asse_prd test_api_basic.robot
 # ASEA
 cmd_run_robot_compare_test_asea_sit: robot -d log_compare_asea_sit test_api_advanced.robot
 cmd_run_robot_compare_test_asea_prd: robot -d log_compare_asea_prd test_api_advanced.robot
