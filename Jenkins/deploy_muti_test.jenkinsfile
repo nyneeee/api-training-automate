@@ -52,8 +52,8 @@ pipeline {
                                           string(name: 'REGION', value: region),
                                           string(name: 'SITE_TEST', value: params.SITE_TEST),
                                           string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                          password(name: 'SECRET_QA_USER_GMAIL', value: "${SECRET_QA_USER_GMAIL}"),
-                                          password(name: 'SECRET_QA_PASS_GMAIL', value: "${SECRET_QA_PASS_GMAIL}"),
+                                          password(name: 'SECRET_QA_USER_GMAIL', value: $SECRET_QA_USER_GMAIL),
+                                          password(name: 'SECRET_QA_PASS_GMAIL', value: $SECRET_QA_PASS_GMAIL),
                                           string(name: 'JOB_TEST', value: 'Pre-Test')
                                       ]
                                 echo "Tests for region ${region} completed successfully."
