@@ -25,51 +25,44 @@ pipeline {
                     echo "ARTIFACTS: ${params.ARTIFACTS}"
                     echo "BUILD_NUMBER: ${params.BUILD_NUMBER}"
                     copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
-                    sh(script: """
+                    sh '''
                         ls -lrt
                         cd Testsuites
                         ls -lrt
-                    """)
+                    '''
                 }
             }
         }
         stage('Convert Site/Region to Upper And Set Variable') {
             steps {
                 script {
-                    def siteTestUpper = sh(
-                        script: "echo ${params.SITE_TEST} | awk '{print toupper(\$0)}'",
-                        returnStdout: true
-                    ).trim()
-
-                    def regionUpper = sh(
-                        script: "echo ${params.REGION} | awk '{print toupper(\$0)}'",
-                        returnStdout: true
-                    ).trim()
-                    env.SITE_TEST_UPPER = siteTestUpper
-                    env.REGION_UPPER = regionUpper
+                    env.SITE_TEST_UPPER = sh(script: "echo ${params.SITE_TEST} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
+                    env.REGION_UPPER = sh(script: "echo ${params.REGION} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
                     env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th"
                 }
             }
         }
-        stage('Echo Variable') {
+        stage('Echo Variables') {
             steps {
-                echo "SITE_TEST_UPPER: ${env.SITE_TEST_UPPER}"
-                echo "REGION_UPPER: ${env.REGION_UPPER}"
-                echo "RECEIVE_EMAIL: ${env.RECEIVE_EMAIL}"
-                echo "JOB: ${params.JOB}"
-                echo "STATUS_JOB: ${params.STATUS_JOB}"
-                echo "ARTIFACTS: ${params.ARTIFACTS}"
-                echo "USER_GMAIL: ${params.USER_GMAIL}"
-                echo "PASS_GMAIL: ${params.PASS_GMAIL}"
-                echo "RESULT_TEST_TOTAL: ${params.RESULT_TEST_TOTAL}"
-                echo "RESULT_TEST_PASS: ${params.RESULT_TEST_PASS}"
-                echo "RESULT_TEST_FAIL: ${params.RESULT_TEST_FAIL}"
-                echo "RESULT_TEST_SKIP: ${params.RESULT_TEST_SKIP}"
+                script {
+                    echo "SITE_TEST_UPPER: ${env.SITE_TEST_UPPER}"
+                    echo "REGION_UPPER: ${env.REGION_UPPER}"
+                    echo "RECEIVE_EMAIL: ${env.RECEIVE_EMAIL}"
+                    echo "JOB: ${params.JOB}"
+                    echo "STATUS_JOB: ${params.STATUS_JOB}"
+                    echo "ARTIFACTS: ${params.ARTIFACTS}"
+                    echo "USER_GMAIL: ${params.USER_GMAIL}"
+                    echo "PASS_GMAIL: ${params.PASS_GMAIL}"
+                    echo "RESULT_TEST_TOTAL: ${params.RESULT_TEST_TOTAL}"
+                    echo "RESULT_TEST_PASS: ${params.RESULT_TEST_PASS}"
+                    echo "RESULT_TEST_FAIL: ${params.RESULT_TEST_FAIL}"
+                    echo "RESULT_TEST_SKIP: ${params.RESULT_TEST_SKIP}"
+                }
             }
         }
         stage('Send Email') {
             steps {
-                sh """
+                sh '''
                 python3 - << EOF
                 import smtplib
                 from email.mime.multipart import MIMEMultipart
@@ -78,18 +71,18 @@ pipeline {
                 from email import encoders
 
                 # Email settings
-                subject_email = "WORKFLOW-${env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-${env.REGION_UPPER}: ${params.STATUS_JOB} / ${params.JOB}"
-                heading_email = "Automate Result : ${params.STATUS_JOB}"
-                sender_email = "${params.USER_GMAIL}"
-                receiver_email = "${env.RECEIVE_EMAIL}"
-                password = "${params.PASS_GMAIL}"
-                attachments_file = "${params.ARTIFACTS}"
-                on_region = "${env.REGION_UPPER}"
-                on_site_test = "${env.SITE_TEST_UPPER}"
-                pre_total = "${params.RESULT_TEST_TOTAL}"  
-                pre_passed = "${params.RESULT_TEST_PASS}"
-                pre_failed = "${params.RESULT_TEST_FAIL}"
-                pre_skiped = "${params.RESULT_TEST_SKIP}"
+                subject_email = f"WORKFLOW-{env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-{env.REGION_UPPER}: {params.STATUS_JOB} / {params.JOB}"
+                heading_email = "Automate Result : {params.STATUS_JOB}"
+                sender_email = "{params.USER_GMAIL}"
+                receiver_email = "{env.RECEIVE_EMAIL}"
+                password = "{params.PASS_GMAIL}"
+                attachments_file = "{params.ARTIFACTS}"
+                on_region = "{env.REGION_UPPER}"
+                on_site_test = "{env.SITE_TEST_UPPER}"
+                pre_total = "{params.RESULT_TEST_TOTAL}"  
+                pre_passed = "{params.RESULT_TEST_PASS}"
+                pre_failed = "{params.RESULT_TEST_FAIL}"
+                pre_skiped = "{params.RESULT_TEST_SKIP}"
 
                 # Create the email content
                 msg = MIMEMultipart('mixed')
@@ -121,11 +114,11 @@ pipeline {
                         <div id="group_detail">
                             <p id="detail">Workflow: Main [Error]</p>
                             <p id="detail">Job: Pre-Test</p>
-                            <p id="detail">Region: {on_region}</p>
-                            <p id="detail">Site Test: {on_site_test}</p>
+                            <p id="detail">Region: {{on_region}}</p>
+                            <p id="detail">Site Test: {{on_site_test}}</p>
                         </div>
-                        <p id="resource">Total Pre-Test: {pre_total}</p>
-                        <p id="resource">✅ Passed: {pre_passed} , ❌ Failed: {pre_failed} , ⏭️ Skiped: {pre_skiped}</p>
+                        <p id="resource">Total Pre-Test: {{pre_total}}</p>
+                        <p id="resource">✅ Passed: {{pre_passed}} , ❌ Failed: {{pre_failed}} , ⏭️ Skiped: {{pre_skiped}}</p>
                         <p>Thank you.</p>
                     </div>
                 </body>
@@ -133,16 +126,11 @@ pipeline {
                 '''
                 msg.attach(MIMEText(html, 'html'))
 
-                log_file_path = attachments_file
-                with open(log_file_path, "rb") as attachment:
+                with open(attachments_file, "rb") as attachment:
                     part = MIMEBase("application", "octet-stream")
                     part.set_payload(attachment.read())
-
                 encoders.encode_base64(part)
-                part.add_header(
-                    "Content-Disposition",
-                    f"attachment; filename={attachments_file}",
-                )
+                part.add_header("Content-Disposition", f"attachment; filename={attachments_file}")
                 part.add_header("Content-ID", "<log.html>")
                 msg.attach(part)
 
@@ -150,7 +138,7 @@ pipeline {
                     server.login(sender_email, password)
                     server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
                 EOF
-                """
+                '''
             }
         }
     }
