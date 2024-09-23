@@ -55,13 +55,6 @@ pipeline {
                     parallel(tasks)
                 }
             }
-            post {
-                always {
-                    // `onlyCritical: false` is for RF 3.x compatibility. This will be deprecated
-                    // and removed in the future.
-                    robot outputPath: '.', passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
-                }
-            }
         }
         stage('Deploy Mockup') {
             steps {
