@@ -71,8 +71,8 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 # Email settings
-subject_email = f"WORKFLOW-{env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-{env.REGION_UPPER}: {params.STATUS_JOB} / {params.JOB}"
-heading_email = "Automate Result : " + str(params.STATUS_JOB)
+subject_email = "WORKFLOW-${env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-${env.REGION_UPPER}: ${params.STATUS_JOB} / ${params.JOB}"
+heading_email = "Automate Result : ${params.STATUS_JOB}"
 sender_email = "${params.USER_GMAIL}"
 receiver_email = "${env.RECEIVE_EMAIL}"
 password = "${params.PASS_GMAIL}"
