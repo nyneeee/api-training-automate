@@ -26,7 +26,7 @@ pipeline {
                 script {
                     echo "ARTIFACTS: ${params.ARTIFACTS}"
                     echo "BUILD_NUMBER: ${params.BUILD_NUMBER}"
-                    copyArtifacts projectName: 'Robot Pre-Test', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
+                    copyArtifacts projectName: 'Robot Automate', filter: "${params.ARTIFACTS}", selector: specific("${params.BUILD_NUMBER}")
                     sh '''
                         ls -lrt
                         cd Testsuites
