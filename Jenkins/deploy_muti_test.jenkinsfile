@@ -52,8 +52,8 @@ pipeline {
                                           string(name: 'REGION', value: region),
                                           string(name: 'SITE_TEST', value: params.SITE_TEST),
                                           string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                          string(name: 'SECRET_QA_USER_GMAIL', value: env.user_gmail_qa_automate),
-                                          string(name: 'SECRET_QA_PASS_GMAIL', value: env.password_gmail_qa_automate)
+                                          string(name: 'SECRET_QA_USER_GMAIL', value: ${SECRET_QA_USER_GMAIL},
+                                          string(name: 'SECRET_QA_PASS_GMAIL', value: ${SECRET_QA_PASS_GMAIL})
                                       ]
                                 echo "Tests for region ${region} completed successfully."
                             } catch (Exception e) {
