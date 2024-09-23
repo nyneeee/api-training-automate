@@ -62,11 +62,8 @@ pipeline {
         }
         stage('Send Email') {
             steps {
-                script {
-                    // Extract the filename from the full path
-                    def attachmentName = sh(script: "basename ${params.ARTIFACTS}", returnStdout: true).trim()
-                    sh """
-                    python3 - << EOF
+                sh """
+                python3 - << EOF
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -80,7 +77,6 @@ sender_email = "${params.USER_GMAIL}"
 receiver_email = "${env.RECEIVE_EMAIL}"
 password = "${params.PASS_GMAIL}"
 attachments_file = "${params.ARTIFACTS}"
-attachment_name = "${attachmentName}"
 on_region = "${env.REGION_UPPER}"
 on_site_test = "${env.SITE_TEST_UPPER}"
 pre_total = "${params.RESULT_TEST_TOTAL}"  
@@ -130,15 +126,14 @@ with open(attachments_file, "rb") as attachment:
     part = MIMEBase("application", "octet-stream")
     part.set_payload(attachment.read())
 encoders.encode_base64(part)
-part.add_header("Content-Disposition", f"attachment; filename={attachment_name}")  # Use the extracted filename
+part.add_header("Content-Disposition", f"attachment; filename={attachments_file}")
 msg.attach(part)
 
 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
     server.login(sender_email, password)
     server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
 EOF
-            """
-                }
+                """
             }
         }
     }
