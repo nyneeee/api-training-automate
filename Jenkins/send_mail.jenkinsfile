@@ -17,6 +17,8 @@ pipeline {
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
+        SECRET_QA_USER_GMAIL = credentials('user_gmail_qa_automate')
+        SECRET_QA_PASS_GMAIL = credentials('password_gmail_qa_automate')
     }
     stages {
         stage('Receive Artifacts') {
@@ -52,8 +54,8 @@ pipeline {
                     echo "JOB: ${params.JOB}"
                     echo "STATUS_JOB: ${params.STATUS_JOB}"
                     echo "ARTIFACTS: ${env.ATTACHMENT_NAME}"
-                    echo "USER_GMAIL: ${params.USER_GMAIL}"
-                    echo "PASS_GMAIL: ${params.PASS_GMAIL}"
+                    echo "User -> secret value is: ${USER_GMAIL}" // ใช้งาน Secret
+                    echo "Password ->  secret value is: ${PASS_GMAIL}" // ใช้งาน Secret
                     echo "RESULT_TEST_TOTAL: ${params.RESULT_TEST_TOTAL}"
                     echo "RESULT_TEST_PASS: ${params.RESULT_TEST_PASS}"
                     echo "RESULT_TEST_FAIL: ${params.RESULT_TEST_FAIL}"
