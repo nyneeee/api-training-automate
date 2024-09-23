@@ -12,8 +12,8 @@ pipeline {
         string(name: 'RESULT_TEST_SKIP', defaultValue: '', description: '')
         string(name: 'JOB', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
         string(name: 'STATUS_JOB', defaultValue: '', description: 'Success/Fail')
-        string(name: 'USER_GMAIL', defaultValue: '', description: 'User Email')
-        string(name: 'PASS_GMAIL', defaultValue: '', description: 'App Password')
+        password(name: 'USER_GMAIL', defaultValue: '', description: 'User Email')
+        password(name: 'PASS_GMAIL', defaultValue: '', description: 'App Password')
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"

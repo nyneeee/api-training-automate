@@ -5,8 +5,8 @@ pipeline {
         string(name: 'REGION', defaultValue: '', description: '')
         string(name: 'SITE_TEST', defaultValue: '', description: '')
         string(name: 'BRANCH_REF', defaultValue: '', description: '')
-        string(name: 'SECRET_QA_USER_GMAIL', defaultValue: '', description: '')
-        string(name: 'SECRET_QA_PASS_GMAIL', defaultValue: '', description: '')
+        password(name: 'SECRET_QA_USER_GMAIL', defaultValue: '', description: '')
+        password(name: 'SECRET_QA_PASS_GMAIL', defaultValue: '', description: '')
         string(name: 'JOB_TEST', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
     }
     environment {
