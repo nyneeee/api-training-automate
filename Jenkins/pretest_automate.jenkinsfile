@@ -7,6 +7,7 @@ pipeline {
         string(name: 'BRANCH_REF', defaultValue: '', description: '')
         string(name: 'SECRET_QA_USER_GMAIL', defaultValue: '', description: '')
         string(name: 'SECRET_QA_PASS_GMAIL', defaultValue: '', description: '')
+        string(name: 'JOB_TEST', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
@@ -105,7 +106,6 @@ pipeline {
                             // Set Total And Status Job
                             def preTotal = (prePass.toInteger() + preFail.toInteger() + preSkip.toInteger())
                             def preStatusJob = "Fail"
-                            def jobName = "Pre-Test"
                             echo "Pre-Test TOTAL: ${preTotal}"
                             echo "Pre-Test PASS: ${prePass}"
                             echo "Pre-Test FAIL: ${preFail}"
@@ -122,7 +122,7 @@ pipeline {
                                 string(name: 'RESULT_TEST_PASS', value: "${prePass}"),
                                 string(name: 'RESULT_TEST_FAIL', value: "${preFail}"),
                                 string(name: 'RESULT_TEST_SKIP', value: "${preSkip}"),
-                                string(name: 'JOB', value: "${jobName}"),
+                                string(name: 'JOB', value: params.JOB_TEST),
                                 string(name: 'STATUS_JOB', value: "${preStatusJob}"),
                                 string(name: 'USER_GMAIL', value: params.SECRET_QA_USER_GMAIL),
                                 string(name: 'PASS_GMAIL', value: params.SECRET_QA_PASS_GMAIL)
