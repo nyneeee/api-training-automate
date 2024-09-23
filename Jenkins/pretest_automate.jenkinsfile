@@ -34,6 +34,7 @@ pipeline {
                             """,
                             returnStdout: true
                         ).trim()
+                        env.PATH_LOG_ROBOT_XML = "log_pre_${params.REGION}_${params.SITE_TEST}"
                     } else if (params.JOB_TEST == 'Post-Test') {
                         RUN_ROBOT = sh(
                             script: """
@@ -41,6 +42,7 @@ pipeline {
                             """,
                             returnStdout: true
                         ).trim()
+                        env.PATH_LOG_ROBOT_XML = "log_post_${params.REGION}_${params.SITE_TEST}"
                     } else if (params.JOB_TEST == 'Compare-Test') {
                         RUN_ROBOT = sh(
                             script: """
@@ -48,6 +50,7 @@ pipeline {
                             """,
                             returnStdout: true
                         ).trim()
+                        env.PATH_LOG_ROBOT_XML = "log_compare_${params.REGION}_${params.SITE_TEST}"
                     } else {
                         error "Invalid JOB_TEST parameter: ${params.JOB_TEST}. Failing the build, Support JOB_TEST parameter is ['Pre-Test', 'Post-Test', 'Compare-Test']."
                     }
@@ -90,7 +93,7 @@ pipeline {
                 }
                 failure {
                     script {
-                        def xmlPath = "Testsuites/log_${params.REGION}_${params.SITE_TEST}/output.xml"
+                        def xmlPath = "Testsuites/${env.PATH_LOG_ROBOT_XML}/output.xml"
                         if (fileExists(xmlPath)) {
                             def preStatus = sh(script: """
                                 grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
