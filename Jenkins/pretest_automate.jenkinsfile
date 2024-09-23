@@ -27,17 +27,32 @@ pipeline {
         stage('Test Grep CMD Run PreTest Robot') {
             steps {
                 script {
-                    def CMD_RUN_PRE_TEST = sh(
-                        script: """
-                            grep 'cmd_run_robot_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
-                        """,
-                        returnStdout: true
-                    ).trim()  
-                    if (!CMD_RUN_PRE_TEST) {
-                        error "CMD_RUN_PRE_TEST is empty or null. Failing the build."
+                    if (params.JOB_TEST == 'Pre-Test') {
+                        RUN_ROBOT = sh(
+                            script: """
+                                grep 'cmd_run_robot_pre_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } else if (params.JOB_TEST == 'Post-Test') {
+                        RUN_ROBOT = sh(
+                            script: """
+                                grep 'cmd_run_robot_post_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } else if (params.JOB_TEST == 'Compare-Test') {
+                        RUN_ROBOT = sh(
+                            script: """
+                                grep 'cmd_run_robot_compare_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+                            """,
+                            returnStdout: true
+                        ).trim()
+                    } else {
+                        error "Invalid JOB_TEST parameter: ${params.JOB_TEST}. Failing the build, Support JOB_TEST parameter is ['Pre-Test', 'Post-Test', 'Compare-Test']."
                     }
-                    echo "CMD_RUN_PRE_TEST: ${CMD_RUN_PRE_TEST}"
-                    env.CMD_RUN_PRE_TEST = CMD_RUN_PRE_TEST
+                    echo "CMD_RUN: ${RUN_ROBOT}"
+                    env.RUN_ROBOT = RUN_ROBOT
                 }
             }
         }
@@ -47,7 +62,7 @@ pipeline {
                     try {
                         sh(script: """
                             cd Testsuites
-                            ${env.CMD_RUN_PRE_TEST}
+                            ${env.RUN_ROBOT}
                         """)
                     } catch (Exception e) {
                         env.errorRegion = params.REGION
