@@ -31,8 +31,6 @@ pipeline {
         stage('Trigger Pre-Test Automate') {
             steps {
                 script {
-                    def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
-                    def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def tasks = [:]
 
@@ -75,6 +73,34 @@ pipeline {
         stage('Trigger Post-Test Automate') {
             steps {
                 script {
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            try {
+                                echo "Running tests for region: ${region}"
+                                build job: "Robot Automate",
+                                      parameters: [
+                                          string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                          string(name: 'REGION', value: region),
+                                          string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                          string(name: 'JOB_TEST', value: 'Post-Test')
+                                      ]
+                                echo "Tests for region ${region} completed successfully."
+                            } catch (Exception e) {
+                                error "Tests for region ${region} failed: ${e.message}"
+                            }
+                        }
+                    }
+                    parallel(tasks)
+                }
+            }
+        }
+        stage('Trigger Compare-Test Automate') {
+            steps {
+                script {
                     def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
                     def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -90,9 +116,7 @@ pipeline {
                                           string(name: 'REGION', value: region),
                                           string(name: 'SITE_TEST', value: params.SITE_TEST),
                                           string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                          string(name: 'SECRET_QA_USER_GMAIL', value: "${SECRET_QA_USER_GMAIL}"),
-                                          string(name: 'SECRET_QA_PASS_GMAIL', value: "${SECRET_QA_PASS_GMAIL}"),
-                                          string(name: 'JOB_TEST', value: 'Post-Test')
+                                          string(name: 'JOB_TEST', value: 'Compare-Test')
                                       ]
                                 echo "Tests for region ${region} completed successfully."
                             } catch (Exception e) {
