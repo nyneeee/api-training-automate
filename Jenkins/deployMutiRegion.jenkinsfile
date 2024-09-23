@@ -101,14 +101,14 @@ pipeline {
         stage('Trigger Compare-Test Automate') {
             steps {
                 script {
-                    def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
-                    def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
+                    def errorRegions = [] 
+                    def successRegions = []  
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def tasks = [:]
 
                     regions.each { region ->
                         tasks["Test ${region}"] = {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                                 try {
                                     echo "Running tests for region: ${region}"
                                     build job: "Robot Automate",
@@ -120,26 +120,19 @@ pipeline {
                                             string(name: 'JOB_TEST', value: 'Compare-Test')
                                         ]
                                     echo "Tests for region ${region} completed successfully."
-                                    successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
+                                    successRegions << region  
                                 } catch (Exception e) {
-                                    errorRegions << region  // เก็บ region ที่มี error ลงใน list
+                                    errorRegions << region 
                                     error "Tests for region ${region} failed: ${e.message}"
                                 }
                             }
                         }
                     }
                     parallel(tasks)
-
-                    // Debug Success Regions
-                    echo "Success regions: ${successRegions.join(',')}"
-
-                    // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
                     if (errorRegions) {
-                        echo "Errors encountered in regions: ${errorRegions.join(', ')}"
-                        env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable แปลงค่าเป็น String
+                        echo "Errors in regions: ${errorRegions.join(', ')}"
+                        env.ERROR_REGIONS = errorRegions.join(',') 
                     }
-
-                    // แสดงรายชื่อ regions ที่ทดสอบผ่าน
                     if (successRegions) {
                         echo "Success in regions: ${successRegions.join(', ')}"
                         env.SUCCESS_REGIONS = successRegions.join(',') 
@@ -156,6 +149,22 @@ pipeline {
             steps {
                 echo "SUCCESS regions: ${env.SUCCESS_REGIONS}"
                 echo "FAIL regions: ${env.ERROR_REGIONS}"
+                script {
+                    def regions_rollout = env.ERROR_REGIONS.split(',').collect { it.trim() }
+                    def tasks = [:]
+                    regions_rollout.each { region ->
+                        tasks["Rollout ${region}"] = {
+                            catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+                                try {
+                                    echo "Rollout region: ${region}."
+                                } catch (Exception e) {
+                                    error "Rollout for region ${region} failed: ${e.message}."
+                                }
+                            }
+                        }
+                    }
+                    parallel(tasks)
+                }
             }
         }
     }

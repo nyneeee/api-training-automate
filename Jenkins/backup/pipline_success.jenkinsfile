@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        SECRET_QA_USER_GMAIL = credentials('user_gmail_qa_automate')
-        SECRET_QA_PASS_GMAIL = credentials('password_gmail_qa_automate')
-    }
     parameters {
         choice(
             name: 'GH_RUNNER_TAG',
@@ -30,15 +26,11 @@ pipeline {
         stage('Analyze') {
             steps {
                 echo "Analyze"
-                echo "User -> secret value is: ${SECRET_QA_USER_GMAIL}" // ใช้งาน Secret
-                echo "Password ->  secret value is: ${SECRET_QA_PASS_GMAIL}" // ใช้งาน Secret
             }
         }
         stage('Trigger Pre-Test Automate') {
             steps {
                 script {
-                    def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
-                    def successRegions = []  // List ที่ใช้เก็บ region ที่ทดสอบผ่าน
                     def regions = params.REGION.split(',').collect { it.trim() }
                     def tasks = [:]
 
@@ -46,12 +38,13 @@ pipeline {
                         tasks["Test ${region}"] = {
                             try {
                                 echo "Running tests for region: ${region}"
-                                build job: "Pre-Test Automate",
+                                build job: "Robot Automate",
                                       parameters: [
                                           string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
                                           string(name: 'REGION', value: region),
                                           string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF)
+                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                          string(name: 'JOB_TEST', value: 'Pre-Test')
                                       ]
                                 echo "Tests for region ${region} completed successfully."
                             } catch (Exception e) {
@@ -74,6 +67,102 @@ pipeline {
                         }
                     }
                     parallel(DeployMuti)
+                }
+            }
+        }
+        stage('Trigger Post-Test Automate') {
+            steps {
+                script {
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            try {
+                                echo "Running tests for region: ${region}"
+                                build job: "Robot Automate",
+                                      parameters: [
+                                          string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                          string(name: 'REGION', value: region),
+                                          string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                          string(name: 'JOB_TEST', value: 'Post-Test')
+                                      ]
+                                echo "Tests for region ${region} completed successfully."
+                            } catch (Exception e) {
+                                error "Tests for region ${region} failed: ${e.message}"
+                            }
+                        }
+                    }
+                    parallel(tasks)
+                }
+            }
+        }
+        stage('Trigger Compare-Test Automate') {
+            steps {
+                script {
+                    def errorRegions = [] 
+                    def successRegions = []  
+                    def regions = params.REGION.split(',').collect { it.trim() }
+                    def tasks = [:]
+
+                    regions.each { region ->
+                        tasks["Test ${region}"] = {
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                                try {
+                                    echo "Running tests for region: ${region}"
+                                    build job: "Robot Automate",
+                                        parameters: [
+                                            string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                            string(name: 'REGION', value: region),
+                                            string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                            string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                            string(name: 'JOB_TEST', value: 'Compare-Test')
+                                        ]
+                                    echo "Tests for region ${region} completed successfully."
+                                    successRegions << region  
+                                } catch (Exception e) {
+                                    errorRegions << region 
+                                    error "Tests for region ${region} failed: ${e.message}"
+                                }
+                            }
+                        }
+                    }
+                    parallel(tasks)
+                    if (errorRegions) {
+                        echo "Errors in regions: ${errorRegions.join(', ')}"
+                        env.ERROR_REGIONS = errorRegions.join(',') 
+                    }
+                    if (successRegions) {
+                        echo "Success in regions: ${successRegions.join(', ')}"
+                        env.SUCCESS_REGIONS = successRegions.join(',') 
+                    }
+                }
+            }
+        }
+        stage('Rollout') {
+            when {
+                expression {
+                    return env.SUCCESS_REGIONS && env.SUCCESS_REGIONS.split(',').findAll { it }.size() > 0
+                }
+            }
+            steps {
+                echo "SUCCESS regions: ${env.SUCCESS_REGIONS}"
+                echo "FAIL regions: ${env.ERROR_REGIONS}"
+                script {
+                    def regions_rollout = env.ERROR_REGIONS.split(',').collect { it.trim() }
+                    def tasks = [:]
+                    regions_rollout.each { region ->
+                        tasks["Test ${region}"] = {
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                                try {
+                                    echo "Rollout region: ${region}."
+                                } catch (Exception e) {
+                                    error "Rollout for region ${region} failed: ${e.message}."
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
