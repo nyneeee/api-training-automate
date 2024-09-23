@@ -47,7 +47,7 @@ pipeline {
                     ).trim()
                     env.SITE_TEST_UPPER = siteTestUpper
                     env.REGION_UPPER = regionUpper
-                    env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th, chalothorn.v@aware.co.th"
+                    env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th"
                 }
             }
         }
