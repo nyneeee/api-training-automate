@@ -23,12 +23,12 @@ pipeline {
         )
     }
     stages {
-        stage('Analyze') {
+        stage('Analyze Mockup') {
             steps {
                 echo "Analyze"
             }
         }
-        stage('Trigger Pre-Test Automate') {
+        stage('Pre-Test Automate') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -70,7 +70,7 @@ pipeline {
                 }
             }
         }
-        stage('Trigger Post-Test Automate') {
+        stage('Post-Test Automate') {
             steps {
                 script {
                     def regions = params.REGION.split(',').collect { it.trim() }
@@ -98,7 +98,7 @@ pipeline {
                 }
             }
         }
-        stage('Trigger Compare-Test Automate') {
+        stage('Compare-Test Automate') {
             steps {
                 script {
                     def errorRegions = [] 
@@ -140,14 +140,13 @@ pipeline {
                 }
             }
         }
-        stage('Rollout') {
+        stage('Rollout Mockup') {
             when {
                 expression {
-                    return env.SUCCESS_REGIONS && env.SUCCESS_REGIONS.split(',').findAll { it }.size() > 0
+                    return env.ERROR_REGIONS && env.ERROR_REGIONS.split(',').findAll { it }.size() > 0
                 }
             }
             steps {
-                echo "SUCCESS regions: ${env.SUCCESS_REGIONS}"
                 echo "FAIL regions: ${env.ERROR_REGIONS}"
                 script {
                     def regions_rollout = env.ERROR_REGIONS.split(',').collect { it.trim() }
@@ -161,6 +160,26 @@ pipeline {
                                     error "Rollout for region ${region} failed: ${e.message}."
                                 }
                             }
+                        }
+                    }
+                    parallel(tasks)
+                }
+            }
+        }
+        stage('Go Live') {
+            when {
+                expression {
+                    return env.SUCCESS_REGIONS && env.SUCCESS_REGIONS.split(',').findAll { it }.size() > 0
+                }
+            }
+            steps {
+                echo "SUCCESS regions: ${env.SUCCESS_REGIONS}"
+                script {
+                    def regions_golive = env.ERROR_REGIONS.split(',').collect { it.trim() }
+                    def tasks = [:]
+                    regions_golive.each { region ->
+                        tasks["Rollout ${region}"] = {
+                            echo "Go Live region: ${region}."
                         }
                     }
                     parallel(tasks)
