@@ -3,17 +3,17 @@ pipeline {
     parameters {
         string(name: 'ARTIFACTS', defaultValue: '', description: 'Artifacts')
         string(name: 'BUILD_NUMBER', defaultValue: '', description: 'Build Number')
-        string(name: 'REGION', defaultValue: '', description: '')
-        string(name: 'SITE_TEST', defaultValue: '', description: '')
-        string(name: 'BRANCH_REF', defaultValue: '', description: '')
+        string(name: 'REGION', defaultValue: '', description: 'ASSE/ASEA')
+        string(name: 'SITE_TEST', defaultValue: '', description: 'SIT/PRD')
+        string(name: 'BRANCH_REF', defaultValue: '', description: 'SIT/PRD/MAIN')
         string(name: 'RESULT_TEST_TOTAL', defaultValue: '', description: '')
         string(name: 'RESULT_TEST_PASS', defaultValue: '', description: '')
         string(name: 'RESULT_TEST_FAIL', defaultValue: '', description: '')
         string(name: 'RESULT_TEST_SKIP', defaultValue: '', description: '')
-        string(name: 'JOB', defaultValue: '', description: '')
-        string(name: 'STATUS_JOB', defaultValue: '', description: '')
-        string(name: 'USER_GMAIL', defaultValue: '', description: '')
-        string(name: 'PASS_GMAIL', defaultValue: '', description: '')
+        string(name: 'JOB', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
+        string(name: 'STATUS_JOB', defaultValue: '', description: 'Success/Fail')
+        string(name: 'USER_GMAIL', defaultValue: '', description: 'User Email')
+        string(name: 'PASS_GMAIL', defaultValue: '', description: 'App Password')
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
