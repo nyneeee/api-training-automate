@@ -108,46 +108,49 @@ pipeline {
 
                     regions.each { region ->
                         tasks["Test ${region}"] = {
-                            try {
-                                echo "Running tests for region: ${region}"
-                                build job: "Robot Automate",
-                                      parameters: [
-                                          string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
-                                          string(name: 'REGION', value: region),
-                                          string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                          string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                          string(name: 'JOB_TEST', value: 'Compare-Test')
-                                      ]
-                                echo "Tests for region ${region} completed successfully."
-                                successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
-                            } catch (Exception e) {
-                                errorRegions << region  // เก็บ region ที่มี error ลงใน list
-                                error "Tests for region ${region} failed: ${e.message}"
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                                try {
+                                    echo "Running tests for region: ${region}"
+                                    build job: "Robot Automate",
+                                        parameters: [
+                                            string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
+                                            string(name: 'REGION', value: region),
+                                            string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                            string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                            string(name: 'JOB_TEST', value: 'Compare-Test')
+                                        ]
+                                    echo "Tests for region ${region} completed successfully."
+                                    successRegions << region  // เก็บ region ที่ทดสอบผ่านลงใน list
+                                } catch (Exception e) {
+                                    errorRegions << region  // เก็บ region ที่มี error ลงใน list
+                                    error "Tests for region ${region} failed: ${e.message}"
+                                }
                             }
                         }
                     }
                     parallel(tasks)
+
                     // Debug Success Regions
                     echo "Success regions: ${successRegions.join(',')}"
-                    
+
                     // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
                     if (errorRegions) {
                         echo "Errors encountered in regions: ${errorRegions.join(', ')}"
                         env.ERROR_REGIONS = errorRegions.join(',')  // เก็บค่า errorRegions ไว้ใน environment variable แปลงค่าเป็น String
-                    } 
+                    }
 
                     // แสดงรายชื่อ regions ที่ทดสอบผ่าน
                     if (successRegions) {
                         echo "Success in regions: ${successRegions.join(', ')}"
                         env.SUCCESS_REGIONS = successRegions.join(',') 
-                    } 
+                    }
                 }
             }
         }
         stage('Rollout') {
             when {
                 expression {
-                  return env.SUCCESS_REGIONS && env.SUCCESS_REGIONS.split(',').findAll { it }.size() > 0
+                    return env.SUCCESS_REGIONS && env.SUCCESS_REGIONS.split(',').findAll { it }.size() > 0
                 }
             }
             steps {
