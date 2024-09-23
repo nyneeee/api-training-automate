@@ -1,23 +1,23 @@
 # Pre Test 
 # ASSE
-cmd_run_robot_pre_test_asse_sit: robot -d log_pre_asse_sit test_api_basic.robot
-cmd_run_robot_pre_test_asse_prd: robot -d log_pre_asse_prd test_api_basic.robot
+cmd_run_robot_pre_test_asse_sit: robot -d log_pre_asse_sit test_api_advanced.robot
+cmd_run_robot_pre_test_asse_prd: robot -d log_pre_asse_prd test_api_advanced.robot
 # ASEA
-cmd_run_robot_pre_test_asea_sit: robot -d log_pre_asea_sit test_api_basic.robot
-cmd_run_robot_pre_test_asea_prd: robot -d log_pre_asea_prd test_api_basic.robot
+cmd_run_robot_pre_test_asea_sit: robot -d log_pre_asea_sit test_api_advanced.robot
+cmd_run_robot_pre_test_asea_prd: robot -d log_pre_asea_prd test_api_advanced.robot
 
 # Post Test 
 # ASSE
-cmd_run_robot_post_test_asse_sit: robot -d log_post_asse_sit test_api_basic.robot
-cmd_run_robot_post_test_asse_prd: robot -d log_post_asse_prd test_api_basic.robot
+cmd_run_robot_post_test_asse_sit: robot -d log_post_asse_sit test_api_advanced.robot
+cmd_run_robot_post_test_asse_prd: robot -d log_post_asse_prd test_api_advanced.robot
 # ASEA
-cmd_run_robot_post_test_asea_sit: robot -d log_post_asea_sit test_api_basic.robot
-cmd_run_robot_post_test_asea_prd: robot -d log_post_asea_prd test_api_basic.robot
+cmd_run_robot_post_test_asea_sit: robot -d log_post_asea_sit test_api_advanced.robot
+cmd_run_robot_post_test_asea_prd: robot -d log_post_asea_prd test_api_advanced.robot
 
 # Compare Test 
 # ASSE
-cmd_run_robot_compare_test_asse_sit: robot -d log_compare_asse_sit test_api_basic.robot
-cmd_run_robot_compare_test_asse_prd: robot -d log_compare_asse_prd test_api_basic.robot
+cmd_run_robot_compare_test_asse_sit: robot -d log_compare_asse_sit test_api_advanced.robot
+cmd_run_robot_compare_test_asse_prd: robot -d log_compare_asse_prd test_api_advanced.robot
 # ASEA
-cmd_run_robot_compare_test_asea_sit: robot -d log_compare_asea_sit test_api_basic.robot
-cmd_run_robot_compare_test_asea_prd: robot -d log_compare_asea_prd test_api_basic.robot
+cmd_run_robot_compare_test_asea_sit: robot -d log_compare_asea_sit test_api_advanced.robot
+cmd_run_robot_compare_test_asea_prd: robot -d log_compare_asea_prd test_api_advanced.robot
