@@ -142,8 +142,8 @@ pipeline {
                                 string(name: 'RESULT_TEST_SKIP', value: "${preSkip}"),
                                 string(name: 'JOB', value: params.JOB_TEST),
                                 string(name: 'STATUS_JOB', value: "${preStatusJob}"),
-                                string(name: 'USER_GMAIL', value: params.SECRET_QA_USER_GMAIL),
-                                string(name: 'PASS_GMAIL', value: params.SECRET_QA_PASS_GMAIL)
+                                password(name: 'USER_GMAIL', value: params.SECRET_QA_USER_GMAIL),
+                                password(name: 'PASS_GMAIL', value: params.SECRET_QA_PASS_GMAIL)
                             ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
