@@ -74,7 +74,6 @@ Ex01_Variables (ตัวอย่าง)
     Log         Dic == ${profile}[nickname]    # ระบุ key จะต้องใส่ $
     Log         Dic == ${profile['nickname']}  # ระบุ key จะต้องใส่ $
     Log         Dic == ${profile.nickname}     # ระบุ key จะต้องใส่ $
-    Fail    eiei
 
 Ex02_Send Request API : GET - LIST USERS (ตัวอย่างที่ 1 เขียนตาม Doc RequestsLibrary)
     [Documentation]    Owner : Patipan.w

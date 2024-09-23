@@ -28,7 +28,7 @@ pipeline {
                 echo "Analyze"
             }
         }
-        stage('Trigger Pre-Test Automate') {
+        stage('Trigger Robot Automate') {
             steps {
                 script {
                     def errorRegions = []  // List ที่ใช้เก็บ region ที่มี error
@@ -40,7 +40,7 @@ pipeline {
                         tasks["Test ${region}"] = {
                             try {
                                 echo "Running tests for region: ${region}"
-                                build job: "Robot Pre-Test",
+                                build job: "Robot Automate",
                                       parameters: [
                                           string(name: 'GH_RUNNER_TAG', value: params.GH_RUNNER_TAG),
                                           string(name: 'REGION', value: region),
