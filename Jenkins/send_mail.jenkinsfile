@@ -69,8 +69,8 @@ pipeline {
         }
         stage('Send Email') {
             steps {
-                sh '''
-                python3 - <<EOF
+                sh """
+                python3 - << EOF
                 import smtplib
                 from email.mime.multipart import MIMEMultipart
                 from email.mime.text import MIMEText
@@ -97,7 +97,7 @@ pipeline {
                 msg['From'] = sender_email
                 msg['To'] = receiver_email
 
-                html = f\"\"\"
+                html = f'''
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
@@ -105,34 +105,13 @@ pipeline {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Test Report</title>
                     <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                            margin: 5px;
-                        }}
-                        .container {{
-                            max-width: 800px;
-                            margin: 0 300 auto auto;
-                            padding: 5px 20px 20px 20px;
-                            border: 1px solid #ccc;
-                            border-radius: 5px;
-                        }}
-                        h1 {{
-                            color: #000000;
-                        }}   
-                        p {{
-                            color: #5f5f5f;
-                        }}
-                        #resource {{
-                            color: #232222;
-                            margin: 0 0 0 30px;
-                        }}
-                        #detail {{
-                            color: #232222;
-                            margin: 0 0 0 30px;
-                        }}   
-                        #group_detail {{
-                            padding: 0 0 5px 0;
-                        }}            
+                        body {{ font-family: Arial, sans-serif; margin: 5px; }}
+                        .container {{ max-width: 800px; margin: 0 300 auto auto; padding: 5px 20px 20px 20px; border: 1px solid #ccc; border-radius: 5px; }}
+                        h1 {{ color: #000000; }}   
+                        p {{ color: #5f5f5f; }}
+                        #resource {{ color: #232222; margin: 0 0 0 30px; }}
+                        #detail {{ color: #232222; margin: 0 0 0 30px; }}   
+                        #group_detail {{ padding: 0 0 5px 0; }}            
                     </style>
                 </head>
                 <body>
@@ -151,11 +130,9 @@ pipeline {
                     </div>
                 </body>
                 </html>
-                \"\"\"
-
+                '''
                 msg.attach(MIMEText(html, 'html'))
 
-                # Attach log.html file
                 log_file_path = attachments_file
                 with open(log_file_path, "rb") as attachment:
                     part = MIMEBase("application", "octet-stream")
@@ -167,15 +144,13 @@ pipeline {
                     f"attachment; filename={attachments_file}",
                 )
                 part.add_header("Content-ID", "<log.html>")
-
                 msg.attach(part)
 
-                # Send the email
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
                     server.login(sender_email, password)
                     server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
                 EOF
-                '''
+                """
             }
         }
     }
