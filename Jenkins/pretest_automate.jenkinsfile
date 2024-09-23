@@ -76,11 +76,11 @@ pipeline {
             post {
                 always {
                     script {
-                        def logDir = "Testsuites/log_${params.REGION}_${params.SITE_TEST}/"
+                        def logDir = "Testsuites/${env.PATH_LOG_ROBOT_XML}/"
                         if (fileExists(logDir)) {
                             sh(script: """
                                 cd Testsuites
-                                zip -r report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip log_${params.REGION}_${params.SITE_TEST}/
+                                zip -r report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip ${env.PATH_LOG_ROBOT_XML}/
                                 ls -lrt
                             """)
                             echo "Current Build Number: ${env.BUILD_NUMBER}"
