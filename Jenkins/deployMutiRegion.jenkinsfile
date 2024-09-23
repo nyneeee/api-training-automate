@@ -127,6 +127,9 @@ pipeline {
                         }
                     }
                     parallel(tasks)
+                    // Debug Success Regions
+                    echo "Success regions: ${successRegions.join(',')}"
+                    
                     // แสดงรายชื่อ regions ที่มี error หลังจากจบ parallel
                     if (errorRegions) {
                         echo "Errors encountered in regions: ${errorRegions.join(', ')}"
