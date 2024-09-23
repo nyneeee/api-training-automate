@@ -77,9 +77,9 @@ from email import encoders
 # Email settings
 subject_email = "WORKFLOW-${env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-${env.REGION_UPPER}: ${params.STATUS_JOB} / ${params.JOB}"
 heading_email = "Automate Result : ${params.STATUS_JOB}"
-sender_email = "${params.USER_GMAIL}"
+sender_email = "${USER_GMAIL}"
 receiver_email = "${env.RECEIVE_EMAIL}"
-password = "${params.PASS_GMAIL}"
+password = "${PASS_GMAIL}"
 attachments_file = "${params.ARTIFACTS}"
 attachment_name = "${env.ATTACHMENT_NAME}"
 on_region = "${env.REGION_UPPER}"
