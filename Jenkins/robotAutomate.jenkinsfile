@@ -89,7 +89,7 @@ pipeline {
                         } else {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
-                        robot outputPath: "Testsuites/${env.PATH_LOG_ROBOT_XML}", passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
+                        robot outputPath: "Testsuites/${env.PATH_LOG_ROBOT_XML}", reportFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/report.html", logFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/log.html", passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
                     }
                 }
                 failure {
