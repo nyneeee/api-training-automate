@@ -17,8 +17,8 @@ pipeline {
     }
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
-        SECRET_QA_USER_GMAIL = credentials('user_gmail_qa_automate')
-        SECRET_QA_PASS_GMAIL = credentials('password_gmail_qa_automate')
+        USER_GMAIL = credentials('user_gmail_qa_automate')
+        PASS_GMAIL = credentials('password_gmail_qa_automate')
     }
     stages {
         stage('Receive Artifacts') {
