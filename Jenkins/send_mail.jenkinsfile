@@ -62,82 +62,79 @@ pipeline {
         }
         stage('Send Email') {
             steps {
-                sh '''
+                sh """
                 python3 - << EOF
-                import smtplib
-                from email.mime.multipart import MIMEMultipart
-                from email.mime.text import MIMEText
-                from email.mime.base import MIMEBase
-                from email import encoders
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
-                # Email settings
-                subject_email = f"WORKFLOW-{env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-{env.REGION_UPPER}: {params.STATUS_JOB} / {params.JOB}"
-                heading_email = "Automate Result : {params.STATUS_JOB}"
-                sender_email = "{params.USER_GMAIL}"
-                receiver_email = "{env.RECEIVE_EMAIL}"
-                password = "{params.PASS_GMAIL}"
-                attachments_file = "{params.ARTIFACTS}"
-                on_region = "{env.REGION_UPPER}"
-                on_site_test = "{env.SITE_TEST_UPPER}"
-                pre_total = "{params.RESULT_TEST_TOTAL}"  
-                pre_passed = "{params.RESULT_TEST_PASS}"
-                pre_failed = "{params.RESULT_TEST_FAIL}"
-                pre_skiped = "{params.RESULT_TEST_SKIP}"
+# Email settings
+subject_email = f"WORKFLOW-{env.SITE_TEST_UPPER}-JENKINS_ทดสอบ-ATE-{env.REGION_UPPER}: {params.STATUS_JOB} / {params.JOB}"
+heading_email = "Automate Result : " + str(params.STATUS_JOB)
+sender_email = "${params.USER_GMAIL}"
+receiver_email = "${env.RECEIVE_EMAIL}"
+password = "${params.PASS_GMAIL}"
+attachments_file = "${params.ARTIFACTS}"
+on_region = "${env.REGION_UPPER}"
+on_site_test = "${env.SITE_TEST_UPPER}"
+pre_total = "${params.RESULT_TEST_TOTAL}"  
+pre_passed = "${params.RESULT_TEST_PASS}"
+pre_failed = "${params.RESULT_TEST_FAIL}"
+pre_skiped = "${params.RESULT_TEST_SKIP}"
 
-                # Create the email content
-                msg = MIMEMultipart('mixed')
-                msg['Subject'] = subject_email
-                msg['From'] = sender_email
-                msg['To'] = receiver_email
+# Create the email content
+msg = MIMEMultipart('mixed')
+msg['Subject'] = subject_email
+msg['From'] = sender_email
+msg['To'] = receiver_email
 
-                html = f"""
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Test Report</title>
-                    <style>
-                        body {{ font-family: Arial, sans-serif; margin: 5px; }}
-                        .container {{ max-width: 800px; margin: 0 300 auto auto; padding: 5px 20px 20px 20px; border: 1px solid #ccc; border-radius: 5px; }}
-                        h1 {{ color: #000000; }}   
-                        p {{ color: #5f5f5f; }}
-                        #resource {{ color: #232222; margin: 0 0 0 30px; }}
-                        #detail {{ color: #232222; margin: 0 0 0 30px; }}   
-                        #group_detail {{ padding: 0 0 5px 0; }}            
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <h2>{{heading_email}}</h2>
-                        <p>🤖 Workflow Main. Please find the summary of the test results below:</p>
-                        <div id="group_detail">
-                            <p id="detail">Workflow: Main [Error]</p>
-                            <p id="detail">Job: Pre-Test</p>
-                            <p id="detail">Region: {{on_region}}</p>
-                            <p id="detail">Site Test: {{on_site_test}}</p>
-                        </div>
-                        <p id="resource">Total Pre-Test: {{pre_total}}</p>
-                        <p id="resource">✅ Passed: {{pre_passed}} , ❌ Failed: {{pre_failed}} , ⏭️ Skiped: {{pre_skiped}}</p>
-                        <p>Thank you.</p>
-                    </div>
-                </body>
-                </html>
+html = f\"\"\"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Report</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; margin: 5px; }}
+        .container {{ max-width: 800px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }}
+        h1 {{ color: #000000; }}   
+        p {{ color: #5f5f5f; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{heading_email}}</h2>
+        <p>🤖 Workflow Main. Please find the summary of the test results below:</p>
+        <div id="group_detail">
+            <p id="detail">Workflow: Main [Error]</p>
+            <p id="detail">Job: Pre-Test</p>
+            <p id="detail">Region: {{on_region}}</p>
+            <p id="detail">Site Test: {{on_site_test}}</p>
+        </div>
+        <p>Total Pre-Test: {{pre_total}}</p>
+        <p>✅ Passed: {{pre_passed}}, ❌ Failed: {{pre_failed}}, ⏭️ Skiped: {{pre_skiped}}</p>
+        <p>Thank you.</p>
+    </div>
+</body>
+</html>
+\"\"\"
+msg.attach(MIMEText(html, 'html'))
+
+with open(attachments_file, "rb") as attachment:
+    part = MIMEBase("application", "octet-stream")
+    part.set_payload(attachment.read())
+encoders.encode_base64(part)
+part.add_header("Content-Disposition", f"attachment; filename={attachments_file}")
+msg.attach(part)
+
+with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+    server.login(sender_email, password)
+    server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
+EOF
                 """
-                msg.attach(MIMEText(html, 'html'))
-
-                with open(attachments_file, "rb") as attachment:
-                    part = MIMEBase("application", "octet-stream")
-                    part.set_payload(attachment.read())
-                encoders.encode_base64(part)
-                part.add_header("Content-Disposition", f"attachment; filename={attachments_file}")
-                part.add_header("Content-ID", "<log.html>")
-                msg.attach(part)
-
-                with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-                    server.login(sender_email, password)
-                    server.sendmail(sender_email, receiver_email.split(', '), msg.as_string())
-                EOF
-                '''
             }
         }
     }
