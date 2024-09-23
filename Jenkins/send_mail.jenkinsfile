@@ -39,7 +39,7 @@ pipeline {
                     env.SITE_TEST_UPPER = sh(script: "echo ${params.SITE_TEST} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
                     env.REGION_UPPER = sh(script: "echo ${params.REGION} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
                     env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th"
-                    def ATTACHMENT_NAME = sh(script: "basename ${params.ARTIFACTS}", returnStdout: true).trim()
+                    env.ATTACHMENT_NAME = sh(script: "basename ${params.ARTIFACTS}", returnStdout: true).trim()
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
                     echo "RECEIVE_EMAIL: ${env.RECEIVE_EMAIL}"
                     echo "JOB: ${params.JOB}"
                     echo "STATUS_JOB: ${params.STATUS_JOB}"
-                    echo "ARTIFACTS: ${ATTACHMENT_NAME}"
+                    echo "ARTIFACTS: ${env.ATTACHMENT_NAME}"
                     echo "USER_GMAIL: ${params.USER_GMAIL}"
                     echo "PASS_GMAIL: ${params.PASS_GMAIL}"
                     echo "RESULT_TEST_TOTAL: ${params.RESULT_TEST_TOTAL}"
@@ -79,7 +79,7 @@ sender_email = "${params.USER_GMAIL}"
 receiver_email = "${env.RECEIVE_EMAIL}"
 password = "${params.PASS_GMAIL}"
 attachments_file = "${params.ARTIFACTS}"
-attachment_name = "${ATTACHMENT_NAME}"
+attachment_name = "${env.ATTACHMENT_NAME}"
 on_region = "${env.REGION_UPPER}"
 on_site_test = "${env.SITE_TEST_UPPER}"
 pre_total = "${params.RESULT_TEST_TOTAL}"  
