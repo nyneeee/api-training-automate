@@ -175,7 +175,7 @@ pipeline {
             steps {
                 echo "SUCCESS regions: ${env.SUCCESS_REGIONS}"
                 script {
-                    def regions_golive = env.ERROR_REGIONS.split(',').collect { it.trim() }
+                    def regions_golive = env.SUCCESS_REGIONS.split(',').collect { it.trim() }
                     def tasks = [:]
                     regions_golive.each { region ->
                         tasks["Rollout ${region}"] = {
