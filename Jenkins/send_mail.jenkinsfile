@@ -82,10 +82,11 @@ attachments_file = "${params.ARTIFACTS}"
 attachment_name = "${env.ATTACHMENT_NAME}"
 on_region = "${env.REGION_UPPER}"
 on_site_test = "${env.SITE_TEST_UPPER}"
-pre_total = "${params.RESULT_TEST_TOTAL}"  
-pre_passed = "${params.RESULT_TEST_PASS}"
-pre_failed = "${params.RESULT_TEST_FAIL}"
-pre_skiped = "${params.RESULT_TEST_SKIP}"
+test_total = "${params.RESULT_TEST_TOTAL}"  
+test_passed = "${params.RESULT_TEST_PASS}"
+test_failed = "${params.RESULT_TEST_FAIL}"
+test_skiped = "${params.RESULT_TEST_SKIP}"
+job = "${params.JOB}"
 
 # Create the email content
 msg = MIMEMultipart('mixed')
@@ -112,12 +113,12 @@ html = f\"\"\"
         <h2>{heading_email}</h2>
         <p>🤖 Workflow Main. Please find the summary of the test results below:</p>
         <div id="group_detail">
-            <p id="detail">Job: Pre-Test</p>
+            <p id="detail">Job: {job}</p>
             <p id="detail">Region: {on_region}</p>
             <p id="detail">Site Test: {on_site_test}</p>
         </div>
-        <p>Total Pre-Test: {pre_total}</p>
-        <p>✅ Passed: {pre_passed}, ❌ Failed: {pre_failed}, ⏭️ Skiped: {pre_skiped}</p>
+        <p>Total {job}: {test_total}</p>
+        <p>✅ Passed: {test_passed}, ❌ Failed: {test_failed}, ⏭️ Skiped: {test_skiped}</p>
         <p>Thank you.</p>
     </div>
 </body>
