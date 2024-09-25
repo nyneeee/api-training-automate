@@ -88,8 +88,8 @@ pipeline {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
                         robot outputPath: "Testsuites/${env.PATH_LOG_ROBOT_XML}", reportFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/report.html", logFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/log.html", passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
-                        def xmlPath = "Testsuites/${env.PATH_LOG_ROBOT_XML}/output.xml"
-                       
+                     
+                        def xmlPath = "Testsuites/${env.PATH_LOG_ROBOT_XML}/output.xml"  
                         if (fileExists(xmlPath)) {
                             def preStatus = sh(script: """
                                 grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
@@ -148,23 +148,20 @@ pipeline {
                 }
                 failure {
                     script {
-                            def statusJob = "Fail"
-                            build job: 'Robot Send Email', propagate: true, parameters: [
-                                string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
-                                string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
-                                string(name: 'REGION', value: params.REGION),
-                                string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
-                                string(name: 'RESULT_TEST_PASS', value: env.resultPass),
-                                string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
-                                string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
-                                string(name: 'JOB', value: params.JOB_TEST),
-                                string(name: 'STATUS_JOB', value: "${statusJob}")
-                            ]
-                        } else {
-                            error "output.xml not found at path: ${xmlPath}"
-                        }
+                        def statusJob = "Fail"
+                        build job: 'Robot Send Email', propagate: true, parameters: [
+                            string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
+                            string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
+                            string(name: 'REGION', value: params.REGION),
+                            string(name: 'SITE_TEST', value: params.SITE_TEST),
+                            string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                            string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
+                            string(name: 'RESULT_TEST_PASS', value: env.resultPass),
+                            string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
+                            string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
+                            string(name: 'JOB', value: params.JOB_TEST),
+                            string(name: 'STATUS_JOB', value: "${statusJob}")
+                        ]
                     }
                 }
             }
