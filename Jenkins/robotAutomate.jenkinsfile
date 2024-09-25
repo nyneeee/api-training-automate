@@ -144,6 +144,7 @@ pipeline {
                             env.resultPass = pass
                             env.resultFail = error
                             env.resutlSkip = skip
+                        }
                     }
                 }
                 failure {
