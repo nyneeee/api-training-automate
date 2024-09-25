@@ -5,8 +5,6 @@ pipeline {
         string(name: 'REGION', defaultValue: '', description: '')
         string(name: 'SITE_TEST', defaultValue: '', description: '')
         string(name: 'BRANCH_REF', defaultValue: '', description: '')
-        password(name: 'SECRET_QA_USER_GMAIL', defaultValue: '', description: '')
-        password(name: 'SECRET_QA_PASS_GMAIL', defaultValue: '', description: '')
         string(name: 'JOB_TEST', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
     }
     environment {
@@ -142,9 +140,7 @@ pipeline {
                                 string(name: 'RESULT_TEST_FAIL', value: "${preFail}"),
                                 string(name: 'RESULT_TEST_SKIP', value: "${preSkip}"),
                                 string(name: 'JOB', value: params.JOB_TEST),
-                                string(name: 'STATUS_JOB', value: "${preStatusJob}"),
-                                password(name: 'USER_GMAIL', value: params.SECRET_QA_USER_GMAIL),
-                                password(name: 'PASS_GMAIL', value: params.SECRET_QA_PASS_GMAIL)
+                                string(name: 'STATUS_JOB', value: "${preStatusJob}")
                             ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
