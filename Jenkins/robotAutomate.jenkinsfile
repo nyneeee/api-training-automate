@@ -88,11 +88,8 @@ pipeline {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
                         robot outputPath: "Testsuites/${env.PATH_LOG_ROBOT_XML}", reportFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/report.html", logFileName: "Testsuites/${env.PATH_LOG_ROBOT_XML}/log.html", passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
-                    }
-                }
-                failure {
-                    script {
                         def xmlPath = "Testsuites/${env.PATH_LOG_ROBOT_XML}/output.xml"
+                       
                         if (fileExists(xmlPath)) {
                             def preStatus = sh(script: """
                                 grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
@@ -100,47 +97,70 @@ pipeline {
                             """, returnStdout: true).trim()
                             
                             // แยกค่า Pass, Fail, Skip
-                            def prePass = sh(script: """
+                            def pass = sh(script: """
                                 echo "${preStatus}" | 
                                 sed -n 's/.*Pass: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-                            def preFail = sh(script: """
+                            def error = sh(script: """
                                 echo "${preStatus}" | 
                                 sed -n 's/.*Fail: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
-                            def preSkip = sh(script: """
+                            def skip = sh(script: """
                                 echo "${preStatus}" | 
                                 sed -n 's/.*Skip: \\([0-9]*\\).*/\\1/p'
                             """, returnStdout: true).trim()
 
                             // Set default = 0 หาก Sed 's' ได้ null
-                            prePass = prePass ?: "0"
-                            preFail = preFail ?: "0"
-                            preSkip = preSkip ?: "0"
+                            pass = pass ?: "0"
+                            error = error ?: "0"
+                            skip = skip ?: "0"
 
                             // Set Total And Status Job
-                            def preTotal = (prePass.toInteger() + preFail.toInteger() + preSkip.toInteger())
-                            def preStatusJob = "Fail"
-                            echo "Pre-Test TOTAL: ${preTotal}"
-                            echo "Pre-Test PASS: ${prePass}"
-                            echo "Pre-Test FAIL: ${preFail}"
-                            echo "Pre-Test SKIP: ${preSkip}"
+                            def total = (pass.toInteger() + error.toInteger() + skip.toInteger())
+                            echo "Test TOTAL: ${total}"
+                            echo "Test PASS: ${pass}"
+                            echo "Test FAIL: ${error}"
+                            echo "Test SKIP: ${skip}"   
 
-                            // Trigger the next job
+                            if (params.JOB_TEST == 'Compare-Test') {
+                                def statusJob = "Success"
+                                build job: 'Robot Send Email', propagate: true, parameters: [
+                                    string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
+                                    string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
+                                    string(name: 'REGION', value: params.REGION),
+                                    string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                    string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                    string(name: 'RESULT_TEST_TOTAL', value: "${total}"),
+                                    string(name: 'RESULT_TEST_PASS', value: "${pass}"),
+                                    string(name: 'RESULT_TEST_FAIL', value: "${error}"),
+                                    string(name: 'RESULT_TEST_SKIP', value: "${skip}"),
+                                    string(name: 'JOB', value: params.JOB_TEST),
+                                    string(name: 'STATUS_JOB', value: "${statusJob}")
+                                ]                 
+                            }   
+                            env.resultTotal = total
+                            env.resultPass = pass
+                            env.resultFail = error
+                            env.resutlSkip = skip
+                    }
+                }
+                failure {
+                    script {
+                            def statusJob = "Fail"
                             build job: 'Robot Send Email', propagate: true, parameters: [
                                 string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
                                 string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
                                 string(name: 'REGION', value: params.REGION),
                                 string(name: 'SITE_TEST', value: params.SITE_TEST),
                                 string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                string(name: 'RESULT_TEST_TOTAL', value: "${preTotal}"),
-                                string(name: 'RESULT_TEST_PASS', value: "${prePass}"),
-                                string(name: 'RESULT_TEST_FAIL', value: "${preFail}"),
-                                string(name: 'RESULT_TEST_SKIP', value: "${preSkip}"),
+                                string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
+                                string(name: 'RESULT_TEST_PASS', value: env.resultPass),
+                                string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
+                                string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
                                 string(name: 'JOB', value: params.JOB_TEST),
-                                string(name: 'STATUS_JOB', value: "${preStatusJob}")
+                                string(name: 'STATUS_JOB', value: "${statusJob}")
                             ]
                         } else {
                             error "output.xml not found at path: ${xmlPath}"
