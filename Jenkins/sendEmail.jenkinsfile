@@ -36,7 +36,7 @@ pipeline {
                 script {
                     env.SITE_TEST_UPPER = sh(script: "echo ${params.SITE_TEST} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
                     env.REGION_UPPER = sh(script: "echo ${params.REGION} | awk '{print toupper(\$0)}'", returnStdout: true).trim()
-                    env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th, chalothorn.v@aware.co.th"
+                    env.RECEIVE_EMAIL = "patipan.w@entronica.co.th, kachain.a@entronica.co.th, wattana.k@entronica.co.th"
                     env.ATTACHMENT_NAME = sh(script: "basename ${params.ARTIFACTS}", returnStdout: true).trim()
                 }
             }
