@@ -22,7 +22,7 @@ pipeline {
                 echo "${params.SITE_TEST}"
             }
         }
-        stage('Test Grep CMD Run PreTest Robot') {
+        stage('Test Grep CMD Run Robot') {
             steps {
                 script {
                     if (params.JOB_TEST == 'Pre-Test') {
