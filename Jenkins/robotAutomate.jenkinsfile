@@ -1,3 +1,179 @@
+// pipeline {
+//     agent any
+//     parameters {
+//         string(name: 'GH_RUNNER_TAG', defaultValue: '', description: '')
+//         string(name: 'REGION', defaultValue: '', description: '')
+//         string(name: 'SITE_TEST', defaultValue: '', description: '')
+//         string(name: 'BRANCH_REF', defaultValue: '', description: '')
+//         string(name: 'JOB_TEST', defaultValue: '', description: 'Pre-Test/Post-Test/Compare')
+//     }
+//     environment {
+//         PATH = "/opt/homebrew/bin:${env.PATH}"
+//     }
+//     stages {
+//         stage('Test Checkout GitHub') {
+//             steps {
+//                 script {
+//                     checkout scmGit(branches: [[name: "*/${params.BRANCH_REF}"]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nyneeee/api-training-automate.git']])
+//                 }
+//                 sh 'ls -lrt'
+//                 echo "${params.GH_RUNNER_TAG}"
+//                 echo "${params.REGION}"
+//                 echo "${params.SITE_TEST}"
+//             }
+//         }
+//         stage('Test Grep CMD Run Robot') {
+//             steps {
+//                 script {
+//                     if (params.JOB_TEST == 'Pre-Test') {
+//                         RUN_ROBOT = sh(
+//                             script: """
+//                                 grep 'cmd_run_robot_pre_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+//                             """,
+//                             returnStdout: true
+//                         ).trim()
+//                         env.PATH_LOG_ROBOT_XML = "log_pre_${params.REGION}_${params.SITE_TEST}"
+//                     } else if (params.JOB_TEST == 'Post-Test') {
+//                         RUN_ROBOT = sh(
+//                             script: """
+//                                 grep 'cmd_run_robot_post_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+//                             """,
+//                             returnStdout: true
+//                         ).trim()
+//                         env.PATH_LOG_ROBOT_XML = "log_post_${params.REGION}_${params.SITE_TEST}"
+//                     } else if (params.JOB_TEST == 'Compare-Test') {
+//                         RUN_ROBOT = sh(
+//                             script: """
+//                                 grep 'cmd_run_robot_compare_test_${params.REGION}_${params.SITE_TEST}' ./Config/config_cicd_run_robot.yml | cut -d ':' -f 2-
+//                             """,
+//                             returnStdout: true
+//                         ).trim()
+//                         env.PATH_LOG_ROBOT_XML = "log_compare_${params.REGION}_${params.SITE_TEST}"
+//                     } else {
+//                         error "Invalid JOB_TEST parameter: ${params.JOB_TEST}. Failing the build, Support JOB_TEST parameter is ['Pre-Test', 'Post-Test', 'Compare-Test']."
+//                     }
+//                     echo "CMD_RUN: ${RUN_ROBOT}"
+//                     env.RUN_ROBOT = RUN_ROBOT
+//                 }
+//             }
+//         }
+//         stage('Run Robot') {
+//             steps {
+//                 script {
+//                     def errorRegion = []
+//                     def successRegion = []
+//                     try {
+//                         sh(script: """
+//                             cd Testsuites
+//                             ${env.RUN_ROBOT}
+//                         """)
+//                     } catch (Exception e) {
+//                         errorRegion << params.REGION
+//                         error "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
+//                     }
+//                     if (!errorRegion || errorRegion.isEmpty()) {
+//                         successRegion << params.REGION
+//                         env.SUCCESS_REGIONS = successRegion.join(',') 
+//                         echo "successRegion ${env.SUCCESS_REGIONS}"
+//                     } else {
+//                         env.ERROR_REGIONS = errorRegion.join(',') 
+//                         echo "errorRegion ${env.ERROR_REGIONS}"
+//                     }
+//                 }
+//             }
+//             post {
+//                 always {
+//                     script {
+//                         def logDir = "Testsuites/${env.PATH_LOG_ROBOT_XML}/"
+//                         if (fileExists(logDir)) {
+//                             sh(script: """
+//                                 cd Testsuites
+//                                 zip -r report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip ${env.PATH_LOG_ROBOT_XML}/
+//                                 ls -lrt
+//                             """)
+//                             echo "Current Build Number: ${env.BUILD_NUMBER}"
+//                             archiveArtifacts artifacts: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip", allowEmptyArchive: true
+//                             echo "Upload report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip archiveArtifacts Success."
+//                         } else {
+//                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
+//                         }
+//                         robot outputPath: "Testsuites/${env.PATH_LOG_ROBOT_XML}", passThreshold: 80.0, unstableThreshold: 70.0, onlyCritical: false
+                     
+//                         def xmlPath = "Testsuites/${env.PATH_LOG_ROBOT_XML}/output.xml"  
+//                         if (fileExists(xmlPath)) {
+//                             def preStatus = sh(script: """
+//                                 grep '<stat pass="[0-9]*" fail="[0-9]*" skip="[0-9]*">All Tests</stat>' ${xmlPath} | 
+//                                 sed -n 's/.*pass="\\([0-9]*\\)" fail="\\([0-9]*\\)" skip="\\([0-9]*\\)">All Tests<\\/stat>.*/Pass: \\1, Fail: \\2, Skip: \\3/p'
+//                             """, returnStdout: true).trim()
+                            
+//                             // แยกค่า Pass, Fail, Skip
+//                             def pass = sh(script: """
+//                                 echo "${preStatus}" | 
+//                                 sed -n 's/.*Pass: \\([0-9]*\\).*/\\1/p'
+//                             """, returnStdout: true).trim()
+
+//                             def error = sh(script: """
+//                                 echo "${preStatus}" | 
+//                                 sed -n 's/.*Fail: \\([0-9]*\\).*/\\1/p'
+//                             """, returnStdout: true).trim()
+
+//                             def skip = sh(script: """
+//                                 echo "${preStatus}" | 
+//                                 sed -n 's/.*Skip: \\([0-9]*\\).*/\\1/p'
+//                             """, returnStdout: true).trim()
+
+//                             // Set default = 0 หาก Sed 's' ได้ null
+//                             pass = pass ?: "0"
+//                             error = error ?: "0"
+//                             skip = skip ?: "0"
+
+//                             // Set Total And Status Job
+//                             def total = (pass.toInteger() + error.toInteger() + skip.toInteger())
+//                             echo "Test TOTAL: ${total}"
+//                             echo "Test PASS: ${pass}"
+//                             echo "Test FAIL: ${error}"
+//                             echo "Test SKIP: ${skip}"   
+            
+//                             env.resultTotal = total
+//                             env.resultPass = pass
+//                             env.resultFail = error
+//                             env.resutlSkip = skip
+
+//                             if (params.JOB_TEST == 'Compare-Test') {
+//                                 if (!"${env.SUCCESS_REGIONS}" || "${env.SUCCESS_REGIONS}".isEmpty()) {
+//                                     statusJob = "Success"
+//                                 } else {
+//                                     statusJob = "Fail"
+//                                 }
+//                                 build job: 'Robot Send Email', propagate: true, parameters: [
+//                                     string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
+//                                     string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
+//                                     string(name: 'REGION', value: params.REGION),
+//                                     string(name: 'SITE_TEST', value: params.SITE_TEST),
+//                                     string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+//                                     string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
+//                                     string(name: 'RESULT_TEST_PASS', value: env.resultPass),
+//                                     string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
+//                                     string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
+//                                     string(name: 'JOB', value: params.JOB_TEST),
+//                                     string(name: 'STATUS_JOB', value: "${statusJob}")
+//                                 ]         
+//                             }
+//                         } else {
+//                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
+
+
+
 pipeline {
     agent any
     parameters {
@@ -67,8 +243,10 @@ pipeline {
                             cd Testsuites
                             ${env.RUN_ROBOT}
                         """)
+                        statusJob = "Success" // ตั้งค่าเป็น Success หากไม่มีข้อผิดพลาด
                     } catch (Exception e) {
                         errorRegion << params.REGION
+                        statusJob = "Fail" // ตั้งค่าเป็น Fail หากมีข้อผิดพลาด
                         error "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                     }
                     if (!errorRegion || errorRegion.isEmpty()) {
@@ -140,11 +318,7 @@ pipeline {
                             env.resutlSkip = skip
 
                             if (params.JOB_TEST == 'Compare-Test') {
-                                if (!"${env.SUCCESS_REGIONS}" || "${env.SUCCESS_REGIONS}".isEmpty()) {
-                                    statusJob = "Success"
-                                } else {
-                                    statusJob = "Fail"
-                                }
+                                // เช็ค statusJob ที่ตั้งค่าไว้ตอนรัน Robot
                                 build job: 'Robot Send Email', propagate: true, parameters: [
                                     string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
                                     string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
