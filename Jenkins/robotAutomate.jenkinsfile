@@ -60,7 +60,7 @@ pipeline {
         stage('Run Robot') {
             steps {
                 script {
-                    def errorRegion = [] 
+                    def errorRegion = []
                     try {
                         sh(script: """
                             cd Testsuites
@@ -71,7 +71,7 @@ pipeline {
                         error "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                     }
                     if (!errorRegion || errorRegion.isEmpty()) {
-                        successRegion << params.REGION
+                        def successRegion = params.REGION
                         env.SUCCESS_REGIONS = successRegion.join(',') 
                     } else {
                         env.ERROR_REGIONS = errorRegion.join(',') 
@@ -131,22 +131,41 @@ pipeline {
                             echo "Test FAIL: ${error}"
                             echo "Test SKIP: ${skip}"   
 
+                            // if (params.JOB_TEST == 'Compare-Test' && "${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
+                            //     def statusJob = "Success"
+                            //     build job: 'Robot Send Email', propagate: true, parameters: [
+                            //         string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
+                            //         string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
+                            //         string(name: 'REGION', value: params.REGION),
+                            //         string(name: 'SITE_TEST', value: params.SITE_TEST),
+                            //         string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                            //         string(name: 'RESULT_TEST_TOTAL', value: "${total}"),
+                            //         string(name: 'RESULT_TEST_PASS', value: "${pass}"),
+                            //         string(name: 'RESULT_TEST_FAIL', value: "${error}"),
+                            //         string(name: 'RESULT_TEST_SKIP', value: "${skip}"),
+                            //         string(name: 'JOB', value: params.JOB_TEST),
+                            //         string(name: 'STATUS_JOB', value: "${statusJob}")
+                            //     ]                 
+                            // }   
+
                             if (params.JOB_TEST == 'Compare-Test' && "${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
-                                def statusJob = "Success"
-                                build job: 'Robot Send Email', propagate: true, parameters: [
-                                    string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
-                                    string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
-                                    string(name: 'REGION', value: params.REGION),
-                                    string(name: 'SITE_TEST', value: params.SITE_TEST),
-                                    string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                                    string(name: 'RESULT_TEST_TOTAL', value: "${total}"),
-                                    string(name: 'RESULT_TEST_PASS', value: "${pass}"),
-                                    string(name: 'RESULT_TEST_FAIL', value: "${error}"),
-                                    string(name: 'RESULT_TEST_SKIP', value: "${skip}"),
-                                    string(name: 'JOB', value: params.JOB_TEST),
-                                    string(name: 'STATUS_JOB', value: "${statusJob}")
-                                ]                 
-                            }   
+                                def statusJob = "Success"              
+                            } else {
+                                def statusJob = "Fail"
+                            }
+                            build job: 'Robot Send Email', propagate: true, parameters: [
+                                string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
+                                string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
+                                string(name: 'REGION', value: params.REGION),
+                                string(name: 'SITE_TEST', value: params.SITE_TEST),
+                                string(name: 'BRANCH_REF', value: params.BRANCH_REF),
+                                string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
+                                string(name: 'RESULT_TEST_PASS', value: env.resultPass),
+                                string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
+                                string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
+                                string(name: 'JOB', value: params.JOB_TEST),
+                                string(name: 'STATUS_JOB', value: "${statusJob}")
+                            ]
                             env.resultTotal = total
                             env.resultPass = pass
                             env.resultFail = error
@@ -154,24 +173,6 @@ pipeline {
                         } else {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
-                    }
-                }
-                failure {
-                    script {
-                        def statusJob = "Fail"
-                        build job: 'Robot Send Email', propagate: true, parameters: [
-                            string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
-                            string(name: 'BUILD_NUMBER', value: env.BUILD_NUMBER),
-                            string(name: 'REGION', value: params.REGION),
-                            string(name: 'SITE_TEST', value: params.SITE_TEST),
-                            string(name: 'BRANCH_REF', value: params.BRANCH_REF),
-                            string(name: 'RESULT_TEST_TOTAL', value: env.resultTotal),
-                            string(name: 'RESULT_TEST_PASS', value: env.resultPass),
-                            string(name: 'RESULT_TEST_FAIL', value: env.resultFail),
-                            string(name: 'RESULT_TEST_SKIP', value: env.resutlSkip),
-                            string(name: 'JOB', value: params.JOB_TEST),
-                            string(name: 'STATUS_JOB', value: "${statusJob}")
-                        ]
                     }
                 }
             }
