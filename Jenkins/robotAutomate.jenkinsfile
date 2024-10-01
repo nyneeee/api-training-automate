@@ -135,7 +135,7 @@ pipeline {
                             echo "Test FAIL: ${error}"
                             echo "Test SKIP: ${skip}"   
 
-                            if (params.JOB_TEST == 'Compare-Test' && "${env.ERROR_REGIONS}".split(',').findAll { it }.size() < 0 && "${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
+                            if (params.JOB_TEST == 'Compare-Test' && "${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
                                 def statusJob = "Success"
                                 build job: 'Robot Send Email', propagate: true, parameters: [
                                     string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
