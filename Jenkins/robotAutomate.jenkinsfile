@@ -74,8 +74,10 @@ pipeline {
                     if (!errorRegion || errorRegion.isEmpty()) {
                         successRegion << params.REGION
                         env.SUCCESS_REGIONS = successRegion.join(',') 
+                        echo "successRegion ${env.SUCCESS_REGIONS}"
                     } else {
                         env.ERROR_REGIONS = errorRegion.join(',') 
+                        echo "errorRegion ${env.ERROR_REGIONS}"
                     }
                 }
             }
