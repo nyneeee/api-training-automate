@@ -57,7 +57,7 @@ pipeline {
                 }
             }
         }
-        stage('Run Robot PreTest') {
+        stage('Run Robot') {
             steps {
                 script {
                     try {
