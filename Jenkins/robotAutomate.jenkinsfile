@@ -144,6 +144,8 @@ pipeline {
                             env.resultPass = pass
                             env.resultFail = error
                             env.resutlSkip = skip
+                        } else {
+                            error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
                     }
                 }
