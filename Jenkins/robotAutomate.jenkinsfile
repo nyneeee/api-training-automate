@@ -61,6 +61,7 @@ pipeline {
             steps {
                 script {
                     def errorRegion = []
+                    def successRegion = []
                     try {
                         sh(script: """
                             cd Testsuites
@@ -71,7 +72,8 @@ pipeline {
                         error "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                     }
                     if (!errorRegion || errorRegion.isEmpty()) {
-                        env.SUCCESS_REGIONS = params.REGION
+                        successRegion << params.REGION
+                        env.SUCCESS_REGIONS = successRegion.join(',') 
                     } else {
                         env.ERROR_REGIONS = errorRegion.join(',') 
                     }
