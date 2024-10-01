@@ -130,12 +130,17 @@ pipeline {
                             echo "Test PASS: ${pass}"
                             echo "Test FAIL: ${error}"
                             echo "Test SKIP: ${skip}"   
+            
+                            env.resultTotal = total
+                            env.resultPass = pass
+                            env.resultFail = error
+                            env.resutlSkip = skip
 
                             if (params.JOB_TEST == 'Compare-Test') {
                                 if ("${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
-                                    def statusJob = "Success"
+                                    statusJob = "Success"
                                 } else {
-                                    def statusJob = "Fail"
+                                    statusJob = "Fail"
                                 }
                                 build job: 'Robot Send Email', propagate: true, parameters: [
                                     string(name: 'ARTIFACTS', value: "Testsuites/report_log_${params.REGION}_${params.SITE_TEST}_buildNumber_${env.BUILD_NUMBER}.zip"),
@@ -151,10 +156,6 @@ pipeline {
                                     string(name: 'STATUS_JOB', value: "${statusJob}")
                                 ]         
                             }
-                            env.resultTotal = total
-                            env.resultPass = pass
-                            env.resultFail = error
-                            env.resutlSkip = skip
                         } else {
                             error "Log directory not found: ${logDir}. Skipping ZIP creation."
                         }
