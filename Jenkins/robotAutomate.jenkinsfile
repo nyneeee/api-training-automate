@@ -140,7 +140,7 @@ pipeline {
                             env.resutlSkip = skip
 
                             if (params.JOB_TEST == 'Compare-Test') {
-                                if ("${env.SUCCESS_REGIONS}".split(',').findAll { it }.size() > 0) {
+                                if (!"${env.SUCCESS_REGIONS}" || "${env.SUCCESS_REGIONS}".isEmpty()) {
                                     statusJob = "Success"
                                 } else {
                                     statusJob = "Fail"
