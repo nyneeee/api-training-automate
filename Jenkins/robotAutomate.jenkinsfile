@@ -61,24 +61,20 @@ pipeline {
             steps {
                 script {
                     def errorRegion = [] 
-                    def successRegion = []  
                     try {
                         sh(script: """
                             cd Testsuites
                             ${env.RUN_ROBOT}
                         """)
-                        successRegion << params.REGION
                     } catch (Exception e) {
                         errorRegion << params.REGION
                         error "Pre-Test for region ${env.errorRegion} failed: ${e.message}"
                     }
-                    if (errorRegion) {
-                        echo "Errors in regions: ${errorRegion.join(', ')}"
-                        env.ERROR_REGIONS = errorRegion.join(',') 
-                    }
-                    if (successRegion) {
-                        echo "Success in regions: ${successRegion.join(', ')}"
+                    if (!errorRegion || errorRegion.isEmpty()) {
+                        successRegion << params.REGION
                         env.SUCCESS_REGIONS = successRegion.join(',') 
+                    } else {
+                        env.ERROR_REGIONS = errorRegion.join(',') 
                     }
                 }
             }
